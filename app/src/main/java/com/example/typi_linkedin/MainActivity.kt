@@ -23,8 +23,7 @@ class MainActivity : AppCompatActivity()
 
         var defaultKbBtn: Button = findViewById(R.id.defaultKbBtn)
         defaultKbBtn.setOnClickListener {
-            val imeManager: InputMethodManager =
-                applicationContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            val imeManager: InputMethodManager = applicationContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
                 imeManager.showInputMethodPicker()
             }
     }

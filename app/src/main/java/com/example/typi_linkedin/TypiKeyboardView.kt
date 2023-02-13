@@ -19,15 +19,13 @@ class TypiKeyboardView(context: Context, attrs: AttributeSet) : KeyboardView(con
 //ovaj klas omogucuje cutom crtanje dugmadi kako sva dugmad ne bi morala izgledati isto
     //da bi radio mora se u xml koji se u njega ucitava staviti on kao root tag
 
-
-
     override fun onLongPress(popupKey: Keyboard.Key?): Boolean
     {
         if (popupKey != null)
         {
             println("gori"+popupKey.codes[0])
             val custom: View = LayoutInflater.from(context)
-                .inflate(R.layout.popup, FrameLayout(context))
+                .inflate(R.layout.popup_input_picker, FrameLayout(context))
             var vie=custom.findViewById<TextView>(R.id.textView3)
 
             val popup = PopupWindow(context)
@@ -52,7 +50,7 @@ class TypiKeyboardView(context: Context, attrs: AttributeSet) : KeyboardView(con
     var tk= FrameLayout(context)
     tk.layoutParams= ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT)
     val custom: View = LayoutInflater.from(context)
-        .inflate(R.layout.popup,tk)
+        .inflate(R.layout.popup_input_picker,tk)
     var vie=custom.findViewById<TextView>(R.id.textView3)
 
     var lista=custom.findViewById<LinearLayout>(R.id.ll)
