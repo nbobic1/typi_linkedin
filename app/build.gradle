@@ -33,7 +33,9 @@ android {
 }
 
 dependencies {
-
+    implementation 'com.squareup.okhttp3:okhttp:4.9.0'
+    implementation 'androidx.security:security-crypto-ktx:1.1.0-alpha03'
+    //default
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.6.0'
     implementation 'com.google.android.material:material:1.8.0'

@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">typi_linkedin</string>
+    <string name="app_name">Typi</string>
+    <string name="enableKbBtn">Step1: Enable keyboard</string>
+    <string name="defaultKbBtn">Step 2: Set Keyboard as default</string>
+
+    <!-- Unicode for special character that will be used to separate text from manipulation instruction  -->
+    <string name="gptChar">"\uDB40\uDD34"</string>
+    <string name="testLable">Step 3: Let\'s try out the app\'s functionality :)</string>
 </resources>

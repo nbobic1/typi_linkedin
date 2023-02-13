@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- code for button which sends prompt to gpt api and return result-->
+    <integer name="gpt">-400</integer>
+    <!-- code for a button that will add special character so we can separate text from manipulation instruction-->
+    <integer name="gptCharCode">-401</integer>
+    <!-- code for a button that change letter to symbols-->
+    <integer name="symbols">-402</integer>
+    <!-- code for button that gives us emoji list-->
+    <integer name="emoji">-403</integer>
+    <!-- code for button that gives us letter keyboard(default)-->
+    <integer name="letters">-404</integer>
+
+    <!-- code for space-->
+    <integer name="space">32</integer>
+
+</resources>
