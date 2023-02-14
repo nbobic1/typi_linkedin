@@ -8,7 +8,9 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.TextUtils
 import android.text.style.ImageSpan
+import android.view.KeyEvent
 import android.view.View
+import android.view.ViewConfiguration
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.LinearLayout
@@ -126,6 +128,8 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
             //funkcija za rephrase dok ona ne proradi bolje
             -408 ->
             {
+
+                /*
                 var selectedText = ic.getSelectedText(0);
                 if (selectedText == null)
                 {
@@ -146,6 +150,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                         ic.commitText(result, result.length)
                     }
                 }
+                */
 
             }
             resources.getInteger(R.integer.gpt)->

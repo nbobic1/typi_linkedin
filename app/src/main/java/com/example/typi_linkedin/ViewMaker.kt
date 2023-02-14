@@ -1,12 +1,14 @@
 package com.example.typi_linkedin
 
+import android.app.ActionBar
 import android.content.ClipboardManager
 import android.content.Context
+import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputConnection
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 
 class ViewMaker
 {
@@ -86,6 +88,55 @@ class ViewMaker
             linearLayoutEmojiCategory.visibility=View.GONE
             var linearLayout=keyboardRoot.findViewById<LinearLayout>(R.id.clipboard)
             linearLayout.visibility=View.GONE
+        }
+
+        fun returnInput(context:Context, root:View,onKey: (primaryCode: Int, keyCodes: IntArray) -> Unit )
+        {
+            var tk= FrameLayout(context)
+            tk.layoutParams= ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            val custom: View = LayoutInflater.from(context)
+                .inflate(R.layout.popup,tk)
+            var vie=custom.findViewById<TextView>(R.id.textView3)
+
+            var lista=custom.findViewById<LinearLayout>(R.id.ll)
+
+
+
+            var tt = TextView(context)
+            tt.setText("sad")
+            tt.textSize= 20.0F
+            tt.setOnClickListener {
+
+            }
+            lista.addView(tt)
+            var tt1 = TextView(context)
+            tt1.setText("funny")
+            tt1.textSize= 20.0F
+            tt1.setOnClickListener {
+
+            }
+            lista.addView(tt1)
+            var tt2 = TextView(context)
+            tt2.setText("proffesional")
+            tt2.textSize= 20.0F
+            tt2.setOnClickListener {
+
+            }
+            lista.addView(tt2)
+
+            val popup = PopupWindow(context)
+            popup.contentView = custom
+
+            if(popup.isShowing()){
+                popup.update(200, 200, ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT)
+            } else {
+                popup.setWidth(ActionBar.LayoutParams.WRAP_CONTENT)
+                popup.setHeight(ActionBar.LayoutParams.WRAP_CONTENT)
+                popup.showAtLocation(root, Gravity.CENTER, 0, 0)
+            }
+            vie.setOnClickListener {
+                popup.dismiss()
+            }
         }
     }
 }

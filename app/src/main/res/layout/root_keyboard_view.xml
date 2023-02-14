@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:keyBackground="@drawable/key_bg"
         android:keyTextColor="@color/white"
+        android:popupLayout="@layout/popup_kb_layout"
         android:keyPreviewLayout="@layout/key_preview">
 
     </com.example.typi_linkedin.TypiKeyboardView>
