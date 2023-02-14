@@ -25,8 +25,6 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
 
     override fun onCreateInputView(): View
     {
-        println("keycoe="+Keyboard.KEYCODE_DELETE)
-
         var tu=layoutInflater.inflate(R.layout.gif, null)
         keyboardView=tu.findViewById(R.id.keyboard_view) as TypiKeyboardView
         //keyboardView = layoutInflater.inflate(R.layout.keyboard_view, null) as ba.etf.us.typi.KeyboardView
