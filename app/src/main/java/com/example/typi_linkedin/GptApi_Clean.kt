@@ -39,9 +39,8 @@ class GptApi_Clean
     companion object
     {
         fun apiKey(context: Context):String{
-            val ai: ApplicationInfo = context.packageManager.getApplicationInfo(context.packageName, PackageManager.GET_META_DATA)
-            val value = ai.metaData["KEY_API"]
-            return value.toString()
+
+            return  BuildConfig.API_KEY
         }
         //HTTP GLUPOSTI
         //api call

@@ -64,20 +64,18 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
             Keyboard.KEYCODE_DELETE ->
             {
                 val selectedText = ic.getSelectedText(0)
-
-                //val keyboard = Keyboard(this, R.xml.key_layout)
-                //keyboardView.keyboard = keyboard
                 if (TextUtils.isEmpty(selectedText))
                 {
                     // no selection, so delete previous character
-                        var t=ic.getTextBeforeCursor(Integer.MAX_VALUE, 0);
+                    var t=ic.getTextBeforeCursor(Integer.MAX_VALUE, 0);
                     if(t!=null&&t.length>2&&t.endsWith(getString(R.string.gptChar)))
                     {
                         ic.deleteSurroundingText(2, 0)
                     }
                     else
                     ic.deleteSurroundingText(1, 0)
-                } else
+                }
+                else
                 {
                     // delete the selection
                     ic.commitText("", 1)
@@ -92,12 +90,12 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                 val span = ImageSpan(d!!, ImageSpan.ALIGN_BASELINE)
                 ss.setSpan(span, 0, 2, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
                 ic.commitText(ss,ss.length)
-               // ic.commitText("\uDB40\uDD34",2)
             }
-            32->{
+
+            resources.getInteger(R.integer.lanCustom)->{
                 window.window?.attributes?.let { keyboardView.returnInput(it.token) }
             }
-            -66 ->
+            resources.getInteger(R.integer.gptBack) ->
             {
                 //vracanjena verziju sto je usla u gpt
                 ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
@@ -105,7 +103,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                 GptApi_Clean.paste("Old text", ic.getSelectedText(0).toString(), context)
                 ic.commitText(container, container.length)
             }
-            -68 ->
+            resources.getInteger(R.integer.lan) ->
             {
                // val keyboard = Keyboard(this, R.xml.keyboard_layout2)
               //  keyboardView.keyboard = keyboard
@@ -113,26 +111,14 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                     applicationContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
                 imeManager.showInputMethodPicker()
             }
-            -33->{
 
-                ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
-                    ?.let { Log.d("key88", it.length.toString())
-                    Log.d("key88",it.toString())
-                    Log.d("key88",it[it.length-1].toInt().toString())}
-            }
-            -67 ->
-            {
-                val keyboard = Keyboard(this, R.xml.google)
-                keyboardView.keyboard = keyboard
-            }
-            -69 ->
+            resources.getInteger(R.integer.gpt) ->
             {
                 //gpt dugme
                 val text = ic.getSelectedText(0)
                 //ako je selectovan
                 if (keyCodes[0] == -1 && text != null)
                 {
-
                     ic.commitText("wait...", 7)
                     GptApi_Clean.paste("Old text", text.toString(), context)
                     container=text.toString()
@@ -152,9 +138,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                     GptApi_Clean.paste("Old text", text.toString(), context)
                     GlobalScope.launch {
                         //response je ono sto chatgpt vrati
-
-
-                       val response = GptApi_Clean.gptRequest(text.toString(), context)
+                        val response = GptApi_Clean.gptRequest(text.toString(), context)
                         ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
                             ?.let { ic.setSelection(it.length - 7, it.length) }
                         ic.commitText(response, response.length)
