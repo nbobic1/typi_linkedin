@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/keyboardRoot"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <com.example.typi_linkedin.TypiKeyboardView
+        android:layout_marginBottom="10px"
+        android:id="@+id/keyboard_view_options"
+        android:background="@color/dark_gray"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:keyBackground="@drawable/key_bg"
+        android:keyTextColor="@color/white"
+        android:keyPreviewLayout="@layout/key_preview">
+
+    </com.example.typi_linkedin.TypiKeyboardView>
+    <LinearLayout
+        android:id="@+id/emoij_categoires"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kb again"
+            android:id="@+id/type"
+            ></Button>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="smajli"
+                ></Button>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="food"
+                ></Button>
+            <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="neso"
+            ></Button>
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/topHScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="700px"
+        android:backgroundTint="@color/green"
+        android:layout_alignParentTop="true">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/emm"
+                    >
+                    <com.example.typi_linkedin.TypiKeyboardView
+                        android:id="@+id/keyboard_view"
+                        android:background="@color/dark_gray"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:keyBackground="@drawable/key_bg"
+                        android:keyTextColor="@color/white"
+                        android:keyPreviewLayout="@layout/key_preview">
+
+                    </com.example.typi_linkedin.TypiKeyboardView>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:id="@+id/clipboard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:id="@+id/emoji"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </LinearLayout>
+                </LinearLayout>
+    </ScrollView>
+</LinearLayout>

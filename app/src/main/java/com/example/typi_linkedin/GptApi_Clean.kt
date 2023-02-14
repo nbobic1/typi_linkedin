@@ -98,18 +98,8 @@ class GptApi_Clean
             }
         }
         suspend fun rephrase2(query:String, context: Context):String{
-            val masterKey: MasterKey = MasterKey.Builder(context)
-                .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
-                .build()
-            var key = GptApi_Clean.apiKey(context)
-            val sharedPreferences: SharedPreferences = EncryptedSharedPreferences.create(
-                context,
-                "secret_shared_prefs",
-                masterKey,
-                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-            )
 
+            var key = GptApi_Clean.apiKey(context)
             val mediaType = "application/json".toMediaType()
             val requestBody = """{ "model": "text-davinci-003",
                                     "prompt": "rephrase this: $query",
