@@ -5,6 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
+    <com.example.typi_linkedin.TypiKeyboardView
+        android:layout_marginBottom="10px"
+        android:id="@+id/keyboard_view_options"
+        android:background="@color/dark_gray"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:keyBackground="@drawable/key_bg"
+        android:keyTextColor="@color/white"
+        android:keyPreviewLayout="@layout/key_preview">
+
+    </com.example.typi_linkedin.TypiKeyboardView>
     <LinearLayout
         android:id="@+id/emoij_categoires"
         android:layout_width="match_parent"
@@ -25,6 +36,7 @@
             android:text="neso"
             ></Button>
     </LinearLayout>
+
     <ScrollView
         android:id="@+id/topHScrollView"
         android:layout_width="match_parent"
@@ -32,21 +44,24 @@
         android:backgroundTint="@color/green"
         android:layout_alignParentTop="true">
 
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:id="@+id/emm"
                     >
-                            <com.example.typi_linkedin.TypiKeyboardView
-                            xmlns:android="http://schemas.android.com/apk/res/android"
-                            android:id="@+id/keyboard_view"
-                            android:keyTextSize="30px"
-                            android:layout_height="wrap_content"
-                            android:keyTextColor="@color/black"
-                            android:layout_width="match_parent">
-                            </com.example.typi_linkedin.TypiKeyboardView>
-                </LinearLayout>
+                    <com.example.typi_linkedin.TypiKeyboardView
+                        android:id="@+id/keyboard_view"
+                        android:background="@color/dark_gray"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:keyBackground="@drawable/key_bg"
+                        android:keyTextColor="@color/white"
+                        android:keyPreviewLayout="@layout/key_preview">
+
+                    </com.example.typi_linkedin.TypiKeyboardView>
+
                 <LinearLayout
                     android:orientation="vertical"
                     android:id="@+id/clipboard"
@@ -58,6 +73,7 @@
                     android:id="@+id/emoji"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+                </LinearLayout>
                 </LinearLayout>
     </ScrollView>
 </LinearLayout>

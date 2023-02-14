@@ -4,12 +4,14 @@
     android:horizontalGap="@dimen/horizontal_gap"
     android:verticalGap="@dimen/vertical_gap"
     android:keyHeight="@dimen/key_height">
+   <!--
     <Row>
         <Key android:codes="-400" android:keyLabel="Answer &#128526;" android:keyEdgeFlags="left" android:keyWidth="@dimen/long_key_width"/>
         <Key android:codes="-408" android:keyLabel="Rephrase &#129488;" android:keyWidth="@dimen/long_key_width"/>
         <Key android:codes="-407" android:keyLabel="Reverse &#9664;" android:keyWidth="@dimen/long_key_width"/>
         <Key android:codes="-405" android:keyIcon="@drawable/change_keyboard" android:keyEdgeFlags="right" android:keyWidth="@dimen/long_key_width"/>
     </Row>
+    -->
     <Row>
         <Key android:codes="126" android:keyLabel="&#126;" />
         <Key android:codes="96" android:keyLabel="&#96;" />
