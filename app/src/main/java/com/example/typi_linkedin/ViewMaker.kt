@@ -3,6 +3,9 @@ package com.example.typi_linkedin
 import android.app.ActionBar
 import android.content.ClipboardManager
 import android.content.Context
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -126,7 +129,7 @@ class ViewMaker
 
             val popup = PopupWindow(context)
             popup.contentView = custom
-
+            popup.isOutsideTouchable=true
             if(popup.isShowing()){
                 popup.update(200, 200, ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT)
             } else {

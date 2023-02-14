@@ -128,7 +128,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
             //funkcija za rephrase dok ona ne proradi bolje
             -408 ->
             {
-
+                    ViewMaker.returnInput(context,keyboardRoot,::onKey)
                 /*
                 var selectedText = ic.getSelectedText(0);
                 if (selectedText == null)
