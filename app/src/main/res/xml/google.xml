@@ -47,7 +47,7 @@
         <Key android:codes="98" android:keyLabel="b"/>
         <Key android:codes="110" android:keyLabel="n"/>
         <Key android:codes="109" android:keyLabel="m"/>
-        <Key android:codes="-2" android:keyIcon="@drawable/delete_arrow"
+        <Key android:codes="-5" android:keyIcon="@drawable/delete_arrow"
             android:keyWidth="14%p" android:keyEdgeFlags="right"
             android:isRepeatable="true"/>
     </Row>
