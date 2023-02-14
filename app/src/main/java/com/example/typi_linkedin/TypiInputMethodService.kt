@@ -20,11 +20,13 @@ import kotlinx.coroutines.launch
 class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
 {
     lateinit var keyboardView: TypiKeyboardView
+
+    lateinit var keyboardRoot: LinearLayout
     var context: Context = this
     var container: String = ""//spremam sto je uslo u gpt kako bi mogao vratiti
     override fun onCreateInputView(): View
     {
-        var keyboardRoot = layoutInflater.inflate(R.layout.root_keyboard_view, null)
+         keyboardRoot = layoutInflater.inflate(R.layout.root_keyboard_view, null) as LinearLayout
         keyboardView = keyboardRoot.findViewById(R.id.keyboard_view) as TypiKeyboardView
        var  keyboardViewOptions = keyboardRoot.findViewById(R.id.keyboard_view_options) as TypiKeyboardView
         //keyboardView = layoutInflater.inflate(R.layout.keyboard_view, null) as ba.etf.us.typi.KeyboardView
@@ -196,8 +198,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
             }
             -3 ->
             {
-                var emojiKeyboard = Keyboard(this, R.xml.emojis)
-                keyboardView.keyboard = emojiKeyboard
+                 ViewMaker.emoji(keyboardRoot,context,::onKey,ViewMaker.Companion.Category.SMILY)
             }
             -6 ->
             {
@@ -211,7 +212,6 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
             }
             -101->
             {
-               // ViewMaker.emoji(keyboardView,context,::onKey,ViewMaker.Companion.Category.SMILY)
             }
             -10 ->
             {

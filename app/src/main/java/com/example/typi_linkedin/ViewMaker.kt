@@ -4,6 +4,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputConnection
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 
@@ -19,7 +20,10 @@ class ViewMaker
         }
                 fun emoji(keyboardRoot: View, context: Context, onKey: (primaryCode: Int, keyCodes: IntArray) -> Unit ,categoriy:Category)
                 {
-
+                    var kbAgain=keyboardRoot.findViewById<Button>(R.id.type)
+                    kbAgain.setOnClickListener{
+                        showKeyboard(keyboardRoot)
+                    }
                     var keyboardView=keyboardRoot.findViewById<TypiKeyboardView>(R.id.keyboard_view)
                     keyboardView.visibility=View.GONE
                     var linearLayoutEmoji=keyboardRoot.findViewById<LinearLayout>(R.id.emoji)
