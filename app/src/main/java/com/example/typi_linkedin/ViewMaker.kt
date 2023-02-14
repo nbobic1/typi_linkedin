@@ -29,6 +29,8 @@ class ViewMaker
                     kbAgain.setOnClickListener{
                         showKeyboard(keyboardRoot)
                     }
+                    var scroll=keyboardRoot.findViewById<ScrollView>(R.id.topHScrollView)
+                    scroll.visibility=View.VISIBLE
                     var keyboardView=keyboardRoot.findViewById<TypiKeyboardView>(R.id.keyboard_view)
                     keyboardView.visibility=View.GONE
                     var linearLayoutEmoji=keyboardRoot.findViewById<LinearLayout>(R.id.emoji)
@@ -48,6 +50,8 @@ class ViewMaker
                             val charArray = Character.toChars(j)
                             val surrogatePair = String(charArray)
                             too.setText(surrogatePair)
+                            val params = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 0.1f)
+                            too.layoutParams = params
                             too.setTextSize(30F)
                             too.setOnClickListener {
                                 onKey(j, intArrayOf(j))
@@ -61,7 +65,8 @@ class ViewMaker
                 }
         fun clipBoard(keyboardRoot: View, context: Context, ic: InputConnection)
         {
-
+            var scroll=keyboardRoot.findViewById<ScrollView>(R.id.topHScrollView)
+            scroll.visibility=View.GONE
             var keyboardView=keyboardRoot.findViewById<TypiKeyboardView>(R.id.keyboard_view)
             keyboardView.visibility=View.GONE
             var linearLayoutEmoji=keyboardRoot.findViewById<LinearLayout>(R.id.emoji)
@@ -82,7 +87,8 @@ class ViewMaker
             }
         }
         fun showKeyboard(keyboardRoot: View)
-        {
+        { var scroll=keyboardRoot.findViewById<ScrollView>(R.id.topHScrollView)
+            scroll.visibility=View.GONE
             var keyboardView=keyboardRoot.findViewById<TypiKeyboardView>(R.id.keyboard_view)
             keyboardView.visibility=View.VISIBLE
             var linearLayoutEmoji=keyboardRoot.findViewById<LinearLayout>(R.id.emoji)

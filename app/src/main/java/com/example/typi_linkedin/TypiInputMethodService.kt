@@ -14,6 +14,7 @@ import android.view.ViewConfiguration
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.LinearLayout
+import android.widget.ScrollView
 import androidx.core.content.ContextCompat
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -41,6 +42,8 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
         keyboardViewOptions.keyboard = keyboard
         keyboardViewOptions.setOnKeyboardActionListener(this)
 
+        var scroll=keyboardRoot.findViewById<ScrollView>(R.id.topHScrollView)
+        scroll.visibility=View.GONE
         var linearLayoutEmoji=keyboardRoot.findViewById<LinearLayout>(R.id.emoji)
         linearLayoutEmoji.visibility=View.GONE
         var linearLayoutEmojiCategory=keyboardRoot.findViewById<LinearLayout>(R.id.emoij_categoires)
