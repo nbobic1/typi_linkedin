@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-    <ba.etf.us.typi.KeyboardView
+    <com.example.typi_linkedin.TypiKeyboardView
 
         android:id="@+id/keyboard_view"
         android:background="@color/purple_200"
@@ -14,7 +14,7 @@
 
         android:keyTextColor="@color/purple_200">
 
-    </ba.etf.us.typi.KeyboardView>
+    </com.example.typi_linkedin.TypiKeyboardView>
 
     <HorizontalScrollView
         android:id="@+id/topHScrollView"

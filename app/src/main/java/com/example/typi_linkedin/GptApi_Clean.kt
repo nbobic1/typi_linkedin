@@ -5,6 +5,8 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.pm.ApplicationInfo
+import android.content.pm.PackageManager
 import android.util.Log
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
@@ -15,7 +17,6 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
-import kotlinx.coroutines.*
 import org.json.JSONArray
 import org.json.JSONObject
 import org.json.JSONTokener
@@ -32,65 +33,22 @@ import java.io.*
 import java.net.HttpURLConnection
 
 
-class Clean
+class GptApi_Clean
 {
     //sadrži funkcije koje se ponavljaju kako bi kod bio pregleniji
     companion object
     {
+        fun apiKey(context: Context):String{
+            val ai: ApplicationInfo = context.packageManager.getApplicationInfo(context.packageName, PackageManager.GET_META_DATA)
+            val value = ai.metaData["KEY_API"]
+            return value.toString()
+        }
         //HTTP GLUPOSTI
         //api call
-        suspend fun apiCall(text: String, context: Context): String
+        fun gptApiCall(text:String,context: Context):String
         {
-            Log.d("zahtjev",text)
-            //uzimanje kljuca
-            val masterKey: MasterKey = MasterKey.Builder(context)
-                .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
-                .build()
 
-            val sharedPreferences: SharedPreferences = EncryptedSharedPreferences.create(
-                context,
-                "secret_shared_prefs",
-                masterKey,
-                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-            )
-            var key = sharedPreferences.getString("key", "").toString()
-
-            //pravljenje zahtjeva
-            val mediaType = "application/json".toMediaType()
-            val requestBody = """{ "model": "text-davinci-003",
-                                    "prompt": "$text",
-                                    "max_tokens": 7,
-                                    "temperature": 0.7,
-                                    "frequency_penalty": 0.5 }"""
-                                    .toRequestBody(mediaType)
-            Log.d("key", requestBody.toString())
-            val request = Request.Builder()
-                .url("https://api.openai.com/v1/completions")
-                .addHeader("Authorization", key)
-                .post(requestBody)
-                .build()
-            return withContext(Dispatchers.IO) {
-                OkHttpClient().newCall(request).execute().use {
-                    jsonToRez(it.body?.string() ?: "")
-                }
-            }
-        }
-        fun gifyApi(text:String,context: Context):String
-        {
-            //uzimanje kljuca
-            val masterKey: MasterKey = MasterKey.Builder(context)
-                .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
-                .build()
-
-            val sharedPreferences: SharedPreferences = EncryptedSharedPreferences.create(
-                context,
-                "secret_shared_prefs",
-                masterKey,
-                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-            )
-            var key = sharedPreferences.getString("key", "").toString()
+            var key = GptApi_Clean.apiKey(context)
             val url = URL("https://api.openai.com/v1/completions")
             val postData = """{ "model": "text-davinci-003",
                                     "prompt": "$text",
@@ -117,18 +75,8 @@ class Clean
             return  jsonToRez(rez)
         }
         suspend fun rephrase(query:String, context: Context):String{
-            val masterKey: MasterKey = MasterKey.Builder(context)
-                .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
-                .build()
 
-            val sharedPreferences: SharedPreferences = EncryptedSharedPreferences.create(
-                context,
-                "secret_shared_prefs",
-                masterKey,
-                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-            )
-            var key = sharedPreferences.getString("key", "").toString()
+            var key = GptApi_Clean.apiKey(context)
 
             key="Bearer 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"
             val mediaType = "application/json".toMediaType()
@@ -152,49 +100,11 @@ class Clean
         }
         fun jsonToRez(result:String): String
         {
-            Log.d("key4", result)
             val jsonObject = JSONTokener(result).nextValue() as JSONObject
             val choices1 = jsonObject.getString("choices")
             val choices = JSONTokener(choices1).nextValue() as JSONArray
             return  choices.getJSONObject(0).getString("text")
         }
-        //CLIPBOARD
-        fun paste(lable:String,text:String,context: Context)
-        {
-            val clipboard: ClipboardManager =context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-            val clip = ClipData.newPlainText(lable, text)
-            clipboard.setPrimaryClip(clip)
-        }
-        fun getIntPref(context: Context,key:String,defualt:Int=0):Int
-        {
-            val sharedPref = context.getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
-            return sharedPref.getInt(key, defualt)
-        }
-        fun setIntPref(context: Context,key:String,value:Int)
-        {
-            val sharedPref = context.getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
-            var editor=sharedPref.edit()
-            editor.putInt(key, value)
-            editor.apply()
-        }
-        fun setEncStringPref(context: Context,key: String,value: String)
-        {
-            val masterKey = MasterKey.Builder(context)
-                .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
-                .build()
-
-            val sharedPreferences = EncryptedSharedPreferences.create(
-                context,
-                "secret_shared_prefs",
-                masterKey,
-                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
-            )
-            var editor=sharedPreferences.edit()
-            editor.putString(key,value)
-            editor.apply()
-        }
-
 
         fun countMatches(string: String, pattern: String): Int {
             return Regex(pattern).findAll(string).count()
@@ -217,8 +127,7 @@ class Clean
             }
             else
             {
-             return gifyApi(str,context)
-            // return   apiCall(str,context)
+             return gptApiCall(str,context)
             }
 
 
@@ -259,6 +168,14 @@ class Clean
                     jsonToRez(it.body?.string() ?: "")
                 }
             }
+        }
+
+        //CLIPBOARD
+        fun paste(lable:String,text:String,context: Context)
+        {
+            val clipboard: ClipboardManager =context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clip = ClipData.newPlainText(lable, text)
+            clipboard.setPrimaryClip(clip)
         }
     }
 

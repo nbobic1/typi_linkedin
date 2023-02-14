@@ -1,7 +1,5 @@
 package com.example.typi_linkedin
 
-
-
 import android.content.Context
 import android.inputmethodservice.InputMethodService
 import android.inputmethodservice.Keyboard
@@ -11,11 +9,9 @@ import android.text.SpannableString
 import android.text.TextUtils
 import android.text.style.ImageSpan
 import android.util.Log
-import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -38,25 +34,15 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
         val keyboard: Keyboard = Keyboard(this, R.xml.google)
         keyboardView.keyboard = keyboard
         keyboardView.setOnKeyboardActionListener(this)
-        var packLIst=tu.findViewById(R.id.packsList) as LinearLayout
-      /*  for(i in 1..10)
-        {
-            var img= WebView(packLIst.context)
-         var k=LayoutParams(300,300)
-
-            img.layoutParams=k
-            img.loadUrl("https://i.giphy.com/media/l0ExqbRzq05DHIlJm/100w.gif")
-          packLIst.addView(img)
-        }*/
         return tu
     }
 
     override fun onStartInputView(info: EditorInfo?, restarting: Boolean)
     {
         super.onStartInputView(info, restarting)
-        Log.d("key1", "wiiiiiiiiiiiiii")
-        var highScore = Clean.getIntPref(context, "moj")
-        Log.d("key", "auuuuuuuuuuuuuuuuu")
+
+        //different keyboard_layout
+        var highScore = Pref_Clean.getIntPref(context, "moj")
         if (highScore == 1)
         {
             val keyboard = Keyboard(this, R.xml.google)
@@ -68,13 +54,6 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
         }
     }
 
-
-    override fun onKeyLongPress(keyCode: Int, event: KeyEvent?): Boolean
-    {
-        println("wii6ii")
-
-        return super.onKeyLongPress(keyCode, event)
-    }
 
     override fun onKey(primaryCode: Int, keyCodes: IntArray)
     {
@@ -91,7 +70,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                 if (TextUtils.isEmpty(selectedText))
                 {
                     // no selection, so delete previous character
-                        var t=ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
+                        var t=ic.getTextBeforeCursor(Integer.MAX_VALUE, 0);
                     if(t!=null&&t.length>2&&t.endsWith(getString(R.string.gptChar)))
                     {
                         ic.deleteSurroundingText(2, 0)
@@ -123,7 +102,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                 //vracanjena verziju sto je usla u gpt
                 ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
                     ?.let { ic.setSelection(0, it.length) }
-                Clean.paste("Old text", ic.getSelectedText(0).toString(), context)
+                GptApi_Clean.paste("Old text", ic.getSelectedText(0).toString(), context)
                 ic.commitText(container, container.length)
             }
             -68 ->
@@ -155,11 +134,11 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                 {
 
                     ic.commitText("wait...", 7)
-                    Clean.paste("Old text", text.toString(), context)
+                    GptApi_Clean.paste("Old text", text.toString(), context)
                     container=text.toString()
                     GlobalScope.launch {
                         //response je ono sto chatgpt vrati
-                        val response = Clean.gptRequest(text.toString(),context)
+                        val response = GptApi_Clean.gptRequest(text.toString(),context)
                         ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
                             ?.let { ic.setSelection(it.length - 7, it.length) }
                         ic.commitText(response, response.length)
@@ -170,42 +149,28 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                     var text=ic.getSelectedText(0);
                     ic.commitText("wait...", 7)
                     container=text.toString()
-                    Clean.paste("Old text", text.toString(), context)
+                    GptApi_Clean.paste("Old text", text.toString(), context)
                     GlobalScope.launch {
                         //response je ono sto chatgpt vrati
 
 
-                       val response = Clean.gptRequest(text.toString(), context)
+                       val response = GptApi_Clean.gptRequest(text.toString(), context)
                         ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
                             ?.let { ic.setSelection(it.length - 7, it.length) }
                         ic.commitText(response, response.length)
                     }
                 }
-
             }
             else ->
             {
-                val code = primaryCode.toChar()
-                Log.d("key", code.toString())
-
-                Log.d("key1", keyCodes[0].toString())
-
-                ic.commitText(code.toString(), 1)
+                ic.commitText(primaryCode.toChar().toString(), 1)
             }
         }
     }
 
-    override fun onPress(primaryCode: Int)
-    {
-    }
-
-    override fun onRelease(primaryCode: Int)
-    {
-    }
 
     override fun onText(text: CharSequence)
     {
-        Log.d("kay", "ma goriiiiiiiiii selecteddd imamoooooo")
     }
 
     override fun swipeLeft()
@@ -223,4 +188,12 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
     override fun swipeUp()
     {
     }
+    override fun onPress(p0: Int)
+    {
+    }
+
+    override fun onRelease(p0: Int)
+    {
+    }
+
 }

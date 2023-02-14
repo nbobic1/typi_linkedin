@@ -33,6 +33,9 @@
                 android:name="android.view.im"
                 android:resource="@xml/methode"/>
         </service>
+        <meta-data
+            android:name = "API_KEY"
+            android:value = "${API_KEY}"/>
     </application>
 
 </manifest>

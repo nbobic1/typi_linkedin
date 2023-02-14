@@ -19,9 +19,10 @@ class TypiKeyboardView(context: Context, attrs: AttributeSet) : KeyboardView(con
 //ovaj klas omogucuje cutom crtanje dugmadi kako sva dugmad ne bi morala izgledati isto
     //da bi radio mora se u xml koji se u njega ucitava staviti on kao root tag
 
+    //when u hold letter there will be additional options for that letter, that
     override fun onLongPress(popupKey: Keyboard.Key?): Boolean
     {
-        if (popupKey != null)
+      /*  if (popupKey != null)
         {
             println("gori"+popupKey.codes[0])
             val custom: View = LayoutInflater.from(context)
@@ -40,7 +41,7 @@ class TypiKeyboardView(context: Context, attrs: AttributeSet) : KeyboardView(con
             vie.setOnClickListener {
                 popup.dismiss()
             }
-        }
+        }*/
         return super.onLongPress(popupKey)
     }
 
