@@ -29,7 +29,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
         keyboardView=tu.findViewById(R.id.keyboard_view) as TypiKeyboardView
         //keyboardView = layoutInflater.inflate(R.layout.keyboard_view, null) as ba.etf.us.typi.KeyboardView
         // get the KeyboardView and add our Keyboard layout to it
-        val keyboard: Keyboard = Keyboard(this, R.xml.google)
+        val keyboard: Keyboard = Keyboard(this, R.xml.emojis)
         keyboardView.keyboard = keyboard
         keyboardView.setOnKeyboardActionListener(this)
         return tu
@@ -43,11 +43,11 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
         var highScore = Pref_Clean.getIntPref(context, "moj")
         if (highScore == 1)
         {
-            val keyboard = Keyboard(this, R.xml.google)
+            val keyboard = Keyboard(this, R.xml.emojis)
             keyboardView.keyboard = keyboard
         } else
         {
-            val keyboard = Keyboard(this, R.xml.google)
+            val keyboard = Keyboard(this, R.xml.emojis)
             keyboardView.keyboard = keyboard
         }
     }
@@ -65,7 +65,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                 if (TextUtils.isEmpty(selectedText))
                 {
                     // no selection, so delete previous character
-                    var t=ic.getTextBeforeCursor(Integer.MAX_VALUE, 0);
+                    var t=ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
                     if(t!=null&&t.length>2&&t.endsWith(getString(R.string.gptChar)))
                     {
                         ic.deleteSurroundingText(2, 0)
@@ -91,6 +91,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
             }
 
             resources.getInteger(R.integer.lanCustom)->{
+                println("ne b bunkcioniral")
                 window.window?.attributes?.let { keyboardView.returnInput(it.token) }
             }
             resources.getInteger(R.integer.gptBack) ->
@@ -127,7 +128,8 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                             ?.let { ic.setSelection(it.length - 7, it.length) }
                         ic.commitText(response, response.length)
                     }
-                } else{
+                }
+                else{
                    ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
                         ?.let { ic.setSelection(0, it.length) }
                     var text=ic.getSelectedText(0);
@@ -149,8 +151,6 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
             }
         }
     }
-
-
     override fun onText(text: CharSequence)
     {
     }
@@ -170,6 +170,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
     override fun swipeUp()
     {
     }
+
     override fun onPress(p0: Int)
     {
     }

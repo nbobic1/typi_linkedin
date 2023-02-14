@@ -32,7 +32,9 @@
     </Row>
 
     <Row>
-
+       <Key android:codes="@integer/gpt" android:keyLabel="load"
+        android:keyWidth="15%p"
+        android:keyEdgeFlags="left"/>
         <Key android:codes="122" android:keyLabel="z"/>
         <Key android:codes="120" android:keyLabel="x"/>
         <Key android:codes="99" android:keyLabel="c"/>
@@ -57,7 +59,7 @@
             android:keyWidth="10%p"/>
         <Key android:codes="32" android:keyLabel="Space"
             android:keyWidth="30%p" android:isRepeatable="true"/>
-        <Key android:codes="46,44" android:keyLabel=". ,"
+        <Key android:codes="46,44" android:keyLabel=".,"
             android:keyWidth="15%p"/>
         <Key android:codes="10" android:keyLabel="return"
             android:keyWidth="20%p" android:keyEdgeFlags="right"/>
