@@ -6,13 +6,13 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
     <com.example.typi_linkedin.TypiKeyboardView
-
         android:id="@+id/keyboard_view"
-        android:background="@color/purple_200"
+        android:background="@color/dark_gray"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        android:keyTextColor="@color/purple_200">
+        android:keyBackground="@drawable/key_bg"
+        android:keyTextColor="@color/white"
+        android:keyPreviewLayout="@layout/key_preview">
 
     </com.example.typi_linkedin.TypiKeyboardView>
 

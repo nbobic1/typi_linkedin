@@ -43,11 +43,11 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
         var highScore = Pref_Clean.getIntPref(context, "moj")
         if (highScore == 1)
         {
-            val keyboard = Keyboard(this, R.xml.emojis)
+            val keyboard = Keyboard(this, R.xml.google)
             keyboardView.keyboard = keyboard
         } else
         {
-            val keyboard = Keyboard(this, R.xml.emojis)
+            val keyboard = Keyboard(this, R.xml.google)
             keyboardView.keyboard = keyboard
         }
     }
@@ -70,8 +70,9 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                     {
                         ic.deleteSurroundingText(2, 0)
                     }
-                    else
-                    ic.deleteSurroundingText(1, 0)
+                    else {
+                        ic.deleteSurroundingText(1, 0)
+                    }
                 }
                 else
                 {
@@ -110,7 +111,26 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                     applicationContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
                 imeManager.showInputMethodPicker()
             }
+            //funkcija za rephrase dok ona ne proradi bolje
+            -408 -> {
 
+                var selectedText = ic.getSelectedText(0);
+                if (selectedText == null) {
+                    ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
+                        ?.let { ic.setSelection(0, it.length) }
+                    selectedText = ic.getSelectedText(0);
+                }
+                ic.commitText("wait...", 7);
+                container = selectedText.toString()
+                GptApi_Clean.paste("Old text", selectedText.toString(), this);
+                GlobalScope.launch {
+                    var result = GptApi_Clean.rephrase2(selectedText.toString(), context);
+                    ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
+                        ?.let { ic.setSelection(it.length - 7, it.length) }
+
+                    ic.commitText(result, result.length)
+                }
+            }
             resources.getInteger(R.integer.gpt) ->
             {
                 //gpt dugme
@@ -144,6 +164,59 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                         ic.commitText(response, response.length)
                     }
                 }
+            }
+
+
+            -1->
+            {
+                var capitalLettersKeyboard = Keyboard(this, R.xml.google_capslock)
+                keyboardView.keyboard = capitalLettersKeyboard
+
+
+            }
+            -2->
+            {
+                var smallLettersKeyboard = Keyboard(this, R.xml.google)
+                keyboardView.keyboard = smallLettersKeyboard
+
+            }
+            -3->
+            {
+                var emojiKeyboard = Keyboard(this, R.xml.emojis)
+                keyboardView.keyboard = emojiKeyboard
+
+            }
+            -6->
+            {
+                var numbersKeyboard= Keyboard(this, R.xml.numbers)
+                keyboardView.keyboard = numbersKeyboard
+
+            }
+            -7->
+            {
+                var lettersKeyboard= Keyboard(this, R.xml.google)
+                keyboardView.keyboard = lettersKeyboard
+
+            }
+            -10->
+            {
+                var specialKeyboard= Keyboard(this, R.xml.special_symbols)
+                keyboardView.keyboard = specialKeyboard
+
+            }
+
+            -9-> {
+                Log.v("ovo ne radi","..")
+/*
+                Log.v("IZLAZ", "gotovo");
+                val inputManager =
+                    context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                val v = (context as Activity).currentFocus
+                if (v != null) {
+                    inputManager.hideSoftInputFromWindow(v.windowToken, 0)
+                }
+
+ */
             }
             else ->
             {

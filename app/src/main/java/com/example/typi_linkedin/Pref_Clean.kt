@@ -37,5 +37,7 @@ class Pref_Clean
             editor.apply()
         }
 
+
     }
+
 }

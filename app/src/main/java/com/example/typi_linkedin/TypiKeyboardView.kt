@@ -3,10 +3,14 @@ package com.example.typi_linkedin
 import android.app.ActionBar.LayoutParams
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.drawable.Drawable
 import android.inputmethodservice.Keyboard
 import android.inputmethodservice.KeyboardView
 import android.os.IBinder
 import android.util.AttributeSet
+import android.util.Log
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.FrameLayout
@@ -87,12 +91,12 @@ class TypiKeyboardView(context: Context, attrs: AttributeSet) : KeyboardView(con
     override fun onDraw(canvas: Canvas?) {
 
         super.onDraw(canvas)
-       /* var keys: List<Keyboard.Key> = getKeyboard().getKeys()
+      /* var keys: List<Keyboard.Key> = getKeyboard().getKeys()
         for (key: Keyboard.Key in keys) {
             if (key.codes.size!=0&&key.codes[0] == 107) {
                 Log.e("KEY", "Drawing key with code " + key.codes[0]);
                 //crtanje pozadine
-                var dr: Drawable = context.getResources().getDrawable(R.drawable.key_bg);
+                var dr: Drawable = context.getResources().getDrawable(R.drawable.key_bg_gpt);
                 dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
                 if (canvas != null) {
                     dr.draw(canvas)
@@ -100,7 +104,7 @@ class TypiKeyboardView(context: Context, attrs: AttributeSet) : KeyboardView(con
 
             } else {
                 //crtanje pozadine dugmeeta
-                var dr: Drawable = context.getResources().getDrawable(R.drawable.key_bg_gpt);
+                var dr: Drawable = context.getResources().getDrawable(R.drawable.key_bg);
                 dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
                 if (canvas != null) {
                     dr.draw(canvas)
@@ -121,10 +125,11 @@ class TypiKeyboardView(context: Context, attrs: AttributeSet) : KeyboardView(con
                 }
             }
 
-
         }
 
-        */
+       */
+
+
 
     }
 }

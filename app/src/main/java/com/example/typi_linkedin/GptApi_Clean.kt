@@ -97,6 +97,38 @@ class GptApi_Clean
                 }
             }
         }
+        suspend fun rephrase2(query:String, context: Context):String{
+            val masterKey: MasterKey = MasterKey.Builder(context)
+                .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+                .build()
+            var key = GptApi_Clean.apiKey(context)
+            val sharedPreferences: SharedPreferences = EncryptedSharedPreferences.create(
+                context,
+                "secret_shared_prefs",
+                masterKey,
+                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+            )
+
+            val mediaType = "application/json".toMediaType()
+            val requestBody = """{ "model": "text-davinci-003",
+                                    "prompt": "rephrase this: $query",
+                                    "max_tokens": 7,
+                                    "temperature": 0.7,
+                                    "frequency_penalty": 0.5 }"""
+                .toRequestBody(mediaType)
+            Log.d("keyyy", requestBody.toString())
+            val request = Request.Builder()
+                .url("https://api.openai.com/v1/completions")
+                .addHeader("Authorization", key)
+                .post(requestBody)
+                .build()
+            return withContext(Dispatchers.IO) {
+                OkHttpClient().newCall(request).execute().use {
+                    jsonToRez(it.body?.string() ?: "")
+                }
+            }
+        }
         fun jsonToRez(result:String): String
         {
             val jsonObject = JSONTokener(result).nextValue() as JSONObject

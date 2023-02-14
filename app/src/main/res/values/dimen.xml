@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="key_width">9.2%p</dimen>
+    <dimen name="horizontal_gap">0.7%</dimen>
+    <dimen name="vertical_gap">0.5%</dimen>
+    <dimen name="key_height">44dip</dimen>
+    <dimen name="long_key_width">24%p</dimen>
+</resources>
