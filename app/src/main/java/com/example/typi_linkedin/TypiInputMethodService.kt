@@ -41,15 +41,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
         keyboard = Keyboard(this, R.xml.options)
         keyboardViewOptions.keyboard = keyboard
         keyboardViewOptions.setOnKeyboardActionListener(this)
-
-        var scroll=keyboardRoot.findViewById<ScrollView>(R.id.topHScrollView)
-        scroll.visibility=View.GONE
-        var linearLayoutEmoji=keyboardRoot.findViewById<LinearLayout>(R.id.emoji)
-        linearLayoutEmoji.visibility=View.GONE
-        var linearLayoutEmojiCategory=keyboardRoot.findViewById<LinearLayout>(R.id.emoij_categoires)
-        linearLayoutEmojiCategory.visibility=View.GONE
-        var linearLayout=keyboardRoot.findViewById<LinearLayout>(R.id.clipboard)
-        linearLayout.visibility=View.GONE
+        ViewMaker.allViewSetup()
         return keyboardRoot
     }
 
@@ -124,10 +116,13 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
             {
                 // val keyboard = Keyboard(this, R.xml.keyboard_layout2)
                 //  keyboardView.keyboard = keyboard
-                val imeManager: InputMethodManager =
+            /*    val imeManager: InputMethodManager =
                     applicationContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
                 imeManager.showInputMethodPicker()
+                */
+                ViewMaker.clipBoard(keyboardRoot,context,ic)
             }
+
             //funkcija za rephrase dok ona ne proradi bolje
             -408 ->
             {
