@@ -79,6 +79,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10px"
+            android:text="Change keyboard"
+            android:background="@drawable/key_bg"
+            android:id="@+id/changeKb"
+            ></Button>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10px"
             android:text="Clip"
             android:background="@drawable/key_bg"
             android:id="@+id/clip"

@@ -80,17 +80,12 @@ class TypiKeyboardView(context: Context, attrs: AttributeSet) : KeyboardView(con
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val popupView = inflater.inflate(R.layout.popup_layout, null)
         val popupText = popupView.findViewById<TextView>(R.id.popup_text)
-
         val popupTextBuilder = SpannableStringBuilder()
-
         for (i in popupCharacters) {
             val popup = PopupWindow(context)
             // ovo ne moze ovako nego mora nekako jedno po jedno i onClick metoda
-
             val popupCharWithSeparator = "$i"
             popupTextBuilder.append(popupCharWithSeparator)
-
-
         }
 
        popupText.setText(popupTextBuilder, TextView.BufferType.SPANNABLE)
@@ -133,6 +128,8 @@ class TypiKeyboardView(context: Context, attrs: AttributeSet) : KeyboardView(con
         var tt = TextView(context)
         tt.setText(i.loadLabel(context.packageManager))
         tt.textSize= 20.0F
+        tt.setTextColor(context.getColor(R.color.white))
+        tt.gravity=Gravity.CENTER
         tt.setOnClickListener {
             imeManager.setInputMethod(token, i.id)
         }

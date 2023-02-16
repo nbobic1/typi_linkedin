@@ -1,6 +1,7 @@
 package com.example.typi_linkedin
 
 import android.app.ActionBar
+import android.app.ActionBar.LayoutParams
 import android.content.ClipboardManager
 import android.content.Context
 import android.graphics.drawable.BitmapDrawable
@@ -13,6 +14,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputConnection
 import android.widget.*
+import androidx.core.view.marginBottom
+import androidx.core.view.setPadding
 
 class ViewMaker
 {
@@ -23,9 +26,6 @@ class ViewMaker
         }
         fun optionsSetup(keyboardRoot: View,context:Context,onKey: (primaryCode: Int, keyCodes: IntArray) -> Unit)
         {
-
-
-
             keyboardRoot.findViewById<Button>(R.id.answer).setOnClickListener {
                 onKey(context.resources.getInteger(R.integer.gpt), intArrayOf(-1))
             }
@@ -44,19 +44,14 @@ class ViewMaker
             keyboardRoot.findViewById<Button>(R.id.summerize).setOnClickListener {
                 onKey(context.resources.getInteger(R.integer.summerize), intArrayOf(-1))
             }
+            keyboardRoot.findViewById<Button>(R.id.changeKb).setOnClickListener {
+                onKey(context.resources.getInteger(com.example.typi_linkedin.R.integer.lanCustom),
+                    kotlin.intArrayOf(-1)
+                )
+            }
         }
         fun categorySetup(keyboardRoot: View,context:Context,onKey: (primaryCode: Int, keyCodes: IntArray) -> Unit):View
         {
-
-
-            var listaHrana1="\uD83C\uDF4F\uD83C\uDF4E\uD83C\uDF50\uD83C\uDF4A\uD83C\uDF4B\uD83C\uDF4C\uD83C\uDF49\uD83C\uDF47\uD83C\uDF53\uD83E\uDED0\uD83C\uDF48\uD83C\uDF52\uD83C\uDF51\uD83E\uDD6D\uD83C\uDF4D\uD83E\uDD65\uD83E\uDD5D\uD83C\uDF45\uD83C\uDF46\uD83E\uDD51\uD83E\uDD66\uD83E\uDD6C\uD83E\uDD52\uD83C\uDF36️\uD83E\uDED1\uD83C\uDF3D\uD83E\uDD55\uD83E\uDED2\uD83E\uDDC4\uD83E\uDDC5\uD83E\uDD54\uD83C\uDF60\uD83E\uDD50\uD83E\uDD6F\uD83C\uDF5E\uD83E\uDD56\uD83E\uDD68\uD83E\uDDC0\uD83E\uDD5A\uD83C\uDF73\uD83E\uDDC8\uD83E\uDD5E\uD83E\uDDC7\uD83E\uDD53\uD83E\uDD69\uD83C\uDF57\uD83C\uDF56\uD83E\uDDB4\uD83C\uDF2D\uD83C\uDF54\uD83C\uDF5F\uD83C\uDF55\uD83E\uDED3\uD83E\uDD6A\uD83E\uDD59\uD83E\uDDC6\uD83C\uDF2E\uD83C\uDF2F\uD83E\uDED4\uD83E\uDD57\uD83E\uDD58\uD83E\uDED5\uD83E\uDD6B\uD83E\uDED9\uD83C\uDF5D\uD83C\uDF5C\uD83C\uDF72\uD83C\uDF5B\uD83C\uDF63\uD83C\uDF71\uD83E\uDD5F\uD83E\uDDAA\uD83C\uDF64\uD83C\uDF59\uD83C\uDF5A\uD83C\uDF58\uD83C\uDF65\uD83E\uDD60\uD83E\uDD6E\uD83C\uDF62\uD83C\uDF61\uD83C\uDF67\uD83C\uDF68\uD83C\uDF66\uD83E\uDD67\uD83E\uDDC1\uD83C\uDF70\uD83C\uDF82\uD83C\uDF6E\uD83C\uDF6D\uD83C\uDF6C\uD83C\uDF6B\uD83C\uDF7F\uD83C\uDF69\uD83C\uDF6A\uD83C\uDF30\uD83E\uDD5C\uD83E\uDED8\uD83C\uDF6F"
-            var listaHrana2="\uD83E\uDD5B\uD83E\uDED7\uD83C\uDF7C\uD83E\uDED6☕️\uD83C\uDF75\uD83E\uDDC3\uD83E\uDD64\uD83E\uDDCB\uD83C\uDF76\uD83C\uDF7A\uD83C\uDF7B\uD83E\uDD42\uD83C\uDF77\uD83E\uDD43\uD83C\uDF78\uD83C\uDF79\uD83E\uDDC9\uD83C\uDF7E\uD83E\uDDCA\uD83E\uDD44\uD83C\uDF74\uD83C\uDF7D️\uD83E\uDD63\uD83E\uDD61\uD83E\uDD62\uD83E\uDDC2"
-            var listaHrana= listaHrana1+ listaHrana2
-            var listaPredmeta="⌚️\uD83D\uDCF1\uD83D\uDCF2\uD83D\uDCBB⌨️\uD83D\uDDA5️\uD83D\uDDA8️\uD83D\uDDB1️\uD83D\uDDB2️\uD83D\uDD79️\uD83D\uDDDC️\uD83D\uDCBD\uD83D\uDCBE\uD83D\uDCBF\uD83D\uDCC0\uD83D\uDCFC\uD83D\uDCF7\uD83D\uDCF8\uD83D\uDCF9\uD83C\uDFA5\uD83D\uDCFD️\uD83C\uDF9E️\uD83D\uDCDE☎️\uD83D\uDCDF\uD83D\uDCE0\uD83D\uDCFA\uD83D\uDCFB\uD83C\uDF99️\uD83C\uDF9A️\uD83C\uDF9B️\uD83E\uDDED⏱️⏲️⏰\uD83D\uDD70️⌛️⏳\uD83D\uDCE1\uD83D\uDD0B\uD83E\uDEAB\uD83D\uDD0C\uD83D\uDCA1\uD83D\uDD26\uD83D\uDD6F️\uD83E\uDE94\uD83E\uDDEF\uD83D\uDEE2️\uD83D\uDCB8\uD83D\uDCB5\uD83D\uDCB4\uD83D\uDCB6\uD83D\uDCB7\uD83E\uDE99\uD83D\uDCB0\uD83D\uDCB3\uD83E\uDEAA\uD83D\uDC8E⚖️\uD83E\uDE9C\uD83E\uDDF0\uD83E\uDE9B\uD83D\uDD27\uD83D\uDD28⚒️\uD83D\uDEE0️⛏️\uD83E\uDE9A\uD83D\uDD29⚙️\uD83E\uDEA4\uD83E\uDDF1⛓️\uD83E\uDDF2\uD83D\uDD2B\uD83D\uDCA3\uD83E\uDDE8\uD83E\uDE93\uD83D\uDD2A\uD83D\uDDE1️⚔️\uD83D\uDEE1️\uD83D\uDEAC⚰️\uD83E\uDEA6⚱️\uD83C\uDFFA\uD83D\uDD2E\uD83D\uDCFF\uD83E\uDDFF\uD83E\uDEAC\uD83D\uDC88⚗️\uD83D\uDD2D\uD83D\uDD2C\uD83D\uDD73️\uD83E\uDE7B\uD83E\uDE79\uD83E\uDE7A\uD83D\uDC8A\uD83D\uDC89\uD83E\uDE78\uD83E\uDDEC\uD83E\uDDA0\uD83E\uDDEB\uD83E\uDDEA\uD83C\uDF21️\uD83E\uDDF9\uD83E\uDEA0\uD83E\uDDFA\uD83E\uDDFB\uD83D\uDEBD\uD83D\uDEB0\uD83D\uDEBF\uD83D\uDEC1\uD83E\uDDFC\uD83E\uDEA5\uD83E\uDE92\uD83E\uDDFD\uD83E\uDEA3\uD83E\uDDF4\uD83D\uDECE️\uD83D\uDD11\uD83D\uDDDD️\uD83D\uDEAA\uD83E\uDE91\uD83D\uDECB️\uD83D\uDECF️\uD83D\uDECC\uD83E\uDDF8\uD83E\uDE86\uD83D\uDDBC️\uD83E\uDE9E\uD83E\uDE9F\uD83D\uDECD️\uD83D\uDED2\uD83C\uDF81\uD83C\uDF88\uD83C\uDF8F\uD83C\uDF80\uD83E\uDE84\uD83E\uDE85\uD83C\uDF8A\uD83C\uDF89\uD83C\uDF8E\uD83C\uDFEE\uD83C\uDF90\uD83E\uDEA9\uD83E\uDDE7✉️\uD83D\uDCE9\uD83D\uDCE8\uD83D\uDCE7\uD83D\uDC8C\uD83D\uDCE5\uD83D\uDCE4\uD83D\uDCE6\uD83C\uDFF7️\uD83E\uDEA7\uD83D\uDCEA\uD83D\uDCEB\uD83D\uDCEC\uD83D\uDCED\uD83D\uDCEE\uD83D\uDCEF\uD83D\uDCDC\uD83D\uDCC3\uD83D\uDCC4\uD83D\uDCD1\uD83E\uDDFE\uD83D\uDCCA\uD83D\uDCC8\uD83D\uDCC9\uD83D\uDDD2️\uD83D\uDDD3️\uD83D\uDCC6\uD83D\uDCC5\uD83D\uDDD1️\uD83D\uDCC7\uD83D\uDDC3️\uD83D\uDDF3️\uD83D\uDDC4️\uD83D\uDCCB\uD83D\uDCC1\uD83D\uDCC2\uD83D\uDDC2️\uD83D\uDDDE️\uD83D\uDCF0\uD83D\uDCD3\uD83D\uDCD4\uD83D\uDCD2\uD83D\uDCD5\uD83D\uDCD7\uD83D\uDCD8\uD83D\uDCD9\uD83D\uDCDA\uD83D\uDCD6\uD83D\uDD16\uD83E\uDDF7\uD83D\uDD17\uD83D\uDCCE\uD83D\uDD87️\uD83D\uDCD0\uD83D\uDCCF\uD83E\uDDEE\uD83D\uDCCC\uD83D\uDCCD✂️\uD83D\uDD8A️\uD83D\uDD8B️✒️\uD83D\uDD8C️\uD83D\uDD8D️\uD83D\uDCDD✏️\uD83D\uDD0D\uD83D\uDD0E\uD83D\uDD0F\uD83D\uDD10\uD83D\uDD12\uD83D\uDD13"
-            var listaPredmeta2 = "⌚️,📱,💻,📚,⌨️,🚥,🚦,🛋️,🛌,📝,📒,📓,📔,📼,📷,📸,📹,🎥,🎞️,📺,🥇,📭,📮,🗣️,📯,🎙️,🎚️,🎛️,📻,🎧,🎤,🎬,🎭,🎨,🎻,🎹,⚖️,🦺,🥼,🥽,🥾,⚒️,🛠️,⛏️,🪚,🗜️,⚙️,🪛,⛓️,🔫,💣,🔪,🗡️,⚔️,🛡️,⚰️,🪦,⚱️,🔮,🧭,🪶,🔍,🔎,🕯️,💡,🔦,🏮,🪔,🧯,🛢️,🧴,🧹,🧺,🧻,🪣,🧼,🧽,🧾,🛒,🚬,⚰️,🦷,🩸,🧸,🃏,🀄,🎴,🎭,🖼️,🎨,🛍️,🛒,🎁,🎀,🎉,🎊,🎈,🎂,🎂,🧁,🍰,🥧,🍮,🍭,🍬,🍫,🍩,🍪,🌰,🥜,🍯,🥛,🍼,☕,🍵,🧉,🍹,🍸,🍺,🍻,🥂,🥃,🥤,🧊,🍾,🥄,🍴,🍽️,🥢,🥡,🥢,🥄,🔪,🏺,🧊,🧂,🥄,🔑,🗝️,🚪,🛋️,🛌,🚽,🚿,🛀,🪒,🧴,🧹,🧺,🧻,🪣,🌡️,⏱️,⏲️,⏰,🕰️,🕛,🕧,🕐,🕜,🕑,🕝,🕒,🕞,🕓,🕟,🕔,🕠,🕕,🕡,🕖,🕢,🕗,🕣,🕘,🕤"
-
-            var listaPredmeta3="&#8986;&#128241;&#128242;&#128187;&#9000;&#129301;&#129304;&#129425;&#129426;&#128377;&#129660;&#128205;&#128206;&#128207;&#127909;&#128247;&#128248;&#128249;&#127989;&#128253;&#127974;&#128222;&#9742;&#128223;&#128224;&#128250;&#128251;&#128121;&#128244;&#128092;&#128095;&#128681;&#9201;&#9203;&#128336;&#127920;&#8987;&#128079;&#129317;&#129318;&#128102;&#128103;&#127773;&#129516;&#129517;&#129518;&#129805;&#8988;&#9874;&#129466;&#127929;&#129469;&#129470;&#127998;&#128711;&#128706;&#128705;&#128707;&#128708;&#129033;&#128736;&#128740;&#128739;&#129303;&#128739;&#128733;&#128734;&#128732;&#128755;&#128752;&#128751;&#128753;&#129489;&#128736;&#128118;&#129352;&#129347;&#129346;&#128683;&#128656;&#128155;&#129474;&#127910;&#128661;&#128663;&#129297;&#129299;&#128737;&#128738;&#128742;&#128741;&#129412;&#129413;&#128704;&#128295;&#128296;&#128298;&#128300;&#128299;&#128302;&#129440;&#128701;&#128700;&#128703;&#129350;&#129349;&#128686;&#128685;&#128689;&#129491;&#128275;&#128276;&#128279;&#128277;&#128278;&#129456;&#128303;&#128304;&#129312;&#129495;&#127873;&#128187;&#128220;&#128338;&#128286;&#128255;&#128256;&#128176;&#129319;&#128581;&#128580;&#128583;&#129331;&#128192;&#128227;&#129519;&#128196;&#128197;&#128199;&#128198;&#129342;&#129344;&#128202;&#128203;&#128204;&#129392;&#129393;&#128135;&#128154;&#128290;&#128291;&#129476;&#129303;&#128113;&#127936;&#128288;&#128289;&#128295;&#128294;&#128297;&#129480;&#128283;&#128284;&#128286;&#129457;&#129458;&#129464;&#128581;&#128175;&#127925;&#128230;&#129462;&#129463;&#128169;&#128167;&#128680;&#128167;&#129488;&#129489;&#128077;&#128078;&#128079;&#128074;&#129408;&#129409;&#128069;&#128076;&#129459;&#129460;&#128071;&#128072;&#129481;&#128081;&#128068;&#128073;&#128077;&#128664;&#128690;&#128662;&#129328;&#129329;&#128100;&#128101;&#128140;&#128129;&#128130;&#128131;&#128132;&#128135;&#128138;&#128139;&#129422;&#129423;&#129424;&#128133;&#128134;&#129488;&#127980;&#127985;&#127986;&#127987;&#127988;&#128276;&#129491;&#129464;&#9972;&#9973;&#128674;&#129472;&#128181;&#129408;&#128118;&#127916;&#128680;&#128424;&#128425;&#128422;&#128423;&#128334;&#128336;&#128335;&#128337;&#128348;&#129392;&#128133;&#128132;&#129435;&#128665"
-
             var linearLayoutEmoji=keyboardRoot.findViewById<LinearLayout>(R.id.emoji)
           //DODAVANJE HRANE-----------------------------------------------------------------------------
             var llFood=LinearLayout(context)
@@ -476,9 +471,12 @@ class ViewMaker
             val popup = PopupWindow(context)
             for(i in options)
             {
-                var tt = TextView(context)
+                var tt = Button(context)
                 tt.setText(i)
-                tt.textSize= 40.0F
+                tt.textSize= 10.0F
+                tt.background=context.resources.getDrawable(R.drawable.key_bg)
+                tt.gravity=Gravity.CENTER
+                tt.setTextColor(context.getColor(R.color.white))
                 tt.setOnClickListener {
                     TypiInputMethodService.callGptForInput(keyCodes,ic,order+" "+i)
                     popup.dismiss()
