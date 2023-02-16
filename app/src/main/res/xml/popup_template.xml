@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.typi_linkedin.TypiKeyboardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:keyWidth="10%p"
+    android:horizontalGap="0px"
+    android:verticalGap="0px"
+    android:keyHeight="@dimen/key_height"
+    android:background="@color/green"
+    >
+</com.example.typi_linkedin.TypiKeyboardView>

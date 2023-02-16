@@ -198,7 +198,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
             }
             -3 ->
             {
-                 ViewMaker.emoji(keyboardRoot,context,::onKey,ViewMaker.Companion.Category.SMILY)
+                 ViewMaker.emoji(keyboardRoot,context,::onKey,ViewMaker.Companion.Category.SMILEY)
             }
             -6 ->
             {
@@ -210,9 +210,13 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                 var lettersKeyboard = Keyboard(this, R.xml.google)
                 keyboardView.keyboard = lettersKeyboard
             }
-            -101->
+            -420->
             {
+                var bosanskaKeyboard = Keyboard(this, R.xml.bosanska_google)
+                keyboardView.keyboard = bosanskaKeyboard
+
             }
+
             -10 ->
             {
                 var specialKeyboard = Keyboard(this, R.xml.special_symbols)
@@ -225,7 +229,15 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
             }
             else ->
             {
-                ic.commitText(primaryCode.toChar().toString(), 1)
+                if (keyCodes.size == 1) {
+                    val emojiString = String(keyCodes, 0, keyCodes.size)
+                    ic.commitText(emojiString,1)
+
+                } else {
+                    ic.commitText(primaryCode.toChar().toString(), 1)
+                }
+
+
             }
         }
     }

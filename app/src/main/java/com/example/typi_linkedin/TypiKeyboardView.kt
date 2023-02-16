@@ -3,12 +3,11 @@ package com.example.typi_linkedin
 import android.app.ActionBar.LayoutParams
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.drawable.Drawable
 import android.inputmethodservice.Keyboard
 import android.inputmethodservice.KeyboardView
 import android.os.IBinder
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
 import android.util.AttributeSet
 import android.util.Log
 import android.view.*
@@ -26,31 +25,116 @@ class TypiKeyboardView(context: Context, attrs: AttributeSet) : KeyboardView(con
     //when u hold letter there will be additional options for that letter, that
     override fun onLongPress(popupKey: Keyboard.Key?): Boolean
     {
-      /*  if (popupKey != null)
-        {
-            println("gori"+popupKey.codes[0])
-            val custom: View = LayoutInflater.from(context)
-                .inflate(R.layout.popup_input_picker, FrameLayout(context))
-            var vie=custom.findViewById<TextView>(R.id.textView3)
+        var keyCode= popupKey?.codes?.get(0)
+        var label=popupKey?.label
 
-            val popup = PopupWindow(context)
-            popup.contentView = custom
-            if(popup.isShowing()){
-                popup.update(200, 200, 30, 30);
-            } else {
-                popup.setWidth(100);
-                popup.setHeight(100);
-                popup.showAtLocation(this, Gravity.NO_GRAVITY, 100, 100);
+
+
+
+        Log.v("POPUP KEY je ", popupKey.toString()+" a label "+keyCode)
+        if (isPopupKey(label as String)) {
+            if (popupKey != null) {
+                Log.v("POPUP CODE JE ",keyCode.toString())
+                showPopupWindow(keyCode, popupKey.x.toFloat(), popupKey.y.toFloat())
             }
-            vie.setOnClickListener {
-                popup.dismiss()
-            }
-        }*/
-        return super.onLongPress(popupKey)
+        }
+
+
+
+        /*  if (popupKey != null)
+          {
+              println("gori"+popupKey.codes[0])
+              val custom: View = LayoutInflater.from(context)
+                  .inflate(R.layout.popup_input_picker, FrameLayout(context))
+              var vie=custom.findViewById<TextView>(R.id.textView3)
+
+              val popup = PopupWindow(context)
+              popup.contentView = custom
+              if(popup.isShowing()){
+                  popup.update(200, 200, 30, 30);
+              } else {
+                  popup.setWidth(100);
+                  popup.setHeight(100);
+                  popup.showAtLocation(this, Gravity.NO_GRAVITY, 100, 100);
+              }
+              vie.setOnClickListener {
+                  popup.dismiss()
+              }
+          }
+
+         */
+          return super.onLongPress(popupKey)
+
+
     }
 
 
- fun returnInput(token: IBinder)
+    // Override the onLongPress method to handle long-press events for keys with popup characters
+
+
+    // Check if the specified key code is a popup key
+    private fun isPopupKey(label:String): Boolean {
+        return label=="c" || label=="s" || label=="d"
+    }
+
+    private fun getPopupCharactersForKey(code:Int):ArrayList<String>{
+        if (code==99) return arrayListOf("č","ć")
+        if (code==100) return arrayListOf("đ","dž")
+        return if (code==115) arrayListOf("š")
+        else arrayListOf()
+    }
+    // Show the popup window for the specified key
+   private fun showPopupWindow(label: Int?, x: Float, y: Float) {
+        val popupCharacters = label?.let { getPopupCharactersForKey(it) }
+        Log.v("POPUP CHARACTERS ",popupCharacters.toString())
+        val popupView = popupCharacters?.let { createPopupView(it) }
+        val popupWindow = PopupWindow(popupView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
+        popupWindow.showAtLocation(this, Gravity.NO_GRAVITY, x.toInt(), y.toInt())
+    }
+
+    // Create a custom view for the popup window
+    private fun createPopupView(popupCharacters: ArrayList<String>): View {
+        val context = context
+        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val popupView = inflater.inflate(R.layout.popup_layout, null)
+        val popupText = popupView.findViewById<TextView>(R.id.popup_text)
+
+        val popupTextBuilder = SpannableStringBuilder()
+
+        for (i in popupCharacters) {
+            val popup = PopupWindow(context)
+            // ovo ne moze ovako nego mora nekako jedno po jedno i onClick metoda
+
+            val popupCharWithSeparator = "$i"
+            popupTextBuilder.append(popupCharWithSeparator)
+
+
+        }
+
+       popupText.setText(popupTextBuilder, TextView.BufferType.SPANNABLE)
+        return popupView
+    }
+
+
+    // Dismiss the popup window
+    private fun dismissPopupWindow() {
+        // If the popup window is currently displayed, dismiss it
+    }
+
+    // In the onTouchEvent method, handle the MotionEvent.ACTION_UP and MotionEvent.ACTION_CANCEL events
+// If the user releases the key without selecting a popup character, dismiss the popup window:
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        when (event.action) {
+            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                dismissPopupWindow()
+            }
+        }
+        return super.onTouchEvent(event)
+    }
+
+
+
+    fun returnInput(token: IBinder)
 {
     var tk= FrameLayout(context)
     tk.layoutParams= ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT)
