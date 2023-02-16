@@ -17,6 +17,7 @@ import android.widget.*
 class ViewMaker
 {
     companion object{
+        var paste= mutableListOf<String>()
         enum class Category {
             SMILY, FOOD, CARS, NATURE
         }
@@ -413,11 +414,15 @@ class ViewMaker
                 linearLayout.removeAllViews()
                 linearLayout.addView(k)
             }*/
-            for(i in 0 until (clipboard.primaryClip?.itemCount ?: -1))
+            if(clipboard.primaryClip?.getItemAt(0)?.text ?: ""!="")
+            paste.add(clipboard.primaryClip?.getItemAt(0)?.text.toString() ?: "")
+            if(paste.size>5)
+                paste.removeAt(0)
+            for(i in 0 until paste.size)
             {
                 println("lafjalga")
                 var t=TextView(context)
-                t.setText(clipboard.primaryClip?.getItemAt(i)?.text ?: "")
+                t.setText(paste[i])
                 t.setOnClickListener { 
                     ic.commitText(t.text.toString(),t.text.length)
                 }
