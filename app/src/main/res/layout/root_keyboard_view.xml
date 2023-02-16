@@ -4,8 +4,8 @@
     android:id="@+id/keyboardRoot"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="2dp"
-    android:paddingBottom="10px"
+    android:paddingTop="4dp"
+    android:paddingBottom="4dp"
     android:background="@color/dark_gray"
     android:orientation="vertical">
 
@@ -15,6 +15,7 @@
     android:id="@+id/optionScroll"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:scrollbars="none"
    >
     <LinearLayout
         android:layout_width="match_parent"
@@ -89,6 +90,7 @@
 </LinearLayout>
 </HorizontalScrollView>
     <HorizontalScrollView
+        android:scrollbars="none"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout

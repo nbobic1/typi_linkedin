@@ -78,6 +78,12 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
     override fun onKey(primaryCode: Int, keyCodes: IntArray)
     {
         val ic = currentInputConnection ?: return
+
+        if (primaryCode == resources.getInteger(R.integer.space)) {
+            keyboardView.setPreviewEnabled(false);
+        } else {
+            keyboardView.setPreviewEnabled(true);
+        }
         when (primaryCode)
         {
             Keyboard.KEYCODE_DELETE ->
