@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:keyBackground="@drawable/key_bg"
         android:keyTextColor="@color/white"
+        android:popupLayout="@layout/popup_kb_layout"
         android:keyPreviewLayout="@layout/key_preview">
 
     </com.example.typi_linkedin.TypiKeyboardView>
@@ -43,6 +44,17 @@
             ></Button>
     </LinearLayout>
 
+    <com.example.typi_linkedin.TypiKeyboardView
+        android:id="@+id/keyboard_view"
+        android:background="@color/dark_gray"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:keyBackground="@drawable/key_bg"
+        android:keyTextColor="@color/white"
+        android:keyPreviewLayout="@layout/key_preview">
+
+    </com.example.typi_linkedin.TypiKeyboardView>
+
     <ScrollView
         android:id="@+id/topHScrollView"
         android:layout_width="match_parent"
@@ -57,16 +69,6 @@
                     android:orientation="vertical"
                     android:id="@+id/emm"
                     >
-                    <com.example.typi_linkedin.TypiKeyboardView
-                        android:id="@+id/keyboard_view"
-                        android:background="@color/dark_gray"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:keyBackground="@drawable/key_bg"
-                        android:keyTextColor="@color/white"
-                        android:keyPreviewLayout="@layout/key_preview">
-
-                    </com.example.typi_linkedin.TypiKeyboardView>
 
                 <LinearLayout
                     android:orientation="vertical"

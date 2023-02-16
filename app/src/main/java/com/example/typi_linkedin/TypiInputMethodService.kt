@@ -8,10 +8,13 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.TextUtils
 import android.text.style.ImageSpan
+import android.view.KeyEvent
 import android.view.View
+import android.view.ViewConfiguration
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.LinearLayout
+import android.widget.ScrollView
 import androidx.core.content.ContextCompat
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -38,13 +41,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
         keyboard = Keyboard(this, R.xml.options)
         keyboardViewOptions.keyboard = keyboard
         keyboardViewOptions.setOnKeyboardActionListener(this)
-
-        var linearLayoutEmoji=keyboardRoot.findViewById<LinearLayout>(R.id.emoji)
-        linearLayoutEmoji.visibility=View.GONE
-        var linearLayoutEmojiCategory=keyboardRoot.findViewById<LinearLayout>(R.id.emoij_categoires)
-        linearLayoutEmojiCategory.visibility=View.GONE
-        var linearLayout=keyboardRoot.findViewById<LinearLayout>(R.id.clipboard)
-        linearLayout.visibility=View.GONE
+        ViewMaker.allViewSetup()
         return keyboardRoot
     }
 
@@ -119,13 +116,18 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
             {
                 // val keyboard = Keyboard(this, R.xml.keyboard_layout2)
                 //  keyboardView.keyboard = keyboard
-                val imeManager: InputMethodManager =
+            /*    val imeManager: InputMethodManager =
                     applicationContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
                 imeManager.showInputMethodPicker()
+                */
+                ViewMaker.clipBoard(keyboardRoot,context,ic)
             }
+
             //funkcija za rephrase dok ona ne proradi bolje
             -408 ->
             {
+                    ViewMaker.returnInput(context,keyboardRoot,::onKey)
+                /*
                 var selectedText = ic.getSelectedText(0);
                 if (selectedText == null)
                 {
@@ -146,6 +148,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                         ic.commitText(result, result.length)
                     }
                 }
+                */
 
             }
             resources.getInteger(R.integer.gpt)->
