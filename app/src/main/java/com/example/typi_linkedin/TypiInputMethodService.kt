@@ -35,7 +35,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
        var  keyboardViewOptions = keyboardRoot.findViewById(R.id.keyboard_view_options) as TypiKeyboardView
         //keyboardView = layoutInflater.inflate(R.layout.keyboard_view, null) as ba.etf.us.typi.KeyboardView
         // get the KeyboardView and add our Keyboard layout to it
-        var keyboard: Keyboard = Keyboard(this, R.xml.emojis)
+        var keyboard: Keyboard = Keyboard(this, R.xml.google)
         keyboardView.keyboard = keyboard
         keyboardView.setOnKeyboardActionListener(this)
         keyboardView.isPreviewEnabled=false
@@ -52,7 +52,9 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
     {
         super.onStartInputView(info, restarting)
         //different keyboard_layout
+       /* we dont have this functionality yet
         var highScore = Pref_Clean.getIntPref(context, "moj")
+
         if (highScore == 1)
         {
             val keyboard = Keyboard(this, R.xml.google)
@@ -61,7 +63,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
         {
             val keyboard = Keyboard(this, R.xml.google)
             keyboardView.keyboard = keyboard
-        }
+        }  */
     }
 
 

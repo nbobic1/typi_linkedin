@@ -25,9 +25,6 @@ class TypiKeyboardView(context: Context, attrs: AttributeSet) : KeyboardView(con
     //when u hold letter there will be additional options for that letter, that
     override fun onLongPress(popupKey: Keyboard.Key?): Boolean
     {
-
-
-
         /*  if (popupKey != null)
           {
               println("gori"+popupKey.codes[0])
@@ -51,8 +48,6 @@ class TypiKeyboardView(context: Context, attrs: AttributeSet) : KeyboardView(con
 
          */
           return super.onLongPress(popupKey)
-
-
     }
 
 
