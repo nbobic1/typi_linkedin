@@ -465,7 +465,7 @@ class ViewMaker
             linearLayout.visibility=View.GONE
         }
 
-        fun returnInput(context:Context, root:View,onKey: (primaryCode: Int, keyCodes: IntArray) -> Unit )
+        fun popupInput(context:Context, root:View,onKey: (primaryCode: Int, keyCodes: IntArray) -> Unit ,options:Array<String>,ic:InputConnection,keyCodes: IntArray,order:String)
         {
             var tk= FrameLayout(context)
             tk.layoutParams= ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -473,29 +473,19 @@ class ViewMaker
                 .inflate(R.layout.popup,tk)
             var vie=custom.findViewById<TextView>(R.id.textView3)
             var lista=custom.findViewById<LinearLayout>(R.id.ll)
-            var tt = TextView(context)
-            tt.setText("sad")
-            tt.textSize= 20.0F
-            tt.setOnClickListener {
-
-            }
-            lista.addView(tt)
-            var tt1 = TextView(context)
-            tt1.setText("funny")
-            tt1.textSize= 20.0F
-            tt1.setOnClickListener {
-
-            }
-            lista.addView(tt1)
-            var tt2 = TextView(context)
-            tt2.setText("proffesional")
-            tt2.textSize= 20.0F
-            tt2.setOnClickListener {
-
-            }
-            lista.addView(tt2)
-
             val popup = PopupWindow(context)
+            for(i in options)
+            {
+                var tt = TextView(context)
+                tt.setText(i)
+                tt.textSize= 40.0F
+                tt.setOnClickListener {
+                    TypiInputMethodService.callGptForInput(keyCodes,ic,order+" "+i)
+                    popup.dismiss()
+                }
+                lista.addView(tt)
+            }
+
             popup.contentView = custom
             popup.isOutsideTouchable=true
             if(popup.isShowing()){
@@ -505,9 +495,11 @@ class ViewMaker
                 popup.setHeight(ActionBar.LayoutParams.WRAP_CONTENT)
                 popup.showAtLocation(root, Gravity.CENTER, 0, 0)
             }
+            vie.setText(order)
+            /*
             vie.setOnClickListener {
                 popup.dismiss()
-            }
+            }*/
         }
     }
 }
