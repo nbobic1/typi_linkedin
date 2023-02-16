@@ -27,6 +27,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
     lateinit var keyboardRoot: LinearLayout
     var context: Context = this
     var container: String = ""//spremam sto je uslo u gpt kako bi mogao vratiti
+    lateinit var llSmily:View
     override fun onCreateInputView(): View
     {
          keyboardRoot = layoutInflater.inflate(R.layout.root_keyboard_view, null) as LinearLayout
@@ -37,11 +38,12 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
         var keyboard: Keyboard = Keyboard(this, R.xml.emojis)
         keyboardView.keyboard = keyboard
         keyboardView.setOnKeyboardActionListener(this)
-
+        keyboardView.isPreviewEnabled=false
         keyboard = Keyboard(this, R.xml.options)
         keyboardViewOptions.keyboard = keyboard
         keyboardViewOptions.setOnKeyboardActionListener(this)
-        ViewMaker.allViewSetup()
+        ViewMaker.allViewSetup(keyboardRoot,context,::onKey)
+        llSmily=ViewMaker.categorySetup(keyboardRoot,context,::onKey)
         return keyboardRoot
     }
 
@@ -201,7 +203,8 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
             }
             -3 ->
             {
-                 ViewMaker.emoji(keyboardRoot,context,::onKey,ViewMaker.Companion.Category.SMILEY)
+
+                 ViewMaker.emoji(keyboardRoot,context,::onKey,llSmily)
             }
             -6 ->
             {

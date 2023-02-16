@@ -25,19 +25,6 @@ class TypiKeyboardView(context: Context, attrs: AttributeSet) : KeyboardView(con
     //when u hold letter there will be additional options for that letter, that
     override fun onLongPress(popupKey: Keyboard.Key?): Boolean
     {
-        var keyCode= popupKey?.codes?.get(0)
-        var label=popupKey?.label
-
-
-
-
-        Log.v("POPUP KEY je ", popupKey.toString()+" a label "+keyCode)
-        if (isPopupKey(label as String)) {
-            if (popupKey != null) {
-                Log.v("POPUP CODE JE ",keyCode.toString())
-                showPopupWindow(keyCode, popupKey.x.toFloat(), popupKey.y.toFloat())
-            }
-        }
 
 
 
@@ -212,8 +199,5 @@ class TypiKeyboardView(context: Context, attrs: AttributeSet) : KeyboardView(con
         }
 
        */
-
-
-
     }
 }

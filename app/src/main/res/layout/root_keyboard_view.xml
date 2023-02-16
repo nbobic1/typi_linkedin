@@ -4,6 +4,7 @@
     android:id="@+id/keyboardRoot"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/green"
     android:orientation="vertical">
     <com.example.typi_linkedin.TypiKeyboardView
         android:layout_marginBottom="10px"
@@ -13,8 +14,8 @@
         android:layout_height="wrap_content"
         android:keyBackground="@drawable/key_bg"
         android:keyTextColor="@color/white"
-        android:popupLayout="@layout/popup_kb_layout"
-        android:keyPreviewLayout="@layout/key_preview">
+         android:popupLayout="@layout/popup_kb_layout"
+       android:keyPreviewLayout="@layout/key_preview">
 
     </com.example.typi_linkedin.TypiKeyboardView>
     <LinearLayout
@@ -30,17 +31,32 @@
         <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="smajli"
+                android:text="Smily"
+            android:id="@+id/smily"
                 ></Button>
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="food"
+                android:text="Food"
+                android:id="@+id/food"
                 ></Button>
             <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="neso"
+            android:text="Animals"
+            android:id="@+id/animals"
+                ></Button>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sport"
+            android:id="@+id/sport"
+            ></Button>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Symbols"
+            android:id="@+id/symbols"
             ></Button>
     </LinearLayout>
 
@@ -67,7 +83,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:id="@+id/emm"
+                    android:id="@+id/emm1"
                     >
 
                 <LinearLayout
