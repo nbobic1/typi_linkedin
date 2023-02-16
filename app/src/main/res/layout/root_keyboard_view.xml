@@ -4,68 +4,13 @@
     android:id="@+id/keyboardRoot"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingTop="2dp"
+    android:paddingBottom="10px"
     android:background="@color/dark_gray"
     android:orientation="vertical">
 
 
-   <HorizontalScrollView
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content">
-       <LinearLayout
-        android:id="@+id/emoij_categoires"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ABC"
-            android:id="@+id/type"
-            ></Button>
-        <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Smileys 😄"
-            android:id="@+id/smily"
-                ></Button>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Food 🍰"
-                android:id="@+id/food"
-                ></Button>
-            <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Animals 🦄"
-            android:id="@+id/animals"
-                ></Button>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sport ⚽"
-            android:id="@+id/sport"
-            ></Button>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Symbols ❤"
-            android:id="@+id/symbols"
-            ></Button>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Objects ⏰"
-            android:id="@+id/objects"
-            ></Button>
-           <Button
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:text="Urban 🏦"
-               android:id="@+id/urban"
-               ></Button>
-    </LinearLayout>
 
-   </HorizontalScrollView>
 <HorizontalScrollView
     android:id="@+id/optionScroll"
     android:layout_width="match_parent"
@@ -80,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10px"
             android:text="Change keyboard"
-            android:textColor="@color/dark_gray"
+            android:textColor="@color/white"
             android:background="@drawable/key_bg"
             android:id="@+id/changeKb"
             ></Button>
@@ -89,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10px"
             android:text="Clip"
-            android:textColor="@color/dark_gray"
+            android:textColor="@color/white"
             android:background="@drawable/key_bg"
             android:id="@+id/clip"
             ></Button>
@@ -100,7 +45,7 @@
             android:layout_marginStart="10px"
             android:background="@drawable/key_bg"
             android:text="Summarize"
-            android:textColor="@color/dark_gray"
+            android:textColor="@color/white"
             android:id="@+id/summerize"
             ></Button>
         <Button
@@ -109,7 +54,7 @@
             android:layout_marginStart="10px"
             android:layout_height="wrap_content"
             android:text="Reverse"
-            android:textColor="@color/dark_gray"
+            android:textColor="@color/white"
             android:id="@+id/reverse"
             ></Button>
         <Button
@@ -118,7 +63,7 @@
             android:layout_marginStart="10px"
             android:background="@drawable/key_bg"
             android:text="Translate"
-            android:textColor="@color/dark_gray"
+            android:textColor="@color/white"
             android:id="@+id/translate"
             ></Button>
         <Button
@@ -127,7 +72,7 @@
             android:layout_marginStart="10px"
             android:background="@drawable/key_bg"
             android:text="Rephrase"
-            android:textColor="@color/dark_gray"
+            android:textColor="@color/white"
             android:id="@+id/rephrase"
             ></Button>
         <Button
@@ -136,19 +81,100 @@
             android:layout_marginStart="10px"
             android:background="@drawable/key_bg"
             android:text="Answer"
-            android:textColor="@color/dark_gray"
+            android:textColor="@color/white"
             android:id="@+id/answer"
             ></Button>
 
 
 </LinearLayout>
 </HorizontalScrollView>
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/emoij_categoires"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_height="wrap_content"
+                android:text="ABC"
+                android:background="@drawable/key_bg"
+                android:textColor="@color/white"
+                android:id="@+id/type"
+                ></Button>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/key_bg"
+                android:layout_marginStart="5dp"
+                android:textColor="@color/white"
+                android:text="Smileys 😄"
+                android:id="@+id/smily"
+                ></Button>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Food 🍰"
+                android:background="@drawable/key_bg"
+                android:textColor="@color/white"
+                android:id="@+id/food"
+                android:layout_marginStart="5dp"
+                ></Button>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Animals 🦄"
+                android:background="@drawable/key_bg"
+                android:textColor="@color/white"
+                android:layout_marginStart="5dp"
+                android:id="@+id/animals"
+                ></Button>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sport ⚽"
+                android:id="@+id/sport"
+                android:background="@drawable/key_bg"
+                android:textColor="@color/white"
+                android:layout_marginStart="5dp"
+                ></Button>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_height="wrap_content"
+                android:text="Symbols ❤"
+                android:background="@drawable/key_bg"
+                android:textColor="@color/white"
+                android:id="@+id/symbols"
+                ></Button>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Objects ⏰"
+                android:background="@drawable/key_bg"
+                android:textColor="@color/white"
+                android:layout_marginStart="5dp"
+                android:id="@+id/objects"
+                ></Button>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Urban 🏦"
+                android:background="@drawable/key_bg"
+                android:textColor="@color/white"
+                android:layout_marginStart="5dp"
+                android:id="@+id/urban"
+                ></Button>
+        </LinearLayout>
 
+    </HorizontalScrollView>
     <ScrollView
         android:id="@+id/topHScrollView"
         android:layout_width="match_parent"
         android:layout_height="700px"
-        android:backgroundTint="@color/dark_gray"
+        android:backgroundTint="@color/white"
         android:layout_alignParentTop="true">
 
 
@@ -175,7 +201,6 @@
     </ScrollView>
 
     <com.example.typi_linkedin.TypiKeyboardView
-        android:layout_marginBottom="10px"
         android:id="@+id/keyboard_view"
         android:background="@color/dark_gray"
         android:layout_width="match_parent"
@@ -184,6 +209,5 @@
         android:keyTextColor="@color/white"
         android:popupLayout="@layout/popup_kb_layout"
         android:keyPreviewLayout="@layout/key_preview">
-
     </com.example.typi_linkedin.TypiKeyboardView>
-</LinearLayout>
+</LinearLayout >

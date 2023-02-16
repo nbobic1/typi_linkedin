@@ -8,6 +8,6 @@
     <dimen name="vertical_gap">0.5%</dimen>
     <dimen name="small_horizontal_gap">0.4%</dimen>
     <dimen name="key_height">44dip</dimen>
-    <dimen name="key_heightx4">176dip</dimen>
+    <dimen name="key_heightx4">200dip</dimen>
     <dimen name="long_key_width">24%p</dimen>
 </resources>

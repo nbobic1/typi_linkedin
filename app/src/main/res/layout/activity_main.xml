@@ -17,13 +17,14 @@
         app:srcCompat="@drawable/robot_gray2" />
 
     <Button
-android:id="@+id/enableKbBtn"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:text="@string/enableKbBtn"
-app:layout_constraintBottom_toTopOf="@+id/button3"
-app:layout_constraintEnd_toEndOf="parent"
-app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/enableKbBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/enableKbBtn"
+        app:layout_constraintBottom_toTopOf="@+id/button3"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/dark_gray"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/defaultKbBtn"
@@ -32,17 +33,18 @@ app:layout_constraintTop_toTopOf="parent" />
         android:text="@string/defaultKbBtn"
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/dark_gray"
 
         app:layout_constraintTop_toTopOf="parent" />
-<TextView
-android:id="@+id/textView2"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:text="@string/testLable"
-app:layout_constraintBottom_toTopOf="@+id/input"
-app:layout_constraintEnd_toEndOf="parent"
-app:layout_constraintStart_toStartOf="parent"
-app:layout_constraintTop_toBottomOf="@+id/button2" />
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/testLable"
+        app:layout_constraintBottom_toTopOf="@+id/input"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button2" />
 
     <TextView
         android:id="@+id/textView3"

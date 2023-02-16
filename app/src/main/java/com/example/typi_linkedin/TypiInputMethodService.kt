@@ -41,7 +41,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
         var keyboard: Keyboard = Keyboard(this, R.xml.bosanska_google)
         keyboardView.keyboard = keyboard
         keyboardView.setOnKeyboardActionListener(this)
-        keyboardView.isPreviewEnabled=false
+        //keyboardView.isPreviewEnabled=false
        /*
         keyboard = Keyboard(this, R.xml.options)
         keyboardViewOptions.keyboard = keyboard
