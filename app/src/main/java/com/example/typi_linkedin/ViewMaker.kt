@@ -319,7 +319,7 @@ class ViewMaker
                     var too = TextView(context)
                     val charArray = Character.toChars(listaSmily[j])
                     val surrogatePair = String(charArray)
-                    too.setText(surrogatePair)
+                    too.text = surrogatePair
                     val params =
                         LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 0.1f)
                     too.layoutParams = params

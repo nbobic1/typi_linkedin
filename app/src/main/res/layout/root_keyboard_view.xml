@@ -4,7 +4,7 @@
     android:id="@+id/keyboardRoot"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/green"
+    android:background="@color/dark_gray"
     android:orientation="vertical">
     <com.example.typi_linkedin.TypiKeyboardView
         android:layout_marginBottom="10px"
@@ -28,49 +28,49 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Kb again"
+            android:text="ABC"
             android:id="@+id/type"
             ></Button>
         <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Smily"
+                android:text="Smileys 😄"
             android:id="@+id/smily"
                 ></Button>
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Food"
+                android:text="Food 🍰"
                 android:id="@+id/food"
                 ></Button>
             <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Animals"
+            android:text="Animals 🦄"
             android:id="@+id/animals"
                 ></Button>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sport"
+            android:text="Sport ⚽"
             android:id="@+id/sport"
             ></Button>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Symbols"
+            android:text="Symbols ❤"
             android:id="@+id/symbols"
             ></Button>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Objects"
+            android:text="Objects ⏰"
             android:id="@+id/objects"
             ></Button>
            <Button
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:text="Urban"
+               android:text="Urban 🏦"
                android:id="@+id/urban"
                ></Button>
     </LinearLayout>
@@ -92,14 +92,14 @@
         android:id="@+id/topHScrollView"
         android:layout_width="match_parent"
         android:layout_height="700px"
-        android:backgroundTint="@color/green"
+        android:backgroundTint="@color/dark_gray"
         android:layout_alignParentTop="true">
 
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:id="@+id/emm1"
                     >
 

@@ -21,8 +21,8 @@
     <Row>
         <Key android:codes="97" android:keyLabel="a" android:horizontalGap="6%p"
             android:keyEdgeFlags="left"/>
-        <Key android:codes="115" android:keyLabel="sl"  android:popupKeyboard="@xml/keyboard_popup_letters" android:popupCharacters="šktl"/>
-        <Key android:codes="100" android:keyLabel="d"  android:popupKeyboard="@xml/keyboard_popup_template" android:popupCharacters="đ,dž"/>
+        <Key android:codes="115" android:keyLabel="s"  android:popupKeyboard="@xml/keyboard_popup_letters" android:popupCharacters="š"/>
+        <Key android:codes="100" android:keyLabel="d"  android:popupKeyboard="@xml/keyboard_popup_template" android:popupCharacters="đ"/>
         <Key android:codes="102" android:keyLabel="f" />
         <Key android:codes="103" android:keyLabel="g"/>
         <Key android:codes="104" android:keyLabel="h"/>
@@ -37,7 +37,7 @@
             android:isSticky="true" android:keyEdgeFlags="left"/>
         <Key android:codes="122" android:keyLabel="y"/>
         <Key android:codes="120" android:keyLabel="x"/>
-        <Key android:codes="99" android:keyLabel="c" android:popupKeyboard="@xml/popup_template" android:popupCharacters="g,h"/>
+        <Key android:codes="99" android:keyLabel="c" android:popupKeyboard="@xml/keyboard_popup_template" android:popupCharacters="čć"/>
         <Key android:codes="118" android:keyLabel="v"/>
         <Key android:codes="98" android:keyLabel="b"/>
         <Key android:codes="110" android:keyLabel="n"/>

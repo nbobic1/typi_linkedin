@@ -39,7 +39,7 @@
     </Row>
 
     <Row>
-        <Key android:codes="-10" android:keyLabel="&#160;&#61;&#92;&#60;&#160;"
+        <Key android:codes="-10" android:keyLabel="&#33; &#63; &#61;"
             android:keyEdgeFlags="left"
             android:keyWidth="55dp"/>
         <Key android:codes="42" android:keyLabel="&#42;"/>

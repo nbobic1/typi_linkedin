@@ -35,6 +35,17 @@ app:layout_constraintEnd_toEndOf="parent"
 app:layout_constraintStart_toStartOf="parent"
 app:layout_constraintTop_toBottomOf="@+id/button2" />
 
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:autoLink="web"
+        app:layout_constraintBottom_toTopOf="@+id/input"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button2" />
+
     <EditText
         android:id="@+id/input"
         android:layout_width="298dp"

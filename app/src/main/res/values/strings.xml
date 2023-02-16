@@ -6,4 +6,5 @@
     <!-- Unicode for special character that will be used to separate text from manipulation instruction  -->
     <string name="gptChar">"\uDB40\uDD34"</string>
     <string name="testLable">Step 3: Let\'s try out the app\'s functionality :)</string>
+    <string name="hyperlink">https://docs.google.com/forms/d/e/1FAIpQLSfzpb9HiQ9kufdFIPeDRA5-Gs40KDloEcgIH5rjlvPRRN8rxA/viewform</string>
 </resources>
