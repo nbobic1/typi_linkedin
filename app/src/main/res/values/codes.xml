@@ -15,7 +15,7 @@
     <integer name="space">32</integer>
 
     <!-- code for button that shows input methode picker-->
-    <integer name="lan">-405</integer>
+    <integer name="clip">-405</integer>
     <integer name="lanCustom">-406</integer>
     <!-- code for button that replace gpt output with input(go back btn)-->
     <integer name="gptBack">-407</integer>

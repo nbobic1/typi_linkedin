@@ -41,6 +41,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
         keyboardView.isPreviewEnabled=false
         keyboard = Keyboard(this, R.xml.options)
         keyboardViewOptions.keyboard = keyboard
+        keyboardViewOptions.isPreviewEnabled=false
         keyboardViewOptions.setOnKeyboardActionListener(this)
         ViewMaker.allViewSetup(keyboardRoot,context,::onKey)
         llSmily=ViewMaker.categorySetup(keyboardRoot,context,::onKey)
@@ -114,7 +115,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                 GptApi_Clean.paste("Old text", ic.getSelectedText(0).toString(), context)
                 ic.commitText(container, container.length)
             }
-            resources.getInteger(R.integer.lan) ->
+            resources.getInteger(R.integer.clip) ->
             {
                 // val keyboard = Keyboard(this, R.xml.keyboard_layout2)
                 //  keyboardView.keyboard = keyboard
