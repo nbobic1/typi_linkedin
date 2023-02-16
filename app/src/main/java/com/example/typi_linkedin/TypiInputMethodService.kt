@@ -28,11 +28,11 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
     lateinit var keyboardView: TypiKeyboardView
 
     lateinit var keyboardRoot: LinearLayout
-    var context: Context = this
-    var container: String = ""//spremam sto je uslo u gpt kako bi mogao vratiti
+
     lateinit var llSmily:View
     override fun onCreateInputView(): View
     {
+        context=this
          keyboardRoot = layoutInflater.inflate(R.layout.root_keyboard_view, null) as LinearLayout
         keyboardView = keyboardRoot.findViewById(R.id.keyboard_view) as TypiKeyboardView
        //var  keyboardViewOptions = keyboardRoot.findViewById(R.id.keyboard_view_options) as TypiKeyboardView
@@ -139,7 +139,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
             //funkcija za rephrase dok ona ne proradi bolje
             resources.getInteger(R.integer.rephrase) ->
             {
-                    ViewMaker.returnInput(context,keyboardRoot,::onKey)
+                    ViewMaker.popupInput(context,keyboardRoot,::onKey, arrayOf<String>("funny","professional", "classy"), ic,keyCodes,"Rephrase this text so it sounds")
                 /*
                 var selectedText = ic.getSelectedText(0);
                 if (selectedText == null)
@@ -154,7 +154,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                     container = selectedText.toString()
                     GptApi_Clean.paste("Old text", selectedText.toString(), this);
                     GlobalScope.launch {
-                        var result = GptApi_Clean.rephrase2(selectedText.toString(), context);
+                        var result = GptApi_Clean.rase2(selectedText.toString(), context);
                         ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
                             ?.let { ic.setSelection(it.length - 7, it.length) }
 
@@ -224,7 +224,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
             }
             resources.getInteger(R.integer.translate)->
             {
-                callGptForInput(keyCodes,ic,"Translate this text to german")
+                ViewMaker.popupInput(context,keyboardRoot,::onKey, arrayOf<String>("german","italian", "macedonian"), ic,keyCodes,"Translate this text to")
             }
 
             else ->
@@ -269,38 +269,44 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
     override fun onRelease(p0: Int)
     {
     }
-    fun callGptForInput(keyCodes: IntArray,ic:InputConnection,str3:String="")
+
+    companion object
     {
-        val text = ic.getSelectedText(0)
-        //ako je selectovan
-        if (keyCodes[0] == -1 && text != null)
+        lateinit  var context: Context
+        var container: String = ""//spremam sto je uslo u gpt kako bi mogao vratiti
+        fun callGptForInput(keyCodes: IntArray,ic:InputConnection,str3:String="")
         {
-            ic.commitText("wait...", 7)
-            GptApi_Clean.paste("Old text", text.toString(), context)
-            container = text.toString()
-            GlobalScope.launch {
-                //response je ono sto chatgpt vrati
-                val response = GptApi_Clean.gptRequest(text.toString(), context,str3)
-                ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
-                    ?.let { ic.setSelection(it.length - 7, it.length) }
-                ic.commitText(response, response.length)
-            }
-        } else
-        {
-            ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
-                ?.let { ic.setSelection(0, it.length) }
-            var text = ic.getSelectedText(0);
-            if (text != null)
+            val text = ic.getSelectedText(0)
+            //ako je selectovan
+            if (keyCodes[0] == -1 && text != null)
             {
                 ic.commitText("wait...", 7)
-                container = text.toString()
                 GptApi_Clean.paste("Old text", text.toString(), context)
+                container = text.toString()
                 GlobalScope.launch {
                     //response je ono sto chatgpt vrati
                     val response = GptApi_Clean.gptRequest(text.toString(), context,str3)
                     ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
                         ?.let { ic.setSelection(it.length - 7, it.length) }
                     ic.commitText(response, response.length)
+                }
+            } else
+            {
+                ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
+                    ?.let { ic.setSelection(0, it.length) }
+                var text = ic.getSelectedText(0);
+                if (text != null)
+                {
+                    ic.commitText("wait...", 7)
+                    container = text.toString()
+                    GptApi_Clean.paste("Old text", text.toString(), context)
+                    GlobalScope.launch {
+                        //response je ono sto chatgpt vrati
+                        val response = GptApi_Clean.gptRequest(text.toString(), context,str3)
+                        ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
+                            ?.let { ic.setSelection(it.length - 7, it.length) }
+                        ic.commitText(response, response.length)
+                    }
                 }
             }
         }
