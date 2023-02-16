@@ -21,7 +21,30 @@ class ViewMaker
         enum class Category {
             SMILY, FOOD, CARS, NATURE
         }
+        fun optionsSetup(keyboardRoot: View,context:Context,onKey: (primaryCode: Int, keyCodes: IntArray) -> Unit)
+        {
 
+
+
+            keyboardRoot.findViewById<Button>(R.id.answer).setOnClickListener {
+                onKey(context.resources.getInteger(R.integer.gpt), intArrayOf(-1))
+            }
+            keyboardRoot.findViewById<Button>(R.id.rephrase).setOnClickListener {
+                onKey(context.resources.getInteger(R.integer.rephrase), intArrayOf(-1))
+            }
+            keyboardRoot.findViewById<Button>(R.id.reverse).setOnClickListener {
+                onKey(context.resources.getInteger(R.integer.gptBack), intArrayOf(-1))
+            }
+            keyboardRoot.findViewById<Button>(R.id.clip).setOnClickListener {
+                onKey(context.resources.getInteger(R.integer.clip), intArrayOf(-1))
+            }
+            keyboardRoot.findViewById<Button>(R.id.translate).setOnClickListener {
+                onKey(context.resources.getInteger(R.integer.translate), intArrayOf(-1))
+            }
+            keyboardRoot.findViewById<Button>(R.id.summerize).setOnClickListener {
+                onKey(context.resources.getInteger(R.integer.summerize), intArrayOf(-1))
+            }
+        }
         fun categorySetup(keyboardRoot: View,context:Context,onKey: (primaryCode: Int, keyCodes: IntArray) -> Unit):View
         {
 

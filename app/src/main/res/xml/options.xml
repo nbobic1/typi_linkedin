@@ -8,7 +8,12 @@
     <Row>
         <Key android:codes="@integer/lanCustom" android:keyIcon="@drawable/change_keyboard" android:keyEdgeFlags="left" android:keyWidth="@dimen/long_key_width"/>
         <Key android:codes="-407" android:keyLabel="Reverse &#9664;" android:keyWidth="@dimen/long_key_width"/>
-        <Key android:codes="@integer/clip" android:keyLabel="clip"/>
+        <Key android:codes="@integer/clip" android:keyLabel="clip" android:keyWidth="20%p"/>
+        <Key android:codes="@integer/clip" android:keyLabel="clip" android:keyWidth="20%p"/>
+        <Key android:codes="@integer/clip" android:keyLabel="clip" android:keyWidth="20%p"/>
+        <Key android:codes="@integer/clip" android:keyLabel="clip" android:keyWidth="20%p"/>
+        <Key android:codes="@integer/clip" android:keyLabel="clip" android:keyWidth="20%p"/>
+        <Key android:codes="@integer/clip" android:keyLabel="clip" android:keyWidth="20%p"/>
         <Key android:codes="@integer/rephrase" android:keyLabel="Rephrase &#129488;"  android:keyWidth="@dimen/long_key_width"   android:popupKeyboard="@xml/keyboard_popup_template" />
         <Key android:codes="-400" android:keyLabel="Answer &#128526;" android:keyEdgeFlags="right" android:keyWidth="@dimen/long_key_width"/>
 

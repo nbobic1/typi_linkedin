@@ -73,7 +73,7 @@ class GptApi_Clean
         fun countMatches(string: String, pattern: String): Int {
             return Regex(pattern).findAll(string).count()
         }
-        suspend fun gptRequest(str:String, context:Context):String
+        suspend fun gptRequest(str:String, context:Context,str2:String=""):String
         {
             var k=countMatches(str,context.getString(R.string.gptChar));
             println("k="+k)
@@ -92,7 +92,7 @@ class GptApi_Clean
             }
             else
             {
-             return gptApiCall(str,context)
+             return gptApiCall(str,context,str2)
             }
 
 

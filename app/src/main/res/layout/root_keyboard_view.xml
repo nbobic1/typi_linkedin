@@ -8,18 +8,6 @@
     android:orientation="vertical">
 
 
-    <com.example.typi_linkedin.TypiKeyboardView
-        android:layout_marginBottom="10px"
-        android:id="@+id/keyboard_view_options"
-        android:background="@color/dark_gray"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:keyBackground="@drawable/key_bg"
-        android:keyTextColor="@color/white"
-        android:popupLayout="@layout/popup_kb_layout"
-        android:keyPreviewLayout="@layout/key_preview">
-
-    </com.example.typi_linkedin.TypiKeyboardView>
    <HorizontalScrollView
        android:layout_width="match_parent"
        android:layout_height="wrap_content">
@@ -78,17 +66,70 @@
     </LinearLayout>
 
    </HorizontalScrollView>
-    <com.example.typi_linkedin.TypiKeyboardView
-        android:layout_marginBottom="0px"
-        android:id="@+id/keyboard_view"
-        android:background="@color/dark_gray"
+<HorizontalScrollView
+    android:id="@+id/optionScroll"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+   >
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:keyBackground="@drawable/key_bg"
-        android:keyTextColor="@color/white"
-        android:keyPreviewLayout="@layout/key_preview">
+        android:layout_marginBottom="10px">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10px"
+            android:text="Clip"
+            android:background="@drawable/key_bg"
+            android:id="@+id/clip"
+            ></Button>
 
-    </com.example.typi_linkedin.TypiKeyboardView>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10px"
+            android:background="@drawable/key_bg"
+            android:text="Summerize"
+            android:id="@+id/summerize"
+            ></Button>
+        <Button
+            android:layout_width="wrap_content"
+            android:background="@drawable/key_bg"
+            android:layout_marginStart="10px"
+            android:layout_height="wrap_content"
+            android:text="Reverse"
+            android:id="@+id/reverse"
+            ></Button>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10px"
+            android:background="@drawable/key_bg"
+            android:text="Translate"
+            android:id="@+id/translate"
+            ></Button>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10px"
+            android:background="@drawable/key_bg"
+            android:text="Rephrase"
+            android:id="@+id/rephrase"
+            ></Button>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10px"
+            android:background="@drawable/key_bg"
+            android:text="Answer"
+            android:textColor="@color/white"
+            android:id="@+id/answer"
+            ></Button>
+
+
+</LinearLayout>
+</HorizontalScrollView>
+
     <ScrollView
         android:id="@+id/topHScrollView"
         android:layout_width="match_parent"
@@ -118,4 +159,17 @@
                 </LinearLayout>
                 </LinearLayout>
     </ScrollView>
+
+    <com.example.typi_linkedin.TypiKeyboardView
+        android:layout_marginBottom="10px"
+        android:id="@+id/keyboard_view"
+        android:background="@color/dark_gray"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:keyBackground="@drawable/key_bg"
+        android:keyTextColor="@color/white"
+        android:popupLayout="@layout/popup_kb_layout"
+        android:keyPreviewLayout="@layout/key_preview">
+
+    </com.example.typi_linkedin.TypiKeyboardView>
 </LinearLayout>
