@@ -24,71 +24,183 @@ class ViewMaker
         fun categorySetup(keyboardRoot: View,context:Context,onKey: (primaryCode: Int, keyCodes: IntArray) -> Unit):View
         {
 
-            var listaZivotinje1="\uD83D\uDC36\uD83D\uDC31\uD83D\uDC2D\uD83D\uDC39\uD83D\uDC30\uD83E\uDD8A\uD83D\uDC3B\uD83D\uDC3C\uD83D\uDC3B\u200D❄️\uD83D\uDC28\uD83D\uDC2F\uD83E\uDD81\uD83D\uDC2E\uD83D\uDC37\uD83D\uDC3D\uD83D\uDC38\uD83D\uDC35\uD83D\uDE48\uD83D\uDE49\uD83D\uDE4A\uD83D\uDC12\uD83D\uDC14\uD83D\uDC27\uD83D\uDC26\uD83D\uDC24\uD83D\uDC23\uD83D\uDC25\uD83E\uDD86\uD83E\uDD85\uD83E\uDD89\uD83E\uDD87\uD83D\uDC3A\uD83D\uDC17\uD83D\uDC34\uD83E\uDD84\uD83D\uDC1D\uD83E\uDEB1\uD83D\uDC1B\uD83E\uDD8B\uD83D\uDC0C\uD83D\uDC1E\uD83D\uDC1C\uD83E\uDEB0\uD83E\uDEB2\uD83E\uDEB3\uD83E\uDD9F\uD83E\uDD97\uD83D\uDD77️\uD83D\uDD78️\uD83E\uDD82\uD83D\uDC22\uD83D\uDC0D\uD83E\uDD8E\uD83E\uDD96\uD83E\uDD95\uD83D\uDC19\uD83E\uDD91\uD83E\uDD90\uD83E\uDD9E\uD83E\uDD80\uD83D\uDC21\uD83D\uDC20\uD83D\uDC1F\uD83D\uDC2C\uD83D\uDC33\uD83D\uDC0B\uD83E\uDD88\uD83E\uDDAD\uD83D\uDC0A\uD83D\uDC05\uD83D\uDC06\uD83E\uDD93\uD83E\uDD8D\uD83E\uDDA7\uD83E\uDDA3\uD83D\uDC18\uD83E\uDD9B\uD83E\uDD8F\uD83D\uDC2A\uD83D\uDC2B\uD83E\uDD92\uD83E\uDD98\uD83E\uDDAC\uD83D\uDC03\uD83D\uDC02\uD83D\uDC04\uD83D\uDC0E\uD83D\uDC16\uD83D\uDC0F\uD83D\uDC11\uD83E\uDD99\uD83D\uDC10\uD83E\uDD8C\uD83D\uDC15\uD83D\uDC29\uD83E\uDDAE\uD83D\uDC15\u200D\uD83E\uDDBA\uD83D\uDC08\uD83D\uDC08\u200D⬛\uD83E\uDEB6\uD83D\uDC13\uD83E\uDD83\uD83E\uDDA4\uD83E\uDD9A\uD83E\uDD9C\uD83E\uDDA2\uD83E\uDDA9\uD83D\uDD4A️\uD83D\uDC07\uD83E\uDD9D\uD83E\uDDA8\uD83E\uDDA1\uD83E\uDDAB\uD83E\uDDA6\uD83E\uDDA5\uD83D\uDC01\uD83D\uDC00\uD83D\uDC3F️\uD83E\uDD94\uD83D\uDC3E"
-            var listaZivotnje2="\uD83D\uDC09\uD83D\uDC32\uD83C\uDF35\uD83C\uDF84\uD83C\uDF32\uD83C\uDF33\uD83C\uDF34\uD83E\uDEB5\uD83C\uDF31\uD83C\uDF3F☘️\uD83C\uDF40\uD83C\uDF8D\uD83E\uDEB4\uD83C\uDF8B\uD83C\uDF43\uD83C\uDF42\uD83C\uDF41\uD83E\uDEBA\uD83E\uDEB9\uD83C\uDF44\uD83D\uDC1A\uD83E\uDEB8\uD83E\uDEA8\uD83C\uDF3E\uD83D\uDC90\uD83C\uDF37\uD83C\uDF39\uD83E\uDD40\uD83E\uDEB7\uD83C\uDF3A\uD83C\uDF38\uD83C\uDF3C\uD83C\uDF3B\uD83C\uDF1E\uD83C\uDF1D\uD83C\uDF1B\uD83C\uDF1C\uD83C\uDF1A\uD83C\uDF15\uD83C\uDF16\uD83C\uDF17\uD83C\uDF18\uD83C\uDF11\uD83C\uDF12\uD83C\uDF13\uD83C\uDF14\uD83C\uDF19\uD83C\uDF0E\uD83C\uDF0D\uD83C\uDF0F\uD83E\uDE90\uD83D\uDCAB⭐️\uD83C\uDF1F✨⚡️☄️\uD83D\uDCA5\uD83D\uDD25\uD83C\uDF2A️\uD83C\uDF08☀️\uD83C\uDF24️⛅️\uD83C\uDF25️☁️\uD83C\uDF26️\uD83C\uDF27️⛈️\uD83C\uDF29️\uD83C\uDF28️❄️☃️⛄️\uD83C\uDF2C️\uD83D\uDCA8\uD83D\uDCA7\uD83D\uDCA6\uD83E\uDEE7☔️☂️\uD83C\uDF0A\uD83C\uDF2B"
-            var listaZivotinja= listaZivotinje1+ listaZivotnje2;
 
-
-            var listaSport1="⚽️\uD83C\uDFC0\uD83C\uDFC8⚾️\uD83E\uDD4E\uD83C\uDFBE\uD83C\uDFD0\uD83C\uDFC9\uD83E\uDD4F\uD83C\uDFB1\uD83E\uDE80\uD83C\uDFD3\uD83C\uDFF8\uD83C\uDFD2\uD83C\uDFD1\uD83E\uDD4D\uD83C\uDFCF\uD83E\uDE83\uD83E\uDD45⛳️\uD83E\uDE81\uD83D\uDEDD\uD83C\uDFF9\uD83C\uDFA3\uD83E\uDD3F\uD83E\uDD4A\uD83E\uDD4B\uD83C\uDFBD\uD83D\uDEF9\uD83D\uDEFC\uD83D\uDEF7⛸️\uD83E\uDD4C\uD83C\uDFBF⛷️"
-            var listaSportObjekti="\uD83C\uDFC6\uD83E\uDD47\uD83E\uDD48\uD83E\uDD49\uD83C\uDFC5\uD83C\uDF96️\uD83C\uDFF5️\uD83C\uDF97️\uD83C\uDFAB\uD83C\uDF9F️\uD83C\uDFAA\uD83E\uDD39\u200D♀️\uD83E\uDD39\uD83E\uDD39\u200D♂️\uD83C\uDFAD\uD83E\uDE70\uD83C\uDFA8\uD83C\uDFAC\uD83C\uDFA4\uD83C\uDFA7\uD83C\uDFBC\uD83C\uDFB9\uD83E\uDD41\uD83E\uDE98\uD83C\uDFB7\uD83C\uDFBA\uD83E\uDE97\uD83C\uDFB8\uD83E\uDE95\uD83C\uDFBB\uD83C\uDFB2♟️\uD83C\uDFAF\uD83C\uDFB3\uD83C\uDFAE\uD83C\uDFB0\uD83E\uDDE9"
-            var listaSport=listaSport1+  listaSportObjekti
-
-            var prevoznaSredstva="\uD83D\uDE97\uD83D\uDE95\uD83D\uDE99\uD83D\uDE8C\uD83D\uDE8E\uD83C\uDFCE️\uD83D\uDE93\uD83D\uDE91\uD83D\uDE92\uD83D\uDE90\uD83D\uDEFB\uD83D\uDE9A\uD83D\uDE9B\uD83D\uDE9C\uD83E\uDDAF\uD83E\uDDBD\uD83E\uDDBC\uD83E\uDE7C\uD83D\uDEF4\uD83D\uDEB2\uD83D\uDEF5\uD83C\uDFCD️\uD83D\uDEFA\uD83D\uDEDE\uD83D\uDEA8\uD83D\uDE94\uD83D\uDE8D\uD83D\uDE98\uD83D\uDE96\uD83D\uDEA1\uD83D\uDEA0\uD83D\uDE9F\uD83D\uDE83\uD83D\uDE8B\uD83D\uDE9E\uD83D\uDE9D\uD83D\uDE84\uD83D\uDE85\uD83D\uDE88\uD83D\uDE82\uD83D\uDE86\uD83D\uDE87\uD83D\uDE8A\uD83D\uDE89✈️\uD83D\uDEEB\uD83D\uDEEC\uD83D\uDEE9️\uD83D\uDCBA\uD83D\uDEF0️\uD83D\uDE80\uD83D\uDEF8\uD83D\uDE81\uD83D\uDEF6⛵️\uD83D\uDEA4\uD83D\uDEE5️\uD83D\uDEF3️⛴️\uD83D\uDEA2\uD83D\uDEDF⚓️\uD83E\uDE9D⛽️\uD83D\uDEA7\uD83D\uDEA6\uD83D\uDEA5\uD83D\uDE8F\uD83D\uDDFA️\uD83D\uDDFF\uD83D\uDDFD\uD83D\uDDFC\uD83C\uDFF0\uD83C\uDFEF\uD83C\uDFDF️\uD83C\uDFA1\uD83C\uDFA2\uD83C\uDFA0⛲️⛱️\uD83C\uDFD6️\uD83C\uDFDD️\uD83C\uDFDC️\uD83C\uDF0B⛰️\uD83C\uDFD4️\uD83D\uDDFB\uD83C\uDFD5️⛺️\uD83D\uDED6"
-            var zgrade="\uD83C\uDFE0\uD83C\uDFE1\uD83C\uDFD8️\uD83C\uDFDA️\uD83C\uDFD7️\uD83C\uDFED\uD83C\uDFE2\uD83C\uDFEC\uD83C\uDFE3\uD83C\uDFE4\uD83C\uDFE5\uD83C\uDFE6\uD83C\uDFE8\uD83C\uDFEA\uD83C\uDFEB\uD83C\uDFE9\uD83D\uDC92\uD83C\uDFDB️⛪️\uD83D\uDD4C\uD83D\uDD4D\uD83D\uDED5\uD83D\uDD4B⛩️\uD83D\uDEE4️\uD83D\uDEE3️\uD83D\uDDFE\uD83C\uDF91\uD83C\uDFDE️\uD83C\uDF05\uD83C\uDF04\uD83C\uDF20\uD83C\uDF87\uD83C\uDF86\uD83C\uDF07\uD83C\uDF06\uD83C\uDFD9️\uD83C\uDF03\uD83C\uDF0C\uD83C\uDF09\uD83C\uDF01"
-            var listaTurizam= prevoznaSredstva+zgrade;
-
+            var listaHrana1="\uD83C\uDF4F\uD83C\uDF4E\uD83C\uDF50\uD83C\uDF4A\uD83C\uDF4B\uD83C\uDF4C\uD83C\uDF49\uD83C\uDF47\uD83C\uDF53\uD83E\uDED0\uD83C\uDF48\uD83C\uDF52\uD83C\uDF51\uD83E\uDD6D\uD83C\uDF4D\uD83E\uDD65\uD83E\uDD5D\uD83C\uDF45\uD83C\uDF46\uD83E\uDD51\uD83E\uDD66\uD83E\uDD6C\uD83E\uDD52\uD83C\uDF36️\uD83E\uDED1\uD83C\uDF3D\uD83E\uDD55\uD83E\uDED2\uD83E\uDDC4\uD83E\uDDC5\uD83E\uDD54\uD83C\uDF60\uD83E\uDD50\uD83E\uDD6F\uD83C\uDF5E\uD83E\uDD56\uD83E\uDD68\uD83E\uDDC0\uD83E\uDD5A\uD83C\uDF73\uD83E\uDDC8\uD83E\uDD5E\uD83E\uDDC7\uD83E\uDD53\uD83E\uDD69\uD83C\uDF57\uD83C\uDF56\uD83E\uDDB4\uD83C\uDF2D\uD83C\uDF54\uD83C\uDF5F\uD83C\uDF55\uD83E\uDED3\uD83E\uDD6A\uD83E\uDD59\uD83E\uDDC6\uD83C\uDF2E\uD83C\uDF2F\uD83E\uDED4\uD83E\uDD57\uD83E\uDD58\uD83E\uDED5\uD83E\uDD6B\uD83E\uDED9\uD83C\uDF5D\uD83C\uDF5C\uD83C\uDF72\uD83C\uDF5B\uD83C\uDF63\uD83C\uDF71\uD83E\uDD5F\uD83E\uDDAA\uD83C\uDF64\uD83C\uDF59\uD83C\uDF5A\uD83C\uDF58\uD83C\uDF65\uD83E\uDD60\uD83E\uDD6E\uD83C\uDF62\uD83C\uDF61\uD83C\uDF67\uD83C\uDF68\uD83C\uDF66\uD83E\uDD67\uD83E\uDDC1\uD83C\uDF70\uD83C\uDF82\uD83C\uDF6E\uD83C\uDF6D\uD83C\uDF6C\uD83C\uDF6B\uD83C\uDF7F\uD83C\uDF69\uD83C\uDF6A\uD83C\uDF30\uD83E\uDD5C\uD83E\uDED8\uD83C\uDF6F"
+            var listaHrana2="\uD83E\uDD5B\uD83E\uDED7\uD83C\uDF7C\uD83E\uDED6☕️\uD83C\uDF75\uD83E\uDDC3\uD83E\uDD64\uD83E\uDDCB\uD83C\uDF76\uD83C\uDF7A\uD83C\uDF7B\uD83E\uDD42\uD83C\uDF77\uD83E\uDD43\uD83C\uDF78\uD83C\uDF79\uD83E\uDDC9\uD83C\uDF7E\uD83E\uDDCA\uD83E\uDD44\uD83C\uDF74\uD83C\uDF7D️\uD83E\uDD63\uD83E\uDD61\uD83E\uDD62\uD83E\uDDC2"
+            var listaHrana= listaHrana1+ listaHrana2
             var listaPredmeta="⌚️\uD83D\uDCF1\uD83D\uDCF2\uD83D\uDCBB⌨️\uD83D\uDDA5️\uD83D\uDDA8️\uD83D\uDDB1️\uD83D\uDDB2️\uD83D\uDD79️\uD83D\uDDDC️\uD83D\uDCBD\uD83D\uDCBE\uD83D\uDCBF\uD83D\uDCC0\uD83D\uDCFC\uD83D\uDCF7\uD83D\uDCF8\uD83D\uDCF9\uD83C\uDFA5\uD83D\uDCFD️\uD83C\uDF9E️\uD83D\uDCDE☎️\uD83D\uDCDF\uD83D\uDCE0\uD83D\uDCFA\uD83D\uDCFB\uD83C\uDF99️\uD83C\uDF9A️\uD83C\uDF9B️\uD83E\uDDED⏱️⏲️⏰\uD83D\uDD70️⌛️⏳\uD83D\uDCE1\uD83D\uDD0B\uD83E\uDEAB\uD83D\uDD0C\uD83D\uDCA1\uD83D\uDD26\uD83D\uDD6F️\uD83E\uDE94\uD83E\uDDEF\uD83D\uDEE2️\uD83D\uDCB8\uD83D\uDCB5\uD83D\uDCB4\uD83D\uDCB6\uD83D\uDCB7\uD83E\uDE99\uD83D\uDCB0\uD83D\uDCB3\uD83E\uDEAA\uD83D\uDC8E⚖️\uD83E\uDE9C\uD83E\uDDF0\uD83E\uDE9B\uD83D\uDD27\uD83D\uDD28⚒️\uD83D\uDEE0️⛏️\uD83E\uDE9A\uD83D\uDD29⚙️\uD83E\uDEA4\uD83E\uDDF1⛓️\uD83E\uDDF2\uD83D\uDD2B\uD83D\uDCA3\uD83E\uDDE8\uD83E\uDE93\uD83D\uDD2A\uD83D\uDDE1️⚔️\uD83D\uDEE1️\uD83D\uDEAC⚰️\uD83E\uDEA6⚱️\uD83C\uDFFA\uD83D\uDD2E\uD83D\uDCFF\uD83E\uDDFF\uD83E\uDEAC\uD83D\uDC88⚗️\uD83D\uDD2D\uD83D\uDD2C\uD83D\uDD73️\uD83E\uDE7B\uD83E\uDE79\uD83E\uDE7A\uD83D\uDC8A\uD83D\uDC89\uD83E\uDE78\uD83E\uDDEC\uD83E\uDDA0\uD83E\uDDEB\uD83E\uDDEA\uD83C\uDF21️\uD83E\uDDF9\uD83E\uDEA0\uD83E\uDDFA\uD83E\uDDFB\uD83D\uDEBD\uD83D\uDEB0\uD83D\uDEBF\uD83D\uDEC1\uD83E\uDDFC\uD83E\uDEA5\uD83E\uDE92\uD83E\uDDFD\uD83E\uDEA3\uD83E\uDDF4\uD83D\uDECE️\uD83D\uDD11\uD83D\uDDDD️\uD83D\uDEAA\uD83E\uDE91\uD83D\uDECB️\uD83D\uDECF️\uD83D\uDECC\uD83E\uDDF8\uD83E\uDE86\uD83D\uDDBC️\uD83E\uDE9E\uD83E\uDE9F\uD83D\uDECD️\uD83D\uDED2\uD83C\uDF81\uD83C\uDF88\uD83C\uDF8F\uD83C\uDF80\uD83E\uDE84\uD83E\uDE85\uD83C\uDF8A\uD83C\uDF89\uD83C\uDF8E\uD83C\uDFEE\uD83C\uDF90\uD83E\uDEA9\uD83E\uDDE7✉️\uD83D\uDCE9\uD83D\uDCE8\uD83D\uDCE7\uD83D\uDC8C\uD83D\uDCE5\uD83D\uDCE4\uD83D\uDCE6\uD83C\uDFF7️\uD83E\uDEA7\uD83D\uDCEA\uD83D\uDCEB\uD83D\uDCEC\uD83D\uDCED\uD83D\uDCEE\uD83D\uDCEF\uD83D\uDCDC\uD83D\uDCC3\uD83D\uDCC4\uD83D\uDCD1\uD83E\uDDFE\uD83D\uDCCA\uD83D\uDCC8\uD83D\uDCC9\uD83D\uDDD2️\uD83D\uDDD3️\uD83D\uDCC6\uD83D\uDCC5\uD83D\uDDD1️\uD83D\uDCC7\uD83D\uDDC3️\uD83D\uDDF3️\uD83D\uDDC4️\uD83D\uDCCB\uD83D\uDCC1\uD83D\uDCC2\uD83D\uDDC2️\uD83D\uDDDE️\uD83D\uDCF0\uD83D\uDCD3\uD83D\uDCD4\uD83D\uDCD2\uD83D\uDCD5\uD83D\uDCD7\uD83D\uDCD8\uD83D\uDCD9\uD83D\uDCDA\uD83D\uDCD6\uD83D\uDD16\uD83E\uDDF7\uD83D\uDD17\uD83D\uDCCE\uD83D\uDD87️\uD83D\uDCD0\uD83D\uDCCF\uD83E\uDDEE\uD83D\uDCCC\uD83D\uDCCD✂️\uD83D\uDD8A️\uD83D\uDD8B️✒️\uD83D\uDD8C️\uD83D\uDD8D️\uD83D\uDCDD✏️\uD83D\uDD0D\uD83D\uDD0E\uD83D\uDD0F\uD83D\uDD10\uD83D\uDD12\uD83D\uDD13"
             var listaPredmeta2 = "⌚️,📱,💻,📚,⌨️,🚥,🚦,🛋️,🛌,📝,📒,📓,📔,📼,📷,📸,📹,🎥,🎞️,📺,🥇,📭,📮,🗣️,📯,🎙️,🎚️,🎛️,📻,🎧,🎤,🎬,🎭,🎨,🎻,🎹,⚖️,🦺,🥼,🥽,🥾,⚒️,🛠️,⛏️,🪚,🗜️,⚙️,🪛,⛓️,🔫,💣,🔪,🗡️,⚔️,🛡️,⚰️,🪦,⚱️,🔮,🧭,🪶,🔍,🔎,🕯️,💡,🔦,🏮,🪔,🧯,🛢️,🧴,🧹,🧺,🧻,🪣,🧼,🧽,🧾,🛒,🚬,⚰️,🦷,🩸,🧸,🃏,🀄,🎴,🎭,🖼️,🎨,🛍️,🛒,🎁,🎀,🎉,🎊,🎈,🎂,🎂,🧁,🍰,🥧,🍮,🍭,🍬,🍫,🍩,🍪,🌰,🥜,🍯,🥛,🍼,☕,🍵,🧉,🍹,🍸,🍺,🍻,🥂,🥃,🥤,🧊,🍾,🥄,🍴,🍽️,🥢,🥡,🥢,🥄,🔪,🏺,🧊,🧂,🥄,🔑,🗝️,🚪,🛋️,🛌,🚽,🚿,🛀,🪒,🧴,🧹,🧺,🧻,🪣,🌡️,⏱️,⏲️,⏰,🕰️,🕛,🕧,🕐,🕜,🕑,🕝,🕒,🕞,🕓,🕟,🕔,🕠,🕕,🕡,🕖,🕢,🕗,🕣,🕘,🕤"
 
             var listaPredmeta3="&#8986;&#128241;&#128242;&#128187;&#9000;&#129301;&#129304;&#129425;&#129426;&#128377;&#129660;&#128205;&#128206;&#128207;&#127909;&#128247;&#128248;&#128249;&#127989;&#128253;&#127974;&#128222;&#9742;&#128223;&#128224;&#128250;&#128251;&#128121;&#128244;&#128092;&#128095;&#128681;&#9201;&#9203;&#128336;&#127920;&#8987;&#128079;&#129317;&#129318;&#128102;&#128103;&#127773;&#129516;&#129517;&#129518;&#129805;&#8988;&#9874;&#129466;&#127929;&#129469;&#129470;&#127998;&#128711;&#128706;&#128705;&#128707;&#128708;&#129033;&#128736;&#128740;&#128739;&#129303;&#128739;&#128733;&#128734;&#128732;&#128755;&#128752;&#128751;&#128753;&#129489;&#128736;&#128118;&#129352;&#129347;&#129346;&#128683;&#128656;&#128155;&#129474;&#127910;&#128661;&#128663;&#129297;&#129299;&#128737;&#128738;&#128742;&#128741;&#129412;&#129413;&#128704;&#128295;&#128296;&#128298;&#128300;&#128299;&#128302;&#129440;&#128701;&#128700;&#128703;&#129350;&#129349;&#128686;&#128685;&#128689;&#129491;&#128275;&#128276;&#128279;&#128277;&#128278;&#129456;&#128303;&#128304;&#129312;&#129495;&#127873;&#128187;&#128220;&#128338;&#128286;&#128255;&#128256;&#128176;&#129319;&#128581;&#128580;&#128583;&#129331;&#128192;&#128227;&#129519;&#128196;&#128197;&#128199;&#128198;&#129342;&#129344;&#128202;&#128203;&#128204;&#129392;&#129393;&#128135;&#128154;&#128290;&#128291;&#129476;&#129303;&#128113;&#127936;&#128288;&#128289;&#128295;&#128294;&#128297;&#129480;&#128283;&#128284;&#128286;&#129457;&#129458;&#129464;&#128581;&#128175;&#127925;&#128230;&#129462;&#129463;&#128169;&#128167;&#128680;&#128167;&#129488;&#129489;&#128077;&#128078;&#128079;&#128074;&#129408;&#129409;&#128069;&#128076;&#129459;&#129460;&#128071;&#128072;&#129481;&#128081;&#128068;&#128073;&#128077;&#128664;&#128690;&#128662;&#129328;&#129329;&#128100;&#128101;&#128140;&#128129;&#128130;&#128131;&#128132;&#128135;&#128138;&#128139;&#129422;&#129423;&#129424;&#128133;&#128134;&#129488;&#127980;&#127985;&#127986;&#127987;&#127988;&#128276;&#129491;&#129464;&#9972;&#9973;&#128674;&#129472;&#128181;&#129408;&#128118;&#127916;&#128680;&#128424;&#128425;&#128422;&#128423;&#128334;&#128336;&#128335;&#128337;&#128348;&#129392;&#128133;&#128132;&#129435;&#128665"
 
-            var simboli1="❤️\uD83E\uDDE1\uD83D\uDC9B\uD83D\uDC9A\uD83D\uDC99\uD83D\uDC9C\uD83D\uDDA4\uD83E\uDD0D\uD83E\uDD0E\uD83D\uDC94❤️\u200D\uD83D\uDD25❤️\u200D\uD83E\uDE79❣️\uD83D\uDC95\uD83D\uDC9E\uD83D\uDC93\uD83D\uDC97\uD83D\uDC96\uD83D\uDC98\uD83D\uDC9D\uD83D\uDC9F☮️✝️☪️\uD83D\uDD49️☸️✡️\uD83D\uDD2F\uD83D\uDD4E☯️☦️\uD83D\uDED0⛎♈️♉️♊️♋️♌️♍️♎️♏️♐️♑️♒️♓️\uD83C\uDD94⚛️\uD83C\uDE51☢️☣️\uD83D\uDCF4\uD83D\uDCF3\uD83C\uDE36\uD83C\uDE1A️\uD83C\uDE38\uD83C\uDE3A\uD83C\uDE37️✴️\uD83C\uDD9A\uD83D\uDCAE\uD83C\uDE50㊙️㊗️\uD83C\uDE34\uD83C\uDE35\uD83C\uDE39\uD83C\uDE32\uD83C\uDD70️\uD83C\uDD71️\uD83C\uDD8E\uD83C\uDD91\uD83C\uDD7E️\uD83C\uDD98❌⭕️\uD83D\uDED1⛔️\uD83D\uDCDB\uD83D\uDEAB\uD83D\uDCAF\uD83D\uDCA2♨️\uD83D\uDEB7\uD83D\uDEAF\uD83D\uDEB3\uD83D\uDEB1\uD83D\uDD1E\uD83D\uDCF5\uD83D\uDEAD❗️❕❓❔‼️⁉️\uD83D\uDD05\uD83D\uDD06〽️⚠️\uD83D\uDEB8\uD83D\uDD31⚜️\uD83D\uDD30♻️✅\uD83C\uDE2F️\uD83D\uDCB9❇️✳️❎\uD83C\uDF10\uD83D\uDCA0Ⓜ️\uD83C\uDF00\uD83D\uDCA4\uD83C\uDFE7\uD83D\uDEBE♿️\uD83C\uDD7F️\uD83D\uDED7\uD83C\uDE33\uD83C\uDE02️\uD83D\uDEC2\uD83D\uDEC3\uD83D\uDEC4\uD83D\uDEC5\uD83D\uDEB9\uD83D\uDEBA\uD83D\uDEBC⚧️\uD83D\uDEBB\uD83D\uDEAE\uD83C\uDFA6\uD83D\uDCF6\uD83C\uDE01\uD83D\uDD23ℹ️\uD83D\uDD24\uD83D\uDD21\uD83D\uDD20\uD83C\uDD96\uD83C\uDD97\uD83C\uDD99\uD83C\uDD92\uD83C\uDD95\uD83C\uDD93▶️⏸️⏯️⏹️⏺️⏭️⏮️⏩️⏪️⏫️⏬️◀️\uD83D\uDD3C\uD83D\uDD3D➡️⬅️⬆️⬇️↗️↘️↙️↖️↕️↔️↪️↩️⤴️⤵️\uD83D\uDD00\uD83D\uDD01\uD83D\uDD02\uD83D\uDD04\uD83D\uDD03"
-            var simboli2="\uD83D\uDD05\uD83D\uDD06〽️⚠️\uD83D\uDEB8\uD83D\uDD31⚜️\uD83D\uDD30♻️✅\uD83C\uDE2F️\uD83D\uDCB9❇️✳️❎\uD83C\uDF10\uD83D\uDCA0Ⓜ️\uD83C\uDF00\uD83D\uDCA4\uD83C\uDFE7\uD83D\uDEBE♿️\uD83C\uDD7F️\uD83D\uDED7\uD83C\uDE33\uD83C\uDE02️\uD83D\uDEC2\uD83D\uDEC3\uD83D\uDEC4\uD83D\uDEC5\uD83D\uDEB9\uD83D\uDEBA\uD83D\uDEBC⚧️\uD83D\uDEBB\uD83D\uDEAE\uD83C\uDFA6\uD83D\uDCF6\uD83C\uDE01\uD83D\uDD23ℹ️\uD83D\uDD24\uD83D\uDD21\uD83D\uDD20\uD83C\uDD96\uD83C\uDD97\uD83C\uDD99\uD83C\uDD92\uD83C\uDD95\uD83C\uDD93⏏️▶️⏸️⏯️⏹️⏺️⏭️⏮️⏩️⏪️⏫️⏬️◀️\uD83D\uDD3C\uD83D\uDD3D➡️⬅️⬆️⬇️↗️↘️↙️↖️↕️↔️↪️↩️⤴️⤵️\uD83D\uDD00\uD83D\uDD01\uD83D\uDD02\uD83D\uDD04\uD83D\uDD03"
-            var listaSimbola= simboli1+simboli2
             var linearLayoutEmoji=keyboardRoot.findViewById<LinearLayout>(R.id.emoji)
           //DODAVANJE HRANE-----------------------------------------------------------------------------
             var llFood=LinearLayout(context)
             llFood.orientation=LinearLayout.VERTICAL
-            var listaFood= arrayListOf<Int>(127823,  127823,  127823,  127823,  127823,  127823,  127823,  127823,  127823,  127823,
-                127816,  127816,  127816,  127816,  127816,  127816,  127816,  127816,  127816,  127816,
-                129382,  129382,  129382,  129382,  129382,  129382,  129382,  129382,  129382,  129382,
-                129477,  129477,  129477,  129477,  129477,  129477,  129477,  129477,  129477,  129477,
-                127859,  127859,  127859,  127859,  127859,  127859,  127859,  127859,  127859,  127859,
-                127828,  127828,  127828,  127828,  127828,  127828,  127828,  127828,  127828,  127828,
-                129367,  129367,  129367,  129367,  129367,  129367,  129367,  129367,  129367,  129367,
-                127857,  127857,  127857,  127857,  127857,  127857,  127857,  127857,  127857,  127857,
-                127842,  127842,  127842,  127842,  127842,  127842,  127842,  127842,  127842,  127842,
-                127853,  127853,  127853,  127853,  127853,  127853,  127853,  127853,  127853,  127853,
-                129371,  129371,  129371,  129371,  129371,  129371,  129371,  129371,  129371,  129371,
-                127862,  127862,  127862,  127862,  127862,  127862,  127862,  127862,  127862,  127862,
-                129482,  129482,  129482,  129482,  129482,  129482,  129482,  129482,  129482)
-            for(i in 0 until listaFood.size step 10)
-            {
-                println("dodavanje u foot")
-                var lp= LinearLayout(context)
-                lp.orientation= LinearLayout.HORIZONTAL
-                for (j in i until i + 10)
-                {
-                    if(j==listaFood.size)
-                        break;
-                    println(listaFood[i].toString()+", ")
-                    var too = TextView(context)
-                    val charArray = Character.toChars(listaFood[j])
-                    val surrogatePair = String(charArray)
-                    too.setText(surrogatePair)
-                    val params =
-                        LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 0.1f)
-                    too.layoutParams = params
-                    too.setTextSize(30F)
-                    too.setOnClickListener {
-                        onKey(listaFood[j], intArrayOf(listaFood[j]))
-                    }
-                    lp.addView(too)
-                }
-                llFood.addView(lp)
-            }
-            llFood.visibility=View.GONE
+            var listaFood= arrayListOf<Int>(127823, 127822, 127824, 127818, 127819, 127820, 127817, 127815, 127827, 129744,
+                127816, 127826, 127825, 129389, 127821, 129381, 129373, 127813, 127814, 129361,
+                129382, 129388, 129362, 127798, 65039, 129745, 127805, 129365, 129746, 129476,
+                129477, 129364, 127840, 129360, 129391, 127838, 129366, 129384, 129472, 129370,
+                127859, 129480, 129374, 129479, 129363, 129385, 127831, 127830, 129460, 127789,
+                127828, 127839, 127829, 129747, 129386, 129369, 129478, 127790, 127791, 129748,
+                129367, 129368, 129749, 129387, 129753, 127837, 127836, 127858, 127835, 127843,
+                127857, 129375, 129450, 127844, 127833, 127834, 127832, 127845, 129376, 129390,
+                127842, 127841, 127847, 127848, 127846, 129383, 129473, 127856, 127874, 127854,
+                127853, 127852, 127851, 127871, 127849, 127850, 127792, 129372, 129752, 127855,
+                129371, 129751, 127868, 129750, 9749, 65039, 127861, 129475, 129380, 129483,
+                127862, 127866, 127867, 129346, 127863, 129347, 127864, 127865, 129481, 127870,
+                129482, 129348, 127860, 127869, 65039, 129379, 129377, 129378, 129474)
+            makeEmojiList(context,listaFood,onKey,llFood)
             linearLayoutEmoji.addView(llFood)
+            //ADDING ANIMALS
+            var listaAnimals= arrayListOf<Int>(128054,  128049,  128045,  128057,  128048,  129418,  128059,  128060,
+                128059,  8205,  10052,  65039,  128040,
+                128047,  129409,  128046,  128055,  128061,  128056,  128053,  128584,  128585,  128586,  128018,  128020,
+                128039,  128038,  128036,  128035,  128037,  129414,  129413,  129417,  129415,  128058,  128023,  128052,  129412,  128029,  129713,  128027,  129419,  128012,  128030,
+                128028,  129712,  129714,  129715,  129439,  129431,  128375,  65039,  128376,  65039,  129410,
+                128034,  128013,  129422,  129430,
+                129429,  128025,  129425,  129424,  129438,  129408,  128033,  128032,  128031,  128044,  128051,  128011,  129416,  129453,  128010,
+                128005,  128006,  129427,  129421,  129447,  129443,  128024,  129435,  129423,  128042,  128043,  129426,  129432,  129452,  128003,  128002,  128004,  128014,  128022,  128015,  128017,  129433,  128016,  129420,
+                128021,  128041,  129454,  128021,  8205,  129466,  128008,  128008,  8205,  11035,  129718,  128019,  129411,  129444,  129434,  129436,  129442,  129449,  128330,
+                65039,  128007,  129437,  129448,  129441,  129451,  129446,  129445,  128001,  128000,
+                128063,  65039,  129428,  128062,  128009,  128050,
+                127797,  127876,  127794,  127795,  127796,  129717,  127793,  127807,  9752,  65039,  127808,  127885,  129716,  127883,  127811,  127810,
+                127809,  129722,  129721,  127812,  128026,  129720,
+                129704,  127806,  128144,  127799,  127801,  129344,  129719,  127802,  127800,
+                127804,  127803,  127774,  127773,  127771,  127772,  127770,
+                127765,  127766,  127767,  127768,  127761,  127762,  127763,  127764,  127769,  127758,  127757,  127759,  129680,
+                128171,  11088,  65039,  127775,  10024,  9889,  65039,  9732,  65039,  128165,  128293,  127786,  65039,  127752,  9728,  65039,  127780,
+                65039,  9925,  65039,  127781,  65039,  9729,  65039,  127782,  65039,  127783,  65039,  9928,  65039,  127785,  65039,  127784,  65039,  10052,  65039,  9731,  65039,  9924,  65039,  127788,  65039,  128168,  128167,  128166,  129767,  9748,  65039,  9730,
+                65039,  127754,  127787 )
+            var llAnimals=LinearLayout(context)
+            llAnimals.orientation=LinearLayout.VERTICAL
+            makeEmojiList(context,listaAnimals,onKey,llAnimals)
+            linearLayoutEmoji.addView(llAnimals)
+            //ADDING SPORTs
+            var listaSports= arrayListOf<Int>( 9917,  65039,  127936,  127944,  9918,  65039,  129358,  127934,  127952,  127945,
+                129359,  127921,  129664,  127955,  127992,  127954,  127953,  129357,  127951,  129667,  129349,
+                9971,  65039,  129665,  128733,  127993,  127907,  129343,  129354,  129355,  127933,  128761,
+                128764,  128759,  9976,  65039,  129356,  127935,  9975,  65039,  127942,  129351,  129352,
+                129353,  127941,  127894,  65039,  127989,  65039,  127895,  65039,  127915,  127903,  65039,
+                127914,  129337,  8205,  9792,  65039,  129337,  129337,  8205,  9794,  65039,  127917,  129648,
+                127912,  127916,  127908,  127911,  127932,  127929,  129345,  129688,  127927,  127930,
+                129687,  127928,  129685,  127931,  127922,  9823,  65039,  127919,  127923,  127918,  127920,
+                129513)
+            var llSport=LinearLayout(context)
+            llSport.orientation=LinearLayout.VERTICAL
+            makeEmojiList(context,listaSports,onKey,llSport)
+            linearLayoutEmoji.addView(llSport)
+            //ADDING OBJECts
+            var listaObjects= arrayListOf<Int>(8986, 65039, 128241, 128242, 128187, 9000, 65039, 128421, 65039, 128424,
+                65039, 128433, 65039, 128434, 65039, 128377, 65039, 128476, 65039, 128189,
+                128190, 128191, 128192, 128252, 128247, 128248, 128249, 127909, 128253, 65039,
+                127902, 65039, 128222, 9742, 65039, 128223, 128224, 128250, 128251, 127897,
+                65039, 127898, 65039, 127899, 65039, 129517, 9201, 65039, 9202, 65039,
+                9200, 128368, 65039, 8987, 65039, 9203, 128225, 128267, 129707, 128268,
+                128161, 128294, 128367, 65039, 129684, 129519, 128738, 65039, 128184, 128181,
+                128180, 128182, 128183, 129689, 128176, 128179, 129706, 128142, 9878, 65039,
+                129692, 129520, 129691, 128295, 128296, 9874, 65039, 128736, 65039, 9935,
+                65039, 129690, 128297, 9881, 65039, 129700, 129521, 9939, 65039, 129522,
+                128299, 128163, 129512, 129683, 128298, 128481, 65039, 9876, 65039, 128737,
+                65039, 128684, 9904, 65039, 129702, 9905, 65039, 127994, 128302, 128255,
+                129535, 129708, 128136, 9879, 65039, 128301, 128300, 128371, 65039, 129659,
+                129657, 129658, 128138, 128137, 129656, 129516, 129440, 129515, 129514, 127777,
+                65039, 129529, 129696, 129530, 129531, 128701, 128688, 128703, 128705, 129532,
+                129701, 129682, 129533, 129699, 129524, 128718, 65039, 128273, 128477, 65039,
+                128682, 129681, 128715, 65039, 128719, 65039, 128716, 129528, 129670, 128444,
+                65039, 129694, 129695, 128717, 65039, 128722, 127873, 127880, 127887, 127872,
+                129668, 129669, 127882, 127881, 127886, 127982, 127888, 129705, 129511, 9993,
+                65039, 128233, 128232, 128231, 128140, 128229, 128228, 128230, 127991, 65039,
+                129703, 128234, 128235, 128236, 128237, 128238, 128239, 128220, 128195, 128196,
+                128209, 129534, 128202, 128200, 128201, 128466, 65039, 128467, 65039, 128198,
+                128197, 128465, 65039, 128199, 128451, 65039, 128499, 65039, 128452, 65039,
+                128203, 128193, 128194, 128450, 65039, 128478, 65039, 128240, 128211, 128212,
+                128210, 128213, 128215, 128216, 128217, 128218, 128214, 128278, 129527, 128279,
+                128206, 128391, 65039, 128208, 128207, 129518, 128204, 128205, 9986, 65039,
+                128394, 65039, 128395, 65039, 10002, 65039, 128396, 65039, 128397, 65039,
+                128221, 9999, 65039, 128269, 128270, 128271, 128272, 128274, 128275)
+            var llObjects=LinearLayout(context)
+            llObjects.orientation=LinearLayout.VERTICAL
+            makeEmojiList(context,listaObjects,onKey,llObjects)
+            linearLayoutEmoji.addView(llObjects)
+            //ADDING TURIST
+            var listaTurism= arrayListOf<Int>(128663,  128661,  128665,  128652,  128654,  127950,  65039,  128659,  128657,  128658,
+                128656,  128763,  128666,  128667,  128668,  129455,  129469,  129468,  129660,  128756,
+                128690,  128757,  127949,  65039,  128762,  128734,  128680,  128660,  128653,  128664,
+                128662,  128673,  128672,  128671,  128643,  128651,  128670,  128669,  128644,  128645,
+                128648,  128642,  128646,  128647,  128650,  128649,  9992,  65039,  128747,  128748,
+                128745,  65039,  128186,  128752,  65039,  128640,  128760,  128641,  128758,  9973,
+                65039,  128676,  128741,  65039,  128755,  65039,  9972,  65039,  128674,  128735,
+                9875,  65039,  129693,  9981,  65039,  128679,  128678,  128677,  128655,  128506,
+                65039,  128511,  128509,  128508,  127984,  127983,  127967,  65039,  127905,  127906,
+                127904,  9970,  65039,  9969,  65039,  127958,  65039,  127965,  65039,  127964,
+                65039,  127755,  9968,  65039,  127956,  65039,  128507,  127957,  65039,  9978,
+                65039,  128726,  127968,  127969,  127960,  65039,  127962,  65039,  127959,  65039,
+                127981,  127970,  127980,  127971,  127972,  127973,  127974,  127976,  127978,  127979,
+                127977,  128146,  127963,  65039,  9962,  65039,  128332,  128333,  128725,  128331,
+                9961,  65039,  128740,  65039,  128739,  65039,  128510,  127889,  127966,  65039,
+                127749,  127748,  127776,  127879,  127878,  127751,  127750,  127961,  65039,  127747,
+                127756,  127753,  127745)
+            var llTourism=LinearLayout(context)
+            llTourism.orientation=LinearLayout.VERTICAL
+            makeEmojiList(context,listaTurism,onKey,llTourism)
+            linearLayoutEmoji.addView(llTourism)
+           //ADDING SYMBOLS
+            var listaSimbols= arrayListOf<Int>(10084, 65039, 129505, 128155, 128154, 128153, 128156, 128420, 129293, 129294,
+                128148, 10084, 65039, 8205, 128293, 10084, 65039, 8205, 129657, 10083,
+                65039, 128149, 128158, 128147, 128151, 128150, 128152, 128157, 128159, 9774,
+                65039, 10013, 65039, 9770, 65039, 128329, 65039, 9784, 65039, 10017,
+                65039, 128303, 128334, 9775, 65039, 9766, 65039, 128720, 9934, 9800,
+                65039, 9801, 65039, 9802, 65039, 9803, 65039, 9804, 65039, 9805,
+                65039, 9806, 65039, 9807, 65039, 9808, 65039, 9809, 65039, 9810,
+                65039, 9811, 65039, 127380, 9883, 65039, 127569, 9762, 65039, 9763,
+                65039, 128244, 128243, 127542, 127514, 65039, 127544, 127546, 127543, 65039,
+                10036, 65039, 127386, 128174, 127568, 12953, 65039, 12951, 65039, 127540,
+                127541, 127545, 127538, 127344, 65039, 127345, 65039, 127374, 127377, 127358,
+                65039, 127384, 10060, 11093, 65039, 128721, 9940, 65039, 128219, 128683,
+                128175, 128162, 9832, 65039, 128695, 128687, 128691, 128689, 128286, 128245,
+                128685, 10071, 65039, 10069, 10067, 10068, 8252, 65039, 8265, 65039,
+                128261, 128262, 12349, 65039, 9888, 65039, 128696, 128305, 9884, 65039,
+                128304, 9851, 65039, 9989, 127535, 65039, 128185, 10055, 65039, 10035,
+                65039, 10062, 127760, 128160, 9410, 65039, 127744, 128164, 127975, 128702,
+                9855, 65039, 127359, 65039, 128727, 127539, 127490, 65039, 128706, 128707,
+                128708, 128709, 128697, 128698, 128700, 9895, 65039, 128699, 128686, 127910,
+                128246, 127489, 128291, 8505, 65039, 128292, 128289, 128288, 127382, 127383,
+                127385, 127378, 127381, 127379, 9654, 65039, 9208, 65039, 9199, 65039,
+                9209, 65039, 9210, 65039, 9197, 65039, 9198, 65039, 9193, 65039,
+                9194, 65039, 9195, 65039, 9196, 65039, 9664, 65039, 128316, 128317,
+                10145, 65039, 11013, 65039, 11014, 65039, 11015, 65039, 8599, 65039,
+                8600, 65039, 8601, 65039, 8598, 65039, 8597, 65039, 8596, 65039,
+                8618, 65039, 8617, 65039, 10548, 65039, 10549, 65039, 128256, 128257,
+                128258, 128260, 128259, 128261, 128262, 12349, 65039, 9888, 65039, 128696,
+                128305, 9884, 65039, 128304, 9851, 65039, 9989, 127535, 65039, 128185,
+                10055, 65039, 10035, 65039, 10062, 127760, 128160, 9410, 65039, 127744,
+                128164, 127975, 128702, 9855, 65039, 127359, 65039, 128727, 127539, 127490,
+                65039, 128706, 128707, 128708, 128709, 128697, 128698, 128700, 9895, 65039,
+                128699, 128686, 127910, 128246, 127489, 128291, 8505, 65039, 128292, 128289,
+                128288, 127382, 127383, 127385, 127378, 127381, 127379, 9167, 65039, 9654,
+                65039, 9208, 65039, 9199, 65039, 9209, 65039, 9210, 65039, 9197,
+                65039, 9198, 65039, 9193, 65039, 9194, 65039, 9195, 65039, 9196,
+                65039, 9664, 65039, 128316, 128317, 10145, 65039, 11013, 65039, 11014,
+                65039, 11015, 65039, 8599, 65039, 8600, 65039, 8601, 65039, 8598,
+                65039, 8597, 65039, 8596, 65039, 8618, 65039, 8617, 65039, 10548,
+                65039, 10549, 65039, 128256, 128257, 128258, 128260, 128259)
+
+            var llSymbols=LinearLayout(context)
+            llSymbols.orientation=LinearLayout.VERTICAL
+            makeEmojiList(context,listaSimbols,onKey,llSymbols)
+            linearLayoutEmoji.addView(llSymbols)
+            //dinin string u int
+            /*
+            var t=0;
+            for(i in listaHrana.codePoints()){
+               t++;
+                println(i.toInt().toString()+", ")
+                if(t%10==0)
+                    println(" ")
+            }
+            */
+
            //DODAVANJE smajlija----------------------------------------------------------------
             var llSmily=LinearLayout(context)
             llSmily.orientation=LinearLayout.VERTICAL
@@ -115,6 +227,82 @@ class ViewMaker
                 129650, 129651, 128084, 128087, 128089, 129649, 128088, 129403, 129652, 129407, 128096, 128097, 128098, 128094,
                 128095, 129406, 129510, 129508, 129507, 127913, 129506, 128082, 127891, 9937, 65039, 129686, 128081, 128141,
                 128093, 128091, 128092, 128188, 127890, 129523, 128083, 128374, 65039, 129405, 127746)
+            makeEmojiList(context,listaSmily,onKey,llSmily)
+            linearLayoutEmoji.addView(llSmily)
+            var foodBtn=keyboardRoot.findViewById<Button>(R.id.food)
+            foodBtn.setOnClickListener {
+
+                llSmily.visibility=View.GONE
+                llSport.visibility=View.GONE
+                llObjects.visibility=View.GONE
+                llSymbols.visibility=View.GONE
+                llAnimals.visibility=View.GONE
+                llFood.visibility=View.VISIBLE
+            }
+
+            var smilyBtn=keyboardRoot.findViewById<Button>(R.id.smily)
+            smilyBtn.setOnClickListener {
+                llFood.visibility=View.GONE
+                llAnimals.visibility=View.GONE
+                llSymbols.visibility=View.GONE
+                llSport.visibility=View.GONE
+                llObjects.visibility=View.GONE
+                llSmily.visibility=View.VISIBLE
+            }
+
+            var animalsBtn=keyboardRoot.findViewById<Button>(R.id.animals)
+            animalsBtn.setOnClickListener {
+                llFood.visibility=View.GONE
+                llSymbols.visibility=View.GONE
+                llSmily.visibility=View.GONE
+                llSport.visibility=View.GONE
+                llObjects.visibility=View.GONE
+                llAnimals.visibility=View.VISIBLE
+            }
+            var objectsBtn=keyboardRoot.findViewById<Button>(R.id.objects)
+            objectsBtn.setOnClickListener {
+                llFood.visibility=View.GONE
+                llSmily.visibility=View.GONE
+                llSymbols.visibility=View.GONE
+                llSport.visibility=View.GONE
+                llAnimals.visibility=View.GONE
+                llObjects.visibility=View.VISIBLE
+            }
+
+            var sportBtn=keyboardRoot.findViewById<Button>(R.id.sport)
+            sportBtn.setOnClickListener {
+                llFood.visibility=View.GONE
+                llSmily.visibility=View.GONE
+                llAnimals.visibility=View.GONE
+                llObjects.visibility=View.GONE
+                llTourism.visibility=View.GONE
+                llSymbols.visibility=View.GONE
+                llSport.visibility=View.VISIBLE
+            }
+            var urbanBtn=keyboardRoot.findViewById<Button>(R.id.urban)
+            urbanBtn.setOnClickListener {
+                llFood.visibility=View.GONE
+                llSmily.visibility=View.GONE
+                llAnimals.visibility=View.GONE
+                llObjects.visibility=View.GONE
+                llSymbols.visibility=View.GONE
+                llSport.visibility=View.GONE
+                llTourism.visibility=View.VISIBLE
+            }
+            var simbolsBtn=keyboardRoot.findViewById<Button>(R.id.symbols)
+            simbolsBtn.setOnClickListener {
+                llFood.visibility=View.GONE
+                llSmily.visibility=View.GONE
+                llAnimals.visibility=View.GONE
+                llObjects.visibility=View.GONE
+                llSport.visibility=View.GONE
+                llTourism.visibility=View.GONE
+                llSymbols.visibility=View.VISIBLE
+            }
+            return llSmily
+        }
+        fun makeEmojiList(context: Context,listaSmily:ArrayList<Int>,onKey: (primaryCode: Int, keyCodes: IntArray) -> Unit,llSmily:LinearLayout)
+        {
 
             for(i in 0 until listaSmily.size step 10)
             {
@@ -140,21 +328,6 @@ class ViewMaker
                 llSmily.addView(lp)
             }
             llSmily.visibility=View.GONE
-            linearLayoutEmoji.addView(llSmily)
-
-            var foodBtn=keyboardRoot.findViewById<Button>(R.id.food)
-            foodBtn.setOnClickListener {
-
-                llSmily.visibility=View.GONE
-                llFood.visibility=View.VISIBLE
-            }
-
-            var smilyBtn=keyboardRoot.findViewById<Button>(R.id.smily)
-            smilyBtn.setOnClickListener {
-                llFood.visibility=View.GONE
-                llSmily.visibility=View.VISIBLE
-            }
-            return llSmily
         }
         fun allViewSetup(keyboardRoot: View,context: Context, onKey: (primaryCode: Int, keyCodes: IntArray) -> Unit )
         {

@@ -18,7 +18,10 @@
        android:keyPreviewLayout="@layout/key_preview">
 
     </com.example.typi_linkedin.TypiKeyboardView>
-    <LinearLayout
+   <HorizontalScrollView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+       <LinearLayout
         android:id="@+id/emoij_categoires"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -58,7 +61,21 @@
             android:text="Symbols"
             android:id="@+id/symbols"
             ></Button>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Objects"
+            android:id="@+id/objects"
+            ></Button>
+           <Button
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="Urban"
+               android:id="@+id/urban"
+               ></Button>
     </LinearLayout>
+
+   </HorizontalScrollView>
 
     <com.example.typi_linkedin.TypiKeyboardView
         android:id="@+id/keyboard_view"
