@@ -80,6 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10px"
             android:text="Change keyboard"
+            android:textColor="@color/dark_gray"
             android:background="@drawable/key_bg"
             android:id="@+id/changeKb"
             ></Button>
@@ -88,6 +89,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10px"
             android:text="Clip"
+            android:textColor="@color/dark_gray"
             android:background="@drawable/key_bg"
             android:id="@+id/clip"
             ></Button>
@@ -97,7 +99,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10px"
             android:background="@drawable/key_bg"
-            android:text="Summerize"
+            android:text="Summarize"
+            android:textColor="@color/dark_gray"
             android:id="@+id/summerize"
             ></Button>
         <Button
@@ -106,6 +109,7 @@
             android:layout_marginStart="10px"
             android:layout_height="wrap_content"
             android:text="Reverse"
+            android:textColor="@color/dark_gray"
             android:id="@+id/reverse"
             ></Button>
         <Button
@@ -114,6 +118,7 @@
             android:layout_marginStart="10px"
             android:background="@drawable/key_bg"
             android:text="Translate"
+            android:textColor="@color/dark_gray"
             android:id="@+id/translate"
             ></Button>
         <Button
@@ -122,6 +127,7 @@
             android:layout_marginStart="10px"
             android:background="@drawable/key_bg"
             android:text="Rephrase"
+            android:textColor="@color/dark_gray"
             android:id="@+id/rephrase"
             ></Button>
         <Button
@@ -130,7 +136,7 @@
             android:layout_marginStart="10px"
             android:background="@drawable/key_bg"
             android:text="Answer"
-            android:textColor="@color/white"
+            android:textColor="@color/dark_gray"
             android:id="@+id/answer"
             ></Button>
 

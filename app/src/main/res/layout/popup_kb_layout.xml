@@ -4,12 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="100px"
     android:orientation="horizontal"
-    android:background="#FFF"
+    android:background="@color/light_gray"
     >
     <android.inputmethodservice.KeyboardView
         android:id="@android:id/keyboardView"
         android:layout_width="match_parent"
         android:layout_height="100px"
-        android:keyTextColor="#fff"
+        android:keyTextColor="@color/red"
         android:keyTextSize="22sp"/>
 </LinearLayout>

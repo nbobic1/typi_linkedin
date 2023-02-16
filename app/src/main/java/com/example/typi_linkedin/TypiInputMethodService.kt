@@ -220,11 +220,11 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
             //options
             resources.getInteger(R.integer.summerize)->
             {
-                callGptForInput(keyCodes,ic,"Summerize this text")
+                callGptForInput(keyCodes,ic,"Summarize this text: ")
             }
             resources.getInteger(R.integer.translate)->
             {
-                ViewMaker.popupInput(context,keyboardRoot,::onKey, arrayOf<String>("german","italian", "macedonian"), ic,keyCodes,"Translate this text to")
+                ViewMaker.popupInput(context,keyboardRoot,::onKey, arrayOf<String>("german","italian", "macedonian", "bosnian"), ic,keyCodes,"Translate this text to: ")
             }
 
             else ->

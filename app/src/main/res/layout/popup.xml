@@ -15,10 +15,10 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#000000"
+            android:background="@color/dark_gray"
             android:textColor="@color/white"
             android:textSize="20dp"
             android:textAlignment="center"
-            android:text="Rephrase so it sound more" />
+            android:text="Choose a tone" />
 </LinearLayout>
 </ScrollView>
