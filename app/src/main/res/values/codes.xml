@@ -10,7 +10,6 @@
     <integer name="emoji">-403</integer>
     <!-- code for button that gives us letter keyboard(default)-->
     <integer name="letters">-404</integer>
-
     <!-- code for space-->
     <integer name="space">32</integer>
 
@@ -20,4 +19,8 @@
     <!-- code for button that replace gpt output with input(go back btn)-->
     <integer name="gptBack">-407</integer>
 
+    <integer name="rephrase">-408</integer>
+
+    <integer name="translate">-409</integer>
+    <integer name="summerize">-410</integer>
 </resources>

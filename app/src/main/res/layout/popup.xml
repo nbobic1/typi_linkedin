@@ -15,6 +15,6 @@
             android:layout_height="wrap_content"
             android:background="#DF0000"
             android:textSize="50dp"
-            android:text="Chose input methode" />
+            android:text="Rephrase so it sound more" />
 </LinearLayout>
 </ScrollView>

@@ -17,10 +17,34 @@ import android.widget.*
 class ViewMaker
 {
     companion object{
+        var paste= mutableListOf<String>()
         enum class Category {
             SMILY, FOOD, CARS, NATURE
         }
+        fun optionsSetup(keyboardRoot: View,context:Context,onKey: (primaryCode: Int, keyCodes: IntArray) -> Unit)
+        {
 
+
+
+            keyboardRoot.findViewById<Button>(R.id.answer).setOnClickListener {
+                onKey(context.resources.getInteger(R.integer.gpt), intArrayOf(-1))
+            }
+            keyboardRoot.findViewById<Button>(R.id.rephrase).setOnClickListener {
+                onKey(context.resources.getInteger(R.integer.rephrase), intArrayOf(-1))
+            }
+            keyboardRoot.findViewById<Button>(R.id.reverse).setOnClickListener {
+                onKey(context.resources.getInteger(R.integer.gptBack), intArrayOf(-1))
+            }
+            keyboardRoot.findViewById<Button>(R.id.clip).setOnClickListener {
+                onKey(context.resources.getInteger(R.integer.clip), intArrayOf(-1))
+            }
+            keyboardRoot.findViewById<Button>(R.id.translate).setOnClickListener {
+                onKey(context.resources.getInteger(R.integer.translate), intArrayOf(-1))
+            }
+            keyboardRoot.findViewById<Button>(R.id.summerize).setOnClickListener {
+                onKey(context.resources.getInteger(R.integer.summerize), intArrayOf(-1))
+            }
+        }
         fun categorySetup(keyboardRoot: View,context:Context,onKey: (primaryCode: Int, keyCodes: IntArray) -> Unit):View
         {
 
@@ -408,11 +432,20 @@ class ViewMaker
                 showKeyboard(keyboardRoot)
             }
             linearLayout.addView(k)
-            for(i in 0 until (clipboard.primaryClip?.itemCount ?: -1))
+            /*if(clipboard.primaryClip?.itemCount ?: 0==0)
+            {
+                linearLayout.removeAllViews()
+                linearLayout.addView(k)
+            }*/
+            if(clipboard.primaryClip?.getItemAt(0)?.text ?: ""!="")
+            paste.add(clipboard.primaryClip?.getItemAt(0)?.text.toString() ?: "")
+            if(paste.size>5)
+                paste.removeAt(0)
+            for(i in 0 until paste.size)
             {
                 println("lafjalga")
                 var t=TextView(context)
-                t.setText(clipboard.primaryClip?.getItemAt(i)?.text ?: "")
+                t.setText(paste[i])
                 t.setOnClickListener { 
                     ic.commitText(t.text.toString(),t.text.length)
                 }

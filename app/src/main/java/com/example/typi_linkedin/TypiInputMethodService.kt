@@ -8,15 +8,16 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.TextUtils
 import android.text.style.ImageSpan
-import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.ViewConfiguration
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputConnection
 import android.view.inputmethod.InputMethodManager
+import android.widget.Button
+import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
 import android.widget.ScrollView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -25,27 +26,30 @@ import kotlinx.coroutines.launch
 class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
 {
     lateinit var keyboardView: TypiKeyboardView
-    var longPressSpace=false
+
     lateinit var keyboardRoot: LinearLayout
     var context: Context = this
     var container: String = ""//spremam sto je uslo u gpt kako bi mogao vratiti
     lateinit var llSmily:View
     override fun onCreateInputView(): View
     {
-        keyboardRoot = layoutInflater.inflate(R.layout.root_keyboard_view, null) as LinearLayout
+         keyboardRoot = layoutInflater.inflate(R.layout.root_keyboard_view, null) as LinearLayout
         keyboardView = keyboardRoot.findViewById(R.id.keyboard_view) as TypiKeyboardView
-       var  keyboardViewOptions = keyboardRoot.findViewById(R.id.keyboard_view_options) as TypiKeyboardView
+       //var  keyboardViewOptions = keyboardRoot.findViewById(R.id.keyboard_view_options) as TypiKeyboardView
         //keyboardView = layoutInflater.inflate(R.layout.keyboard_view, null) as ba.etf.us.typi.KeyboardView
         // get the KeyboardView and add our Keyboard layout to it
-        var keyboard: Keyboard = Keyboard(this, R.xml.emojis)
+        var keyboard: Keyboard = Keyboard(this, R.xml.bosanska_google)
         keyboardView.keyboard = keyboard
         keyboardView.setOnKeyboardActionListener(this)
         keyboardView.isPreviewEnabled=false
+       /*
         keyboard = Keyboard(this, R.xml.options)
         keyboardViewOptions.keyboard = keyboard
         keyboardViewOptions.isPreviewEnabled=false
         keyboardViewOptions.setOnKeyboardActionListener(this)
+        */
         ViewMaker.allViewSetup(keyboardRoot,context,::onKey)
+        ViewMaker.optionsSetup(keyboardRoot,context,::onKey)
         llSmily=ViewMaker.categorySetup(keyboardRoot,context,::onKey)
         return keyboardRoot
     }
@@ -53,8 +57,12 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
     override fun onStartInputView(info: EditorInfo?, restarting: Boolean)
     {
         super.onStartInputView(info, restarting)
+        var optionScroll= keyboardRoot.findViewById<HorizontalScrollView>(R.id.optionScroll)
+        optionScroll.post { optionScroll.fullScroll(View.FOCUS_RIGHT) }
         //different keyboard_layout
+       /* we dont have this functionality yet
         var highScore = Pref_Clean.getIntPref(context, "moj")
+
         if (highScore == 1)
         {
             val keyboard = Keyboard(this, R.xml.google)
@@ -63,33 +71,39 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
         {
             val keyboard = Keyboard(this, R.xml.google)
             keyboardView.keyboard = keyboard
-        }
-
-
+        }  */
     }
 
 
-    override fun onKey(primaryCode: Int, keyCodes: IntArray) {
+    override fun onKey(primaryCode: Int, keyCodes: IntArray)
+    {
         val ic = currentInputConnection ?: return
-        when (primaryCode) {
-            Keyboard.KEYCODE_DELETE -> {
+        when (primaryCode)
+        {
+            Keyboard.KEYCODE_DELETE ->
+            {
                 val selectedText = ic.getSelectedText(0)
-                if (TextUtils.isEmpty(selectedText)) {
+                if (TextUtils.isEmpty(selectedText))
+                {
                     // no selection, so delete previous character
                     var t = ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
-                    if (t != null && t.length > 2 && t.endsWith(getString(R.string.gptChar))) {
+                    if (t != null && t.length > 2 && t.endsWith(getString(R.string.gptChar)))
+                    {
                         ic.deleteSurroundingText(2, 0)
-                    } else {
+                    } else
+                    {
                         ic.deleteSurroundingText(1, 0)
                     }
-                } else {
+                } else
+                {
                     // delete the selection
                     ic.commitText("", 1)
                 }
                 var text = ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
 
             }
-            resources.getInteger(R.integer.gptCharCode) -> {
+            resources.getInteger(R.integer.gptCharCode) ->
+            {
                 val ss = SpannableString(getString(R.string.gptChar))
                 val d = ContextCompat.getDrawable(this, android.R.drawable.btn_star)
                 d!!.setBounds(0, 0, d!!.intrinsicWidth, d!!.intrinsicHeight)
@@ -98,30 +112,34 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                 ic.commitText(ss, ss.length)
             }
 
-            resources.getInteger(R.integer.lanCustom) -> {
+            resources.getInteger(R.integer.lanCustom) ->
+            {
                 println("ne b bunkcioniral")
                 window.window?.attributes?.let { keyboardView.returnInput(it.token) }
             }
-            resources.getInteger(R.integer.gptBack) -> {
+            resources.getInteger(R.integer.gptBack) ->
+            {
                 //vracanjena verziju sto je usla u gpt
                 ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
                     ?.let { ic.setSelection(0, it.length) }
                 GptApi_Clean.paste("Old text", ic.getSelectedText(0).toString(), context)
                 ic.commitText(container, container.length)
             }
-            resources.getInteger(R.integer.clip) -> {
+            resources.getInteger(R.integer.clip) ->
+            {
                 // val keyboard = Keyboard(this, R.xml.keyboard_layout2)
                 //  keyboardView.keyboard = keyboard
-                /*    val imeManager: InputMethodManager =
+            /*    val imeManager: InputMethodManager =
                     applicationContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
                 imeManager.showInputMethodPicker()
                 */
-                ViewMaker.clipBoard(keyboardRoot, context, ic)
+                ViewMaker.clipBoard(keyboardRoot,context,ic)
             }
 
             //funkcija za rephrase dok ona ne proradi bolje
-            -408 -> {
-                ViewMaker.returnInput(context, keyboardRoot, ::onKey)
+            resources.getInteger(R.integer.rephrase) ->
+            {
+                    ViewMaker.returnInput(context,keyboardRoot,::onKey)
                 /*
                 var selectedText = ic.getSelectedText(0);
                 if (selectedText == null)
@@ -146,54 +164,29 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                 */
 
             }
-
-
             resources.getInteger(R.integer.gpt)->
             {
-                println("djsalfjdlasjfladjfladlsfsalnabkndbkanbćanbćab")
-                //gpt dugme
-                val text = ic.getSelectedText(0)
-                //ako je selectovan
-                if (keyCodes[0] == -1 && text != null)
-                {
-                    ic.commitText("wait...", 7)
-                    GptApi_Clean.paste("Old text", text.toString(), context)
-                    container = text.toString()
-                    GlobalScope.launch {
-                        //response je ono sto chatgpt vrati
-                        val response = GptApi_Clean.gptRequest(text.toString(), context)
-                        ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
-                            ?.let { ic.setSelection(it.length - 7, it.length) }
-                        ic.commitText(response, response.length)
-                    }
-                } else
-                {
-                    ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
-                        ?.let { ic.setSelection(0, it.length) }
-                    var text = ic.getSelectedText(0);
-                    if (text != null)
-                    {
-                        ic.commitText("wait...", 7)
-                        container = text.toString()
-                        GptApi_Clean.paste("Old text", text.toString(), context)
-                        GlobalScope.launch {
-                            //response je ono sto chatgpt vrati
-                            val response = GptApi_Clean.gptRequest(text.toString(), context)
-                            ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
-                                ?.let { ic.setSelection(it.length - 7, it.length) }
-                            ic.commitText(response, response.length)
-                        }
-                    }
-                }
+                println("usaoooooooo")
+              callGptForInput(keyCodes,ic)
             }
             -1 ->
             {
                 var capitalLettersKeyboard = Keyboard(this, R.xml.google_capslock)
                 keyboardView.keyboard = capitalLettersKeyboard
             }
+            -11 ->
+            {
+                var smallLettersKeyboard = Keyboard(this, R.xml.google2_capslock)
+                keyboardView.keyboard = smallLettersKeyboard
+            }
             -2 ->
             {
-                var smallLettersKeyboard = Keyboard(this, R.xml.google)
+                var smallLettersKeyboard = Keyboard(this, R.xml.bosanska_google)
+                keyboardView.keyboard = smallLettersKeyboard
+            }
+            -22 ->
+            {
+                var smallLettersKeyboard = Keyboard(this, R.xml.bosanska_google2)
                 keyboardView.keyboard = smallLettersKeyboard
             }
             -3 ->
@@ -206,11 +199,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                 var numbersKeyboard = Keyboard(this, R.xml.numbers)
                 keyboardView.keyboard = numbersKeyboard
             }
-            -7 ->
-            {
-                var lettersKeyboard = Keyboard(this, R.xml.google)
-                keyboardView.keyboard = lettersKeyboard
-            }
+
             -420->
             {
                 var bosanskaKeyboard = Keyboard(this, R.xml.bosanska_google)
@@ -228,6 +217,16 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
             {
                 this.requestHideSelf(0)
             }
+            //options
+            resources.getInteger(R.integer.summerize)->
+            {
+                callGptForInput(keyCodes,ic,"Summerize this text")
+            }
+            resources.getInteger(R.integer.translate)->
+            {
+                callGptForInput(keyCodes,ic,"Translate this text to german")
+            }
+
             else ->
             {
                 if (keyCodes.size == 1) {
@@ -246,9 +245,6 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
     override fun onText(text: CharSequence)
     {
     }
-
-
-
 
     override fun swipeLeft()
     {
@@ -273,5 +269,40 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
     override fun onRelease(p0: Int)
     {
     }
-
+    fun callGptForInput(keyCodes: IntArray,ic:InputConnection,str3:String="")
+    {
+        val text = ic.getSelectedText(0)
+        //ako je selectovan
+        if (keyCodes[0] == -1 && text != null)
+        {
+            ic.commitText("wait...", 7)
+            GptApi_Clean.paste("Old text", text.toString(), context)
+            container = text.toString()
+            GlobalScope.launch {
+                //response je ono sto chatgpt vrati
+                val response = GptApi_Clean.gptRequest(text.toString(), context,str3)
+                ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
+                    ?.let { ic.setSelection(it.length - 7, it.length) }
+                ic.commitText(response, response.length)
+            }
+        } else
+        {
+            ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
+                ?.let { ic.setSelection(0, it.length) }
+            var text = ic.getSelectedText(0);
+            if (text != null)
+            {
+                ic.commitText("wait...", 7)
+                container = text.toString()
+                GptApi_Clean.paste("Old text", text.toString(), context)
+                GlobalScope.launch {
+                    //response je ono sto chatgpt vrati
+                    val response = GptApi_Clean.gptRequest(text.toString(), context,str3)
+                    ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
+                        ?.let { ic.setSelection(it.length - 7, it.length) }
+                    ic.commitText(response, response.length)
+                }
+            }
+        }
+    }
 }

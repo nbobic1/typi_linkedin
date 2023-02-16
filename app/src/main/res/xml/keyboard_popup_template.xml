@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-
         <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
             android:keyWidth="@dimen/key_width"
             android:horizontalGap="@dimen/horizontal_gap"
             android:verticalGap="@dimen/vertical_gap"
             android:keyHeight="100px"
            >
-            <Row>
-                <Key android:codes="-415" android:keyLabel="sad" android:keyWidth="@dimen/long_key_width" android:keyHeight="100px"/>
-                <Key android:codes="-412" android:keyLabel="proffesional " android:keyWidth="@dimen/long_key_width" android:keyHeight="100px"/>
-                <Key android:codes="-413" android:keyLabel="polite" android:keyWidth="@dimen/long_key_width" android:keyHeight="100px"/>
-                <Key android:codes="-414" android:keyLabel="Reverse" android:keyWidth="@dimen/long_key_width" android:keyHeight="100px"/>
-            </Row>
         </Keyboard>

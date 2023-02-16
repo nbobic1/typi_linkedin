@@ -22,24 +22,20 @@ class TypiKeyboardView(context: Context, attrs: AttributeSet) : KeyboardView(con
 //ovaj klas omogucuje cutom crtanje dugmadi kako sva dugmad ne bi morala izgledati isto
     //da bi radio mora se u xml koji se u njega ucitava staviti on kao root tag
 
-    //when u hold letter there will be additional options for that letter, that
-      var inputMethod: TypiInputMethodService = TypiInputMethodService()
+    var inputMethod: TypiInputMethodService = TypiInputMethodService()
 
     override fun onLongPress(popupKey: Keyboard.Key?): Boolean
     {
-       var kod= popupKey?.codes?.get(0)
+        var kod= popupKey?.codes?.get(0)
         if (kod==32) {
-            inputMethod.longPressSpace=true
+
             val imeManager: InputMethodManager =
                 context.getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager
             imeManager.showInputMethodPicker()
 
-            Log.v("LONG PRESS ","TRUE");
-            inputMethod.longPressSpace=false
             return false
         }
         return super.onLongPress(popupKey)
-
         /*  if (popupKey != null)
           {
               println("gori"+popupKey.codes[0])
@@ -62,8 +58,6 @@ class TypiKeyboardView(context: Context, attrs: AttributeSet) : KeyboardView(con
           }
 
          */
-
-
 
     }
 
@@ -130,8 +124,6 @@ class TypiKeyboardView(context: Context, attrs: AttributeSet) : KeyboardView(con
         }
         return super.onTouchEvent(event)
     }
-
-
 
     fun returnInput(token: IBinder)
 {

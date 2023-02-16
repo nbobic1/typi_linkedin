@@ -31,11 +31,11 @@ class GptApi_Clean
         }
         //HTTP GLUPOSTI
         //api call
-        fun gptApiCall(text:String,context: Context,rephrase:String=""):String
+        fun gptApiCall(text:String,context: Context,specialQuery:String="", ):String
         {
             var text=text
-            if(rephrase!="")
-                text=rephrase+text
+            if(specialQuery!="")
+                text=specialQuery+text
             var key = GptApi_Clean.apiKey(context)
             val url = URL("https://api.openai.com/v1/completions")
             val postData = """{ "model": "text-davinci-003",
@@ -73,7 +73,7 @@ class GptApi_Clean
         fun countMatches(string: String, pattern: String): Int {
             return Regex(pattern).findAll(string).count()
         }
-        suspend fun gptRequest(str:String, context:Context):String
+        suspend fun gptRequest(str:String, context:Context,str2:String=""):String
         {
             var k=countMatches(str,context.getString(R.string.gptChar));
             println("k="+k)
@@ -92,7 +92,7 @@ class GptApi_Clean
             }
             else
             {
-             return gptApiCall(str,context)
+             return gptApiCall(str,context,str2)
             }
 
 

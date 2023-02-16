@@ -21,7 +21,7 @@
     <Row>
         <Key android:codes="97" android:keyLabel="a" android:horizontalGap="6%p"
             android:keyEdgeFlags="left"/>
-        <Key android:codes="115" android:keyLabel="s"  android:popupKeyboard="@xml/keyboard_popup_letters" android:popupCharacters="š"/>
+        <Key android:codes="115" android:keyLabel="s"  android:popupKeyboard="@xml/keyboard_popup_template" android:popupCharacters="š"/>
         <Key android:codes="100" android:keyLabel="d"  android:popupKeyboard="@xml/keyboard_popup_template" android:popupCharacters="đ"/>
         <Key android:codes="102" android:keyLabel="f" />
         <Key android:codes="103" android:keyLabel="g"/>
@@ -55,7 +55,7 @@
             android:codes: -101 is not a framework-defined key code but a key code that is
             privately defined in com.example.android.softkeyboard.LatinKeyboardView.
         -->
-        <Key android:codes="-2" android:keyIcon="@drawable/language"
+        <Key android:codes="-22" android:keyIcon="@drawable/language"
             android:keyWidth="10%p"/>
         <Key android:codes="32" android:keyLabel="Space"
             android:keyWidth="35%p" android:isRepeatable="true"/>
