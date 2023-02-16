@@ -127,7 +127,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
             }
 
             //funkcija za rephrase dok ona ne proradi bolje
-            -408 ->
+            resources.getInteger(R.integer.rephrase) ->
             {
                     ViewMaker.returnInput(context,keyboardRoot,::onKey)
                 /*

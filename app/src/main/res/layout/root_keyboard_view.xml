@@ -6,6 +6,8 @@
     android:layout_height="wrap_content"
     android:background="@color/green"
     android:orientation="vertical">
+
+
     <com.example.typi_linkedin.TypiKeyboardView
         android:layout_marginBottom="10px"
         android:id="@+id/keyboard_view_options"
@@ -14,8 +16,8 @@
         android:layout_height="wrap_content"
         android:keyBackground="@drawable/key_bg"
         android:keyTextColor="@color/white"
-         android:popupLayout="@layout/popup_kb_layout"
-       android:keyPreviewLayout="@layout/key_preview">
+        android:popupLayout="@layout/popup_kb_layout"
+        android:keyPreviewLayout="@layout/key_preview">
 
     </com.example.typi_linkedin.TypiKeyboardView>
    <HorizontalScrollView
@@ -76,8 +78,8 @@
     </LinearLayout>
 
    </HorizontalScrollView>
-
     <com.example.typi_linkedin.TypiKeyboardView
+        android:layout_marginBottom="0px"
         android:id="@+id/keyboard_view"
         android:background="@color/dark_gray"
         android:layout_width="match_parent"
@@ -87,7 +89,6 @@
         android:keyPreviewLayout="@layout/key_preview">
 
     </com.example.typi_linkedin.TypiKeyboardView>
-
     <ScrollView
         android:id="@+id/topHScrollView"
         android:layout_width="match_parent"

@@ -408,6 +408,11 @@ class ViewMaker
                 showKeyboard(keyboardRoot)
             }
             linearLayout.addView(k)
+            /*if(clipboard.primaryClip?.itemCount ?: 0==0)
+            {
+                linearLayout.removeAllViews()
+                linearLayout.addView(k)
+            }*/
             for(i in 0 until (clipboard.primaryClip?.itemCount ?: -1))
             {
                 println("lafjalga")
