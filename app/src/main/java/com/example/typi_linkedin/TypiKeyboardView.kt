@@ -12,10 +12,7 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.*
 import android.view.inputmethod.InputMethodManager
-import android.widget.FrameLayout
-import android.widget.LinearLayout
-import android.widget.PopupWindow
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 
 class TypiKeyboardView(context: Context, attrs: AttributeSet) : KeyboardView(context, attrs) {
@@ -125,9 +122,10 @@ class TypiKeyboardView(context: Context, attrs: AttributeSet) : KeyboardView(con
         context.getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager
     for(i in imeManager.inputMethodList)
     {
-        var tt = TextView(context)
+        var tt = Button(context)
+        tt.background=context.resources.getDrawable(R.drawable.button_border)
         tt.setText(i.loadLabel(context.packageManager))
-        tt.textSize= 20.0F
+        tt.textSize= 10.0F
         tt.setTextColor(context.getColor(R.color.white))
         tt.gravity=Gravity.CENTER
         tt.setOnClickListener {
@@ -137,7 +135,7 @@ class TypiKeyboardView(context: Context, attrs: AttributeSet) : KeyboardView(con
     }
     val popup = PopupWindow(context)
     popup.contentView = custom
-
+    popup.isOutsideTouchable=true
     if(popup.isShowing()){
         popup.update(200, 200, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
     } else {

@@ -474,7 +474,7 @@ class ViewMaker
                 var tt = Button(context)
                 tt.setText(i)
                 tt.textSize= 10.0F
-                tt.background=context.resources.getDrawable(R.drawable.key_bg)
+                tt.background=context.resources.getDrawable(R.drawable.button_border)
                 tt.gravity=Gravity.CENTER
                 tt.setTextColor(context.getColor(R.color.white))
                 tt.setOnClickListener {

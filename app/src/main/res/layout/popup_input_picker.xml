@@ -3,11 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+        android:background="@drawable/popup_border"
+    android:layout_height="@dimen/key_heightx4">
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:layout_margin="2dp"
     android:id="@+id/ll">
         <TextView
             android:id="@+id/textView3"
@@ -15,7 +17,7 @@
             android:layout_height="wrap_content"
             android:background="#000000"
             android:textColor="@color/white"
-            android:textSize="40dp"
+            android:textSize="20dp"
             android:textAlignment="center"
             android:text="Chose input methode" />
 </LinearLayout>
