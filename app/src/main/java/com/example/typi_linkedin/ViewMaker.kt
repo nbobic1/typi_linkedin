@@ -233,6 +233,7 @@ class ViewMaker
             foodBtn.setOnClickListener {
 
                 llSmily.visibility=View.GONE
+                llTourism.visibility=View.GONE
                 llSport.visibility=View.GONE
                 llObjects.visibility=View.GONE
                 llSymbols.visibility=View.GONE
@@ -243,6 +244,7 @@ class ViewMaker
             var smilyBtn=keyboardRoot.findViewById<Button>(R.id.smily)
             smilyBtn.setOnClickListener {
                 llFood.visibility=View.GONE
+                llTourism.visibility=View.GONE
                 llAnimals.visibility=View.GONE
                 llSymbols.visibility=View.GONE
                 llSport.visibility=View.GONE
@@ -255,6 +257,7 @@ class ViewMaker
                 llFood.visibility=View.GONE
                 llSymbols.visibility=View.GONE
                 llSmily.visibility=View.GONE
+                llTourism.visibility=View.GONE
                 llSport.visibility=View.GONE
                 llObjects.visibility=View.GONE
                 llAnimals.visibility=View.VISIBLE
@@ -265,6 +268,7 @@ class ViewMaker
                 llSmily.visibility=View.GONE
                 llSymbols.visibility=View.GONE
                 llSport.visibility=View.GONE
+                llTourism.visibility=View.GONE
                 llAnimals.visibility=View.GONE
                 llObjects.visibility=View.VISIBLE
             }

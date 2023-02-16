@@ -4,19 +4,6 @@ package com.example.typi_linkedin
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import android.content.SharedPreferences
-import android.content.pm.ApplicationInfo
-import android.content.pm.PackageManager
-import android.util.Log
-import androidx.security.crypto.EncryptedSharedPreferences
-import androidx.security.crypto.MasterKey
-
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONArray
 import org.json.JSONObject
 import org.json.JSONTokener
@@ -44,9 +31,11 @@ class GptApi_Clean
         }
         //HTTP GLUPOSTI
         //api call
-        fun gptApiCall(text:String,context: Context):String
+        fun gptApiCall(text:String,context: Context,rephrase:String=""):String
         {
-
+            var text=text
+            if(rephrase!="")
+                text=rephrase+text
             var key = GptApi_Clean.apiKey(context)
             val url = URL("https://api.openai.com/v1/completions")
             val postData = """{ "model": "text-davinci-003",
@@ -68,56 +57,10 @@ class GptApi_Clean
                 var line: String?
                 while (br.readLine().also { line = it } != null) {
                     println(line)
-                    rez+=line;
+                    rez+=line
                 }
             }
             return  jsonToRez(rez)
-        }
-        suspend fun rephrase(query:String, context: Context):String{
-
-            var key = GptApi_Clean.apiKey(context)
-
-            key="Bearer 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"
-            val mediaType = "application/json".toMediaType()
-            val requestBody = """{ "model": "text-davinci-003",
-                                    "prompt": "rephrase this: $query",
-                                    "max_tokens": 7,
-                                    "temperature": 0.7,
-                                    "frequency_penalty": 0.5 }"""
-                .toRequestBody(mediaType)
-            Log.d("keyyy", requestBody.toString())
-            val request = Request.Builder()
-                .url("https://api.openai.com/v1/completions")
-                .addHeader("Authorization", key)
-                .post(requestBody)
-                .build()
-            return withContext(Dispatchers.IO) {
-                OkHttpClient().newCall(request).execute().use {
-                    jsonToRez(it.body?.string() ?: "")
-                }
-            }
-        }
-        suspend fun rephrase2(query:String, context: Context):String{
-
-            var key = GptApi_Clean.apiKey(context)
-            val mediaType = "application/json".toMediaType()
-            val requestBody = """{ "model": "text-davinci-003",
-                                    "prompt": "rephrase this: $query",
-                                    "max_tokens": 7,
-                                    "temperature": 0.7,
-                                    "frequency_penalty": 0.5 }"""
-                .toRequestBody(mediaType)
-            Log.d("keyyy", requestBody.toString())
-            val request = Request.Builder()
-                .url("https://api.openai.com/v1/completions")
-                .addHeader("Authorization", key)
-                .post(requestBody)
-                .build()
-            return withContext(Dispatchers.IO) {
-                OkHttpClient().newCall(request).execute().use {
-                    jsonToRez(it.body?.string() ?: "")
-                }
-            }
         }
         fun jsonToRez(result:String): String
         {
@@ -144,7 +87,8 @@ class GptApi_Clean
 
             else if(k==1)
             {
-                    return apiCallEdit(str.split(context.getString(R.string.gptChar))[0],str.split(context.getString(R.string.gptChar))[1],context)
+                return gptApiCall(str.split(context.getString(R.string.gptChar))[0],context,str.split(context.getString(R.string.gptChar))[1])
+                  //  return apiCallEdit(str.split(context.getString(R.string.gptChar))[0],str.split(context.getString(R.string.gptChar))[1],context)
             }
             else
             {
@@ -153,7 +97,8 @@ class GptApi_Clean
 
 
         }
-
+/*
+SVE RADI S NASE STRANE; NJIHOV ENDOPOINT SUCKS
         suspend fun apiCallEdit(text: String, edit: String, context: Context): String
         {
             Log.d("zahtjev2",text+"="+edit)
@@ -190,7 +135,7 @@ class GptApi_Clean
                 }
             }
         }
-
+*/
         //CLIPBOARD
         fun paste(lable:String,text:String,context: Context)
         {
