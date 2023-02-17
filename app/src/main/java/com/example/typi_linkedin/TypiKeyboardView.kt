@@ -12,10 +12,12 @@ import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.util.AttributeSet
 import android.util.Log
+import android.util.TypedValue
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import okhttp3.internal.wait
 
 class TypiKeyboardView(context: Context, attrs: AttributeSet) : KeyboardView(context, attrs) {
 //ovaj klas omogucuje cutom crtanje dugmadi kako sva dugmad ne bi morala izgledati isto
@@ -34,19 +36,18 @@ companion object{
                 var t=keyboard.keys.filter { v->v.codes[0]==i }[0]
                 popupWindow.add(PopupWindow(createPopupView(i.toChar().toString()), WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT))
                 popupWindow[i-97].isOutsideTouchable=true
+                popupWindow[i-97].width=t.width
                 xovi.add(t.x)
-                yoni.add(t.y)
+                yoni.add(t.y-10)
             }
         }
     override fun onLongPress(popupKey: Keyboard.Key?): Boolean
     {
         var kod= popupKey?.codes?.get(0)
         if (kod==32) {
-
             val imeManager: InputMethodManager =
                 context.getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager
             imeManager.showInputMethodPicker()
-
             return false
         }
         return super.onLongPress(popupKey)
@@ -54,7 +55,9 @@ companion object{
     }
     fun showPopupWindow(i:Int)
     {
+
         popupWindow[i].showAtLocation(this, Gravity.NO_GRAVITY,xovi[i],yoni[i])
+
     }
 
     // Create a custom view for the popup window
@@ -64,6 +67,7 @@ companion object{
         val popupText = popupView.findViewById<TextView>(R.id.popup_text)
        popupText.setText(popupCharacters)
         popupText.setTextColor(context.getColor(R.color.white))
+        popupText.setTextSize(TypedValue.COMPLEX_UNIT_DIP,35f)
         return popupView
     }
 
