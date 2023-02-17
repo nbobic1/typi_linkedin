@@ -24,7 +24,7 @@ class ViewMaker
         enum class Category {
             SMILY, FOOD, CARS, NATURE
         }
-        fun optionsSetup(keyboardRoot: View,context:Context,onKey: (primaryCode: Int, keyCodes: IntArray) -> Unit)
+        fun     optionsSetup(keyboardRoot: View,context:Context,onKey: (primaryCode: Int, keyCodes: IntArray) -> Unit)
         {
             keyboardRoot.findViewById<Button>(R.id.answer).setOnClickListener {
                 onKey(context.resources.getInteger(R.integer.gpt), intArrayOf(-1))

@@ -49,7 +49,7 @@
         <Key android:codes="66" android:keyLabel="B"/>
         <Key android:codes="78" android:keyLabel="N"/>
         <Key android:codes="77" android:keyLabel="M"/>
-        <Key android:codes="-2" android:keyIcon="@drawable/delete_arrow"
+        <Key android:codes="-5" android:keyIcon="@drawable/delete_arrow"
             android:keyWidth="14%p" android:keyEdgeFlags="right"
             android:isRepeatable="true"/>
     </Row>

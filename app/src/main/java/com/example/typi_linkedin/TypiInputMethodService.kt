@@ -8,19 +8,19 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.TextUtils
 import android.text.style.ImageSpan
-import android.view.KeyEvent
 import android.view.View
-import android.view.ViewConfiguration
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
-import android.view.inputmethod.InputMethodManager
-import android.widget.Button
 import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
-import android.widget.ScrollView
 import androidx.core.content.ContextCompat
+import com.mixpanel.android.mpmetrics.MixpanelAPI
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import org.json.JSONObject
+
+
+
 
 
 class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
@@ -32,6 +32,8 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
     lateinit var llSmily:View
     override fun onCreateInputView(): View
     {
+
+mixpanel = MixpanelAPI.getInstance(this, "04a8679d9c235e46100327d4f06c43aa", true);
         context=this
          keyboardRoot = layoutInflater.inflate(R.layout.root_keyboard_view, null) as LinearLayout
         keyboardView = keyboardRoot.findViewById(R.id.keyboard_view) as TypiKeyboardView
@@ -60,18 +62,18 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
         var optionScroll= keyboardRoot.findViewById<HorizontalScrollView>(R.id.optionScroll)
         optionScroll.post { optionScroll.fullScroll(View.FOCUS_RIGHT) }
         //different keyboard_layout
-       /* we dont have this functionality yet
-        var highScore = Pref_Clean.getIntPref(context, "moj")
 
-        if (highScore == 1)
+        var highScore = Pref_Clean.getIntPref(context, "jezik")
+
+        if (highScore == 0)
         {
-            val keyboard = Keyboard(this, R.xml.google)
+            val keyboard = Keyboard(this, R.xml.bosanska_google)
             keyboardView.keyboard = keyboard
         } else
         {
-            val keyboard = Keyboard(this, R.xml.google)
+            val keyboard = Keyboard(this, R.xml.bosanska_google2)
             keyboardView.keyboard = keyboard
-        }  */
+        }
     }
 
 
@@ -105,7 +107,21 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                     // delete the selection
                     ic.commitText("", 1)
                 }
-                var text = ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
+                var text=ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
+                if(text!=null&&text.length>1&&text[text.length-2]=='.'&&text[text.length-1]==' ')
+                {
+                    if(Pref_Clean.getIntPref(context,"jezik")==0)
+                    {
+                        var capitalLettersKeyboard = Keyboard(this, R.xml.google_capslock)
+                        keyboardView.keyboard = capitalLettersKeyboard
+                    }
+                    else
+                    {
+                        var capitalLettersKeyboard = Keyboard(this, R.xml.google2_capslock)
+                        keyboardView.keyboard = capitalLettersKeyboard
+                    }
+
+                }
 
             }
             resources.getInteger(R.integer.gptCharCode) ->
@@ -133,12 +149,6 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
             }
             resources.getInteger(R.integer.clip) ->
             {
-                // val keyboard = Keyboard(this, R.xml.keyboard_layout2)
-                //  keyboardView.keyboard = keyboard
-            /*    val imeManager: InputMethodManager =
-                    applicationContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-                imeManager.showInputMethodPicker()
-                */
                 ViewMaker.clipBoard(keyboardRoot,context,ic)
             }
 
@@ -173,6 +183,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
             resources.getInteger(R.integer.gpt)->
             {
                 println("usaoooooooo")
+
               callGptForInput(keyCodes,ic)
             }
             -1 ->
@@ -189,11 +200,13 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
             {
                 var smallLettersKeyboard = Keyboard(this, R.xml.bosanska_google)
                 keyboardView.keyboard = smallLettersKeyboard
+                Pref_Clean.setIntPref(context,"jezik",0)
             }
             -22 ->
             {
                 var smallLettersKeyboard = Keyboard(this, R.xml.bosanska_google2)
                 keyboardView.keyboard = smallLettersKeyboard
+                Pref_Clean.setIntPref(context,"jezik",1)
             }
             -3 ->
             {
@@ -210,7 +223,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
             {
                 var bosanskaKeyboard = Keyboard(this, R.xml.bosanska_google)
                 keyboardView.keyboard = bosanskaKeyboard
-
+                Pref_Clean.setIntPref(context,"jezik",0)
             }
 
             -10 ->
@@ -230,7 +243,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
             }
             resources.getInteger(R.integer.translate)->
             {
-                ViewMaker.popupInput(context,keyboardRoot,::onKey, arrayOf<String>("german","italian", "macedonian", "bosnian"), ic,keyCodes,"Translate this text to: ")
+                ViewMaker.popupInput(context,keyboardRoot,::onKey, arrayOf<String>("english","german","italian", "bosnian","spanish"), ic,keyCodes,"Translate this text to: ")
             }
 
             else ->
@@ -239,8 +252,44 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                     val emojiString = String(keyCodes, 0, keyCodes.size)
                     ic.commitText(emojiString,1)
 
-                } else {
+                }
+                else if(primaryCode==32)
+                {
                     ic.commitText(primaryCode.toChar().toString(), 1)
+                    var text=ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
+                    if(text!=null&&text.length>1&&text[text.length-2]=='.')
+                    {
+                        if(Pref_Clean.getIntPref(context,"jezik")==0)
+                        {
+                            var capitalLettersKeyboard = Keyboard(this, R.xml.google_capslock)
+                            keyboardView.keyboard = capitalLettersKeyboard
+                        }
+                        else
+                        {
+                            var capitalLettersKeyboard = Keyboard(this, R.xml.google2_capslock)
+                            keyboardView.keyboard = capitalLettersKeyboard
+                        }
+
+                    }
+
+                }
+                else {
+                    ic.commitText(primaryCode.toChar().toString(), 1)
+                    var text=ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
+                    if(text!=null&&text.length>2&&text[text.length-3]=='.'&&text[text.length-2]==' ')
+                    {
+                        if(Pref_Clean.getIntPref(context,"jezik")==0)
+                        {
+                            var capitalLettersKeyboard = Keyboard(this, R.xml.bosanska_google)
+                            keyboardView.keyboard = capitalLettersKeyboard
+                        }
+                        else
+                        {
+                            var capitalLettersKeyboard = Keyboard(this, R.xml.bosanska_google2)
+                            keyboardView.keyboard = capitalLettersKeyboard
+                        }
+
+                    }
                 }
 
 
@@ -278,6 +327,8 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
 
     companion object
     {
+        lateinit var mixpanel: MixpanelAPI
+
         lateinit  var context: Context
         var container: String = ""//spremam sto je uslo u gpt kako bi mogao vratiti
         fun callGptForInput(keyCodes: IntArray,ic:InputConnection,str3:String="")

@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity()
     {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        Pref_Clean.setIntPref(this,"jezik",0)
         var enableKbBtn: Button = findViewById(R.id.enableKbBtn)
         enableKbBtn.setOnClickListener {
              val enableIntent = Intent(Settings.ACTION_INPUT_METHOD_SETTINGS)
