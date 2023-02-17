@@ -11,6 +11,7 @@ import android.text.SpannableString
 import android.text.TextUtils
 import android.text.style.ImageSpan
 import android.util.Log
+import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
@@ -20,7 +21,6 @@ import androidx.core.content.ContextCompat
 import com.mixpanel.android.mpmetrics.MixpanelAPI
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import org.json.JSONObject
 
 
 class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
@@ -32,7 +32,6 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
     lateinit var llSmily: View
     override fun onCreateInputView(): View
     {
-
         mixpanel = MixpanelAPI.getInstance(this, "04a8679d9c235e46100327d4f06c43aa", true);
         context = this
         keyboardRoot = layoutInflater.inflate(R.layout.root_keyboard_view, null) as LinearLayout
@@ -229,7 +228,8 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                 resources.getInteger(R.integer.enter) ->
                 {
                     //  this.requestHideSelf(0)
-                    ic.commitText("\n", 1)
+                  //  ic.commitText("\n", 1)
+                    ic.sendKeyEvent(KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER))
                 }
                 //options
                 resources.getInteger(R.integer.summerize) ->
