@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="4dp"
-    android:paddingBottom="4dp"
+    android:paddingBottom="10dp"
     android:background="@color/dark_gray"
     android:orientation="vertical">
 
@@ -39,7 +39,15 @@
             android:background="@drawable/key_bg"
             android:id="@+id/clip"
             ></Button>
-
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10px"
+            android:background="@drawable/key_bg"
+            android:text="Translate"
+            android:textColor="@color/white"
+            android:id="@+id/translate"
+            ></Button>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,22 +59,23 @@
             ></Button>
         <Button
             android:layout_width="wrap_content"
-            android:background="@drawable/key_bg"
-            android:layout_marginStart="10px"
             android:layout_height="wrap_content"
-            android:text="Reverse"
+            android:layout_marginStart="10px"
+            android:background="@drawable/key_bg"
+            android:text="Correct grammar"
             android:textColor="@color/white"
-            android:id="@+id/reverse"
+            android:id="@+id/grammar"
             ></Button>
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10px"
             android:background="@drawable/key_bg"
-            android:text="Translate"
+            android:layout_marginStart="10px"
+            android:layout_height="wrap_content"
+            android:text="Reverse &#x21A9;&#xFE0E;"
             android:textColor="@color/white"
-            android:id="@+id/translate"
+            android:id="@+id/reverse"
             ></Button>
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

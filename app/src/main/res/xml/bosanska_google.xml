@@ -61,7 +61,7 @@
             android:keyWidth="35%p" android:isRepeatable="true"/>
         <Key android:codes="46,44" android:keyLabel=". ,"
             android:keyWidth="10%p"/>
-        <Key android:codes="-9" android:keyLabel="return"
+        <Key android:codes="-9" android:keyLabel="&#9166;"
             android:keyWidth="16%p" android:keyEdgeFlags="right"/>
     </Row>
 </Keyboard>

@@ -49,6 +49,11 @@ class ViewMaker
                     kotlin.intArrayOf(-1)
                 )
             }
+            keyboardRoot.findViewById<Button>(R.id.grammar).setOnClickListener {
+                onKey(context.resources.getInteger(com.example.typi_linkedin.R.integer.grammar),
+                    kotlin.intArrayOf(-1)
+                )
+            }
         }
         fun categorySetup(keyboardRoot: View,context:Context,onKey: (primaryCode: Int, keyCodes: IntArray) -> Unit):View
         {

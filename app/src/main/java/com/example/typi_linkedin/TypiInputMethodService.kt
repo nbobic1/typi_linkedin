@@ -120,9 +120,7 @@ mixpanel = MixpanelAPI.getInstance(this, "04a8679d9c235e46100327d4f06c43aa", tru
                         var capitalLettersKeyboard = Keyboard(this, R.xml.google2_capslock)
                         keyboardView.keyboard = capitalLettersKeyboard
                     }
-
                 }
-
             }
             resources.getInteger(R.integer.gptCharCode) ->
             {
@@ -136,16 +134,19 @@ mixpanel = MixpanelAPI.getInstance(this, "04a8679d9c235e46100327d4f06c43aa", tru
 
             resources.getInteger(R.integer.lanCustom) ->
             {
-                println("ne b bunkcioniral")
                 window.window?.attributes?.let { keyboardView.returnInput(it.token) }
             }
             resources.getInteger(R.integer.gptBack) ->
             {
+                if(container!="")
+                {
+                    ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
+                        ?.let { ic.setSelection(0, it.length) }
+                    GptApi_Clean.paste("Old text", ic.getSelectedText(0).toString(), context)
+                    ic.commitText(container, container.length)
+                }
                 //vracanjena verziju sto je usla u gpt
-                ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
-                    ?.let { ic.setSelection(0, it.length) }
-                GptApi_Clean.paste("Old text", ic.getSelectedText(0).toString(), context)
-                ic.commitText(container, container.length)
+
             }
             resources.getInteger(R.integer.clip) ->
             {
@@ -232,14 +233,19 @@ mixpanel = MixpanelAPI.getInstance(this, "04a8679d9c235e46100327d4f06c43aa", tru
                 keyboardView.keyboard = specialKeyboard
             }
 
-            -9 ->
+            resources.getInteger(R.integer.enter) ->
             {
-                this.requestHideSelf(0)
+              //  this.requestHideSelf(0)
+                ic.commitText("\n",1)
             }
             //options
             resources.getInteger(R.integer.summerize)->
             {
                 callGptForInput(keyCodes,ic,"Summarize this text: ")
+            }
+            resources.getInteger(R.integer.grammar)->
+            {
+                callGptForInput(keyCodes,ic,"Correct grammar in this text: ")
             }
             resources.getInteger(R.integer.translate)->
             {

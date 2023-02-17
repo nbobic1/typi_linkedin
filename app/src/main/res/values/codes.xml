@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <integer name="enter">-9</integer>
     <!-- code for button which sends prompt to gpt api and return result-->
     <integer name="gpt">-400</integer>
     <!-- code for a button that will add special character so we can separate text from manipulation instruction-->
@@ -23,4 +24,6 @@
 
     <integer name="translate">-409</integer>
     <integer name="summerize">-410</integer>
+
+    <integer name="grammar">-411</integer>
 </resources>

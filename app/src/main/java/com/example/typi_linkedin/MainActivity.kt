@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity()
 
 // Set the SpannableString to your TextView
         val textView = findViewById<TextView>(R.id.textView3)
-      //  textView.text = spannableString
+        textView.text = spannableString
         textView.setOnClickListener {
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(linkUrl))
             startActivity(browserIntent)
