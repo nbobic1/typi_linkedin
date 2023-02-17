@@ -82,179 +82,189 @@ mixpanel = MixpanelAPI.getInstance(this, "04a8679d9c235e46100327d4f06c43aa", tru
     {
         val ic = currentInputConnection ?: return
 
-        if (primaryCode == resources.getInteger(R.integer.space)) {
+       /* if (primaryCode == resources.getInteger(R.integer.space)) {
             keyboardView.setPreviewEnabled(false);
         } else {
-           // keyboardView.setPreviewEnabled(true);
+            keyboardView.setPreviewEnabled(true);
         }
-        when (primaryCode)
+
+        */
+        if(primaryCode<0)
         {
-            Keyboard.KEYCODE_DELETE ->
+
+            when (primaryCode)
             {
-                val selectedText = ic.getSelectedText(0)
-                if (TextUtils.isEmpty(selectedText))
+                Keyboard.KEYCODE_DELETE ->
                 {
-                    // no selection, so delete previous character
-                    var t = ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
-                    if (t != null && t.length > 2 && t.endsWith(getString(R.string.gptChar)))
+                    val selectedText = ic.getSelectedText(0)
+                    if (TextUtils.isEmpty(selectedText))
                     {
-                        ic.deleteSurroundingText(2, 0)
+                        // no selection, so delete previous character
+                        var t = ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
+                        if (t != null && t.length > 2 && t.endsWith(getString(R.string.gptChar)))
+                        {
+                            ic.deleteSurroundingText(2, 0)
+                        } else
+                        {
+                            ic.deleteSurroundingText(1, 0)
+                        }
                     } else
                     {
-                        ic.deleteSurroundingText(1, 0)
+                        // delete the selection
+                        ic.commitText("", 1)
                     }
-                } else
-                {
-                    // delete the selection
-                    ic.commitText("", 1)
-                }
-                var text=ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
-                if(text!=null&&text.length>1&&text[text.length-2]=='.'&&text[text.length-1]==' ')
-                {
-                    if(Pref_Clean.getIntPref(context,"jezik")==0)
+                    var text=ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
+                    if(text!=null&&text.length>1&&text[text.length-2]=='.'&&text[text.length-1]==' ')
                     {
-                        var capitalLettersKeyboard = Keyboard(this, R.xml.google_capslock)
-                        keyboardView.keyboard = capitalLettersKeyboard
+                        if(Pref_Clean.getIntPref(context,"jezik")==0)
+                        {
+                            var capitalLettersKeyboard = Keyboard(this, R.xml.google_capslock)
+                            keyboardView.keyboard = capitalLettersKeyboard
+                        }
+                        else
+                        {
+                            var capitalLettersKeyboard = Keyboard(this, R.xml.google2_capslock)
+                            keyboardView.keyboard = capitalLettersKeyboard
+                        }
                     }
-                    else
+                }
+                resources.getInteger(R.integer.gptCharCode) ->
+                {
+                    val ss = SpannableString(getString(R.string.gptChar))
+                    val d = ContextCompat.getDrawable(this, android.R.drawable.btn_star)
+                    d!!.setBounds(0, 0, d!!.intrinsicWidth, d!!.intrinsicHeight)
+                    val span = ImageSpan(d!!, ImageSpan.ALIGN_BASELINE)
+                    ss.setSpan(span, 0, 2, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
+                    ic.commitText(ss, ss.length)
+                }
+
+                resources.getInteger(R.integer.lanCustom) ->
+                {
+                    window.window?.attributes?.let { keyboardView.returnInput(it.token) }
+                }
+                resources.getInteger(R.integer.gptBack) ->
+                {
+                    if(container!="")
                     {
-                        var capitalLettersKeyboard = Keyboard(this, R.xml.google2_capslock)
-                        keyboardView.keyboard = capitalLettersKeyboard
-                    }
-                }
-            }
-            resources.getInteger(R.integer.gptCharCode) ->
-            {
-                val ss = SpannableString(getString(R.string.gptChar))
-                val d = ContextCompat.getDrawable(this, android.R.drawable.btn_star)
-                d!!.setBounds(0, 0, d!!.intrinsicWidth, d!!.intrinsicHeight)
-                val span = ImageSpan(d!!, ImageSpan.ALIGN_BASELINE)
-                ss.setSpan(span, 0, 2, Spannable.SPAN_INCLUSIVE_EXCLUSIVE)
-                ic.commitText(ss, ss.length)
-            }
-
-            resources.getInteger(R.integer.lanCustom) ->
-            {
-                window.window?.attributes?.let { keyboardView.returnInput(it.token) }
-            }
-            resources.getInteger(R.integer.gptBack) ->
-            {
-                if(container!="")
-                {
-                    ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
-                        ?.let { ic.setSelection(0, it.length) }
-                    GptApi_Clean.paste("Old text", ic.getSelectedText(0).toString(), context)
-                    ic.commitText(container, container.length)
-                }
-                //vracanjena verziju sto je usla u gpt
-
-            }
-            resources.getInteger(R.integer.clip) ->
-            {
-                ViewMaker.clipBoard(keyboardRoot,context,ic)
-            }
-
-            //funkcija za rephrase dok ona ne proradi bolje
-            resources.getInteger(R.integer.rephrase) ->
-            {
-                    ViewMaker.popupInput(context,keyboardRoot,::onKey, arrayOf<String>("funny","professional", "classy"), ic,keyCodes,"Rephrase this text so it sounds")
-                /*
-                var selectedText = ic.getSelectedText(0);
-                if (selectedText == null)
-                {
-                    ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
-                        ?.let { ic.setSelection(0, it.length) }
-                    selectedText = ic.getSelectedText(0);
-                }
-                if (selectedText != null)
-                {
-                    ic.commitText("wait...", 7);
-                    container = selectedText.toString()
-                    GptApi_Clean.paste("Old text", selectedText.toString(), this);
-                    GlobalScope.launch {
-                        var result = GptApi_Clean.rase2(selectedText.toString(), context);
                         ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
-                            ?.let { ic.setSelection(it.length - 7, it.length) }
-
-                        ic.commitText(result, result.length)
+                            ?.let { ic.setSelection(0, it.length) }
+                        GptApi_Clean.paste("Old text", ic.getSelectedText(0).toString(), context)
+                        ic.commitText(container, container.length)
                     }
+                    //vracanjena verziju sto je usla u gpt
+
                 }
-                */
+                resources.getInteger(R.integer.clip) ->
+                {
+                    ViewMaker.clipBoard(keyboardRoot,context,ic)
+                }
+
+                //funkcija za rephrase dok ona ne proradi bolje
+                resources.getInteger(R.integer.rephrase) ->
+                {
+                    ViewMaker.popupInput(context,keyboardRoot,::onKey, arrayOf<String>("funny","professional", "classy"), ic,keyCodes,"Rephrase this text so it sounds")
+                    /*
+                    var selectedText = ic.getSelectedText(0);
+                    if (selectedText == null)
+                    {
+                        ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
+                            ?.let { ic.setSelection(0, it.length) }
+                        selectedText = ic.getSelectedText(0);
+                    }
+                    if (selectedText != null)
+                    {
+                        ic.commitText("wait...", 7);
+                        container = selectedText.toString()
+                        GptApi_Clean.paste("Old text", selectedText.toString(), this);
+                        GlobalScope.launch {
+                            var result = GptApi_Clean.rase2(selectedText.toString(), context);
+                            ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
+                                ?.let { ic.setSelection(it.length - 7, it.length) }
+
+                            ic.commitText(result, result.length)
+                        }
+                    }
+                    */
+
+                }
+                resources.getInteger(R.integer.gpt)->
+                {
+                    println("usaoooooooo")
+
+                    callGptForInput(keyCodes,ic)
+                }
+                -1 ->
+                {
+                    var capitalLettersKeyboard = Keyboard(this, R.xml.google_capslock)
+                    keyboardView.keyboard = capitalLettersKeyboard
+                }
+                -11 ->
+                {
+                    var smallLettersKeyboard = Keyboard(this, R.xml.google2_capslock)
+                    keyboardView.keyboard = smallLettersKeyboard
+                }
+                -2 ->
+                {
+                    var smallLettersKeyboard = Keyboard(this, R.xml.bosanska_google)
+                    keyboardView.keyboard = smallLettersKeyboard
+                    Pref_Clean.setIntPref(context,"jezik",0)
+                }
+                -22 ->
+                {
+                    var smallLettersKeyboard = Keyboard(this, R.xml.bosanska_google2)
+                    keyboardView.keyboard = smallLettersKeyboard
+                    Pref_Clean.setIntPref(context,"jezik",1)
+                }
+                -3 ->
+                {
+
+                    ViewMaker.emoji(keyboardRoot,context,::onKey,llSmily)
+                }
+                -6 ->
+                {
+                    var numbersKeyboard = Keyboard(this, R.xml.numbers)
+                    keyboardView.keyboard = numbersKeyboard
+                }
+
+                -420->
+                {
+                    var bosanskaKeyboard = Keyboard(this, R.xml.bosanska_google)
+                    keyboardView.keyboard = bosanskaKeyboard
+                    Pref_Clean.setIntPref(context,"jezik",0)
+                }
+
+                -10 ->
+                {
+                    var specialKeyboard = Keyboard(this, R.xml.special_symbols)
+                    keyboardView.keyboard = specialKeyboard
+                }
+
+                resources.getInteger(R.integer.enter) ->
+                {
+                    //  this.requestHideSelf(0)
+                    ic.commitText("\n",1)
+                }
+                //options
+                resources.getInteger(R.integer.summerize)->
+                {
+                    callGptForInput(keyCodes,ic,"Summarize this text: ")
+                }
+                resources.getInteger(R.integer.grammar)->
+                {
+                    callGptForInput(keyCodes,ic,"Correct grammar in this text: ")
+                }
+                resources.getInteger(R.integer.translate)->
+                {
+                    ViewMaker.popupInput(context,keyboardRoot,::onKey, arrayOf<String>("english","german","italian", "bosnian","spanish"), ic,keyCodes,"Translate this text to: ")
+                }
+
 
             }
-            resources.getInteger(R.integer.gpt)->
-            {
-                println("usaoooooooo")
+        }
+        else
+        {
 
-              callGptForInput(keyCodes,ic)
-            }
-            -1 ->
-            {
-                var capitalLettersKeyboard = Keyboard(this, R.xml.google_capslock)
-                keyboardView.keyboard = capitalLettersKeyboard
-            }
-            -11 ->
-            {
-                var smallLettersKeyboard = Keyboard(this, R.xml.google2_capslock)
-                keyboardView.keyboard = smallLettersKeyboard
-            }
-            -2 ->
-            {
-                var smallLettersKeyboard = Keyboard(this, R.xml.bosanska_google)
-                keyboardView.keyboard = smallLettersKeyboard
-                Pref_Clean.setIntPref(context,"jezik",0)
-            }
-            -22 ->
-            {
-                var smallLettersKeyboard = Keyboard(this, R.xml.bosanska_google2)
-                keyboardView.keyboard = smallLettersKeyboard
-                Pref_Clean.setIntPref(context,"jezik",1)
-            }
-            -3 ->
-            {
 
-                 ViewMaker.emoji(keyboardRoot,context,::onKey,llSmily)
-            }
-            -6 ->
-            {
-                var numbersKeyboard = Keyboard(this, R.xml.numbers)
-                keyboardView.keyboard = numbersKeyboard
-            }
-
-            -420->
-            {
-                var bosanskaKeyboard = Keyboard(this, R.xml.bosanska_google)
-                keyboardView.keyboard = bosanskaKeyboard
-                Pref_Clean.setIntPref(context,"jezik",0)
-            }
-
-            -10 ->
-            {
-                var specialKeyboard = Keyboard(this, R.xml.special_symbols)
-                keyboardView.keyboard = specialKeyboard
-            }
-
-            resources.getInteger(R.integer.enter) ->
-            {
-              //  this.requestHideSelf(0)
-                ic.commitText("\n",1)
-            }
-            //options
-            resources.getInteger(R.integer.summerize)->
-            {
-                callGptForInput(keyCodes,ic,"Summarize this text: ")
-            }
-            resources.getInteger(R.integer.grammar)->
-            {
-                callGptForInput(keyCodes,ic,"Correct grammar in this text: ")
-            }
-            resources.getInteger(R.integer.translate)->
-            {
-                ViewMaker.popupInput(context,keyboardRoot,::onKey, arrayOf<String>("english","german","italian", "bosnian","spanish"), ic,keyCodes,"Translate this text to: ")
-            }
-
-            else ->
-            {
                 if (keyCodes.size == 1) {
                     val emojiString = String(keyCodes, 0, keyCodes.size)
                     ic.commitText(emojiString,1)
@@ -302,7 +312,7 @@ mixpanel = MixpanelAPI.getInstance(this, "04a8679d9c235e46100327d4f06c43aa", tru
 
 
             }
-        }
+
     }
 
     override fun onText(text: CharSequence)

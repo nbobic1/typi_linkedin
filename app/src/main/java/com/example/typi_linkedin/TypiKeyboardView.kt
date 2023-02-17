@@ -28,10 +28,12 @@ companion object{
     var inputMethod: TypiInputMethodService = TypiInputMethodService()
         fun pripremi()
         {
+            popupWindow.clear()
             for(i in 97 until 122)
             {
                 var t=keyboard.keys.filter { v->v.codes[0]==i }[0]
                 popupWindow.add(PopupWindow(createPopupView(i.toChar().toString()), WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT))
+                popupWindow[i-97].isOutsideTouchable=true
                 xovi.add(t.x)
                 yoni.add(t.y)
             }
@@ -48,45 +50,7 @@ companion object{
             return false
         }
         return super.onLongPress(popupKey)
-        /*  if (popupKey != null)
-          {
-              println("gori"+popupKey.codes[0])
-              val custom: View = LayoutInflater.from(context)
-                  .inflate(R.layout.popup_input_picker, FrameLayout(context))
-              var vie=custom.findViewById<TextView>(R.id.textView3)
 
-              val popup = PopupWindow(context)
-              popup.contentView = custom
-              if(popup.isShowing()){
-                  popup.update(200, 200, 30, 30);
-              } else {
-                  popup.setWidth(100);
-                  popup.setHeight(100);
-                  popup.showAtLocation(this, Gravity.NO_GRAVITY, 100, 100);
-              }
-              vie.setOnClickListener {
-                  popup.dismiss()
-              }
-          }
-
-         */
-
-    }
-
-
-    // Override the onLongPress method to handle long-press events for keys with popup characters
-
-
-    // Check if the specified key code is a popup key
-
-    // Show the popup window for the specified key
-   fun makePopupWindow(label: Int?) :PopupWindow{
-        return PopupWindow(createPopupView(label.toString()), WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
-        /*
-       Handler(Looper.getMainLooper()).postDelayed({
-            popupWindow.dismiss()
-        }, 100)
-        */
     }
     fun showPopupWindow(i:Int)
     {
@@ -112,10 +76,6 @@ companion object{
         }, 60)
        // popupWindow.dismiss()
     }
-
-    // In the onTouchEvent method, handle the MotionEvent.ACTION_UP and MotionEvent.ACTION_CANCEL events
-// If the user releases the key without selecting a popup character, dismiss the popup window:
-
 
     fun returnInput(token: IBinder)
 {
