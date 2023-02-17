@@ -187,7 +187,6 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                 }
                 resources.getInteger(R.integer.gpt) ->
                 {
-                    println("usaoooooooo")
                     callGptForInput(keyCodes, ic)
                 }
 

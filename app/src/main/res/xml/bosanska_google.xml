@@ -43,7 +43,7 @@
         <Key android:codes="110" android:keyLabel="n"/>
         <Key android:codes="109" android:keyLabel="m"/>
         <Key android:codes="-5" android:keyIcon="@drawable/delete_arrow"
-            android:keyWidth="15%p" android:keyEdgeFlags="right"
+            android:keyWidth="@dimen/delete" android:keyEdgeFlags="right"
             android:isRepeatable="true"/>
     </Row>
 
@@ -58,10 +58,10 @@
         <Key android:codes="-22" android:keyIcon="@drawable/language"
             android:keyWidth="10%p"/>
         <Key android:codes="32" android:keyLabel="Space"
-            android:keyWidth="35%p" android:isRepeatable="true"/>
+            android:keyWidth="@dimen/space" android:isRepeatable="true"/>
         <Key android:codes="46,44" android:keyLabel=". ,"
             android:keyWidth="10%p"/>
         <Key android:codes="-9" android:keyLabel="&#9166;"
-            android:keyWidth="20%p" android:keyEdgeFlags="right"/>
+            android:keyWidth="@dimen/done" android:keyEdgeFlags="right"/>
     </Row>
 </Keyboard>

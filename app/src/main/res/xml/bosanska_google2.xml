@@ -48,7 +48,7 @@
         <Key android:codes="273" android:keyLabel="đ"/>
         <Key android:codes="382" android:keyLabel="ž"/>
         <Key android:codes="-5" android:keyIcon="@drawable/delete_arrow"
-            android:keyWidth="@dimen/medium_key_width" android:keyEdgeFlags="right"
+            android:keyWidth="@dimen/delete" android:keyEdgeFlags="right"
             android:isRepeatable="true"/>
     </Row>
 
@@ -63,10 +63,10 @@
         <Key android:codes="-2" android:keyIcon="@drawable/language"
             android:keyWidth="@dimen/big_key_width"/>
         <Key android:codes="32" android:keyLabel="Space"
-            android:keyWidth="38%p" android:isRepeatable="true"/>
+            android:keyWidth="@dimen/space" android:isRepeatable="true"/>
         <Key android:codes="46,44" android:keyLabel=". ,"
             android:keyWidth="@dimen/big_key_width"/>
-        <Key android:codes="-9" android:keyLabel="return"
-            android:keyWidth="15%p" android:keyEdgeFlags="right"/>
+        <Key android:codes="-9" android:keyLabel="&#9166;"
+            android:keyWidth="@dimen/done" android:keyEdgeFlags="right"/>
     </Row>
 </Keyboard>

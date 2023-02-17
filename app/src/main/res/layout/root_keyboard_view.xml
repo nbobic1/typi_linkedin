@@ -21,8 +21,10 @@
         android:layout_marginBottom="10px">
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10px"
+            android:layout_height="@dimen/btnHeight"
+            android:paddingRight="7dp"
+            android:paddingLeft="7dp"
+            android:layout_marginStart="@dimen/btnGap"
             android:text="Change keyboard"
             android:textColor="@color/white"
             android:background="@drawable/key_bg"
@@ -30,8 +32,10 @@
             ></Button>
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10px"
+            android:layout_marginStart="@dimen/btnGap"
+            android:layout_height="@dimen/btnHeight"
+            android:paddingRight="7dp"
+            android:paddingLeft="7dp"
             android:text="Clip"
             android:textColor="@color/white"
             android:background="@drawable/key_bg"
@@ -39,8 +43,10 @@
             ></Button>
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10px"
+            android:layout_marginStart="@dimen/btnGap"
+            android:layout_height="@dimen/btnHeight"
+            android:paddingRight="7dp"
+            android:paddingLeft="7dp"
             android:background="@drawable/key_bg"
             android:text="Translate"
             android:textColor="@color/white"
@@ -48,8 +54,10 @@
             ></Button>
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10px"
+            android:layout_marginStart="@dimen/btnGap"
+            android:layout_height="@dimen/btnHeight"
+            android:paddingRight="7dp"
+            android:paddingLeft="7dp"
             android:background="@drawable/key_bg"
             android:text="Summarize"
             android:textColor="@color/white"
@@ -57,8 +65,10 @@
             ></Button>
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10px"
+            android:layout_marginStart="@dimen/btnGap"
+            android:layout_height="@dimen/btnHeight"
+            android:paddingRight="7dp"
+            android:paddingLeft="7dp"
             android:background="@drawable/key_bg"
             android:text="Correct grammar"
             android:textColor="@color/white"
@@ -67,8 +77,10 @@
         <Button
             android:layout_width="wrap_content"
             android:background="@drawable/key_bg"
-            android:layout_marginStart="10px"
-            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/btnGap"
+            android:layout_height="@dimen/btnHeight"
+            android:paddingRight="7dp"
+            android:paddingLeft="7dp"
             android:text="Reverse &#x21A9;&#xFE0E;"
             android:textColor="@color/white"
             android:id="@+id/reverse"
@@ -76,8 +88,10 @@
 
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10px"
+            android:layout_marginStart="@dimen/btnGap"
+            android:layout_height="@dimen/btnHeight"
+            android:paddingRight="7dp"
+            android:paddingLeft="7dp"
             android:background="@drawable/key_bg"
             android:text="Rephrase"
             android:textColor="@color/white"
@@ -85,8 +99,10 @@
             ></Button>
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10px"
+            android:layout_marginStart="@dimen/btnGap"
+            android:layout_height="@dimen/btnHeight"
+            android:paddingRight="7dp"
+            android:paddingLeft="7dp"
             android:background="@drawable/key_bg"
             android:text="Answer"
             android:textColor="@color/white"
@@ -107,7 +123,7 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_marginStart="5dp"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/btnHeight"
                 android:text="ABC"
                 android:background="@drawable/key_bg"
                 android:textColor="@color/white"
@@ -115,7 +131,7 @@
                 ></Button>
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/btnHeight"
                 android:background="@drawable/key_bg"
                 android:layout_marginStart="5dp"
                 android:textColor="@color/white"
@@ -124,7 +140,7 @@
                 ></Button>
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/btnHeight"
                 android:text="Food 🍰"
                 android:background="@drawable/key_bg"
                 android:textColor="@color/white"
@@ -133,7 +149,7 @@
                 ></Button>
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/btnHeight"
                 android:text="Animals 🦄"
                 android:background="@drawable/key_bg"
                 android:textColor="@color/white"
@@ -142,7 +158,7 @@
                 ></Button>
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/btnHeight"
                 android:text="Sport ⚽"
                 android:id="@+id/sport"
                 android:background="@drawable/key_bg"
@@ -152,7 +168,7 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_marginStart="5dp"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/btnHeight"
                 android:text="Symbols ❤"
                 android:background="@drawable/key_bg"
                 android:textColor="@color/white"
@@ -160,7 +176,7 @@
                 ></Button>
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/btnHeight"
                 android:text="Objects ⏰"
                 android:background="@drawable/key_bg"
                 android:textColor="@color/white"
@@ -169,7 +185,7 @@
                 ></Button>
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/btnHeight"
                 android:text="Urban 🏦"
                 android:background="@drawable/key_bg"
                 android:textColor="@color/white"

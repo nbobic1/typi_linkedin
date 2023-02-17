@@ -7,7 +7,16 @@
     <dimen name="horizontal_gap">0%</dimen>
     <dimen name="vertical_gap">0%</dimen>
     <dimen name="small_horizontal_gap">0%</dimen>
-    <dimen name="key_height">44dip</dimen>
-    <dimen name="key_heightx4">200dip</dimen>
+    <dimen name="key_height">48dip</dimen>
+    <dimen name="key_heightx4">211dip</dimen>
     <dimen name="long_key_width">24%p</dimen>
+    <dimen name="space">38%p</dimen>
+    <dimen name="done">17%p</dimen>
+    <dimen name="delete">15%</dimen>
+    <!-- vGap=8 to je 0.8%p -->
+    <integer name="vGap">120</integer>
+    <integer name="hGap">81</integer>
+
+    <dimen name="btnHeight">35dp</dimen>
+    <dimen name="btnGap">5dp</dimen>
 </resources>

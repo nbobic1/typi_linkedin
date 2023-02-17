@@ -152,6 +152,14 @@ companion object{
 
       //  super.onDraw(canvas)
        var keys: List<Keyboard.Key> = getKeyboard().getKeys()
+        var horizontalGap:Int=(width*resources.getInteger(R.integer.hGap)/10000.0f).roundToInt()
+        /*if(Pref_Clean.getIntPref(context,"jezik")==0&&(key.codes.size!=0&&((key.codes[0]>96&&key.codes[0]<123)||(key.codes[0]>64&&key.codes[0]<91))))
+        {
+            horizontalGap=(width*resources.getInteger(R.integer.hGap)*3/40000.0f).roundToInt()
+        }
+        else*/
+        var verticalGap:Int= (width*resources.getInteger(R.integer.vGap)/10000.0f).roundToInt()
+        var dr1:Drawable = context.getResources().getDrawable(R.drawable.key_bg)
         for (key: Keyboard.Key in keys) {
             if (key.codes.size!=0&&key.codes[0] == 10700) {
               /*  Log.e("KEY", "Drawing key with code " + key.codes[0]);
@@ -164,10 +172,8 @@ companion object{
 */
             } else {
                 //crtanje pozadine dugmeeta
-                var horizontalGap:Int= (width*0.008).roundToInt()
-                var dr1:Drawable =
-                    context.getResources().getDrawable(R.drawable.key_bg)
-                dr1.setBounds(key.x+horizontalGap, key.y+10, key.x + key.width-horizontalGap, key.y + key.height);
+
+                dr1.setBounds(key.x+horizontalGap, key.y+verticalGap, key.x + key.width-horizontalGap, key.y + key.height-verticalGap);
                 if (canvas != null) {
                     dr1.draw(canvas)
                    // dr.draw(canvas)
@@ -179,7 +185,7 @@ companion object{
                     if (key.label != null) {
                         canvas.drawText(
                             key.label.toString(), (key.x + key.width / 2).toFloat(),
-                            (key.y + key.height / 2+5).toFloat(), paint
+                            (key.y + key.height / 2+20).toFloat(), paint
                         )
                     } else if(key.icon!=null) {
                         key.icon.setBounds(key.x, key.y, key.x + key.width, key.y + key.height)
