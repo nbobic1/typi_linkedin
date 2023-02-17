@@ -45,7 +45,7 @@ companion object{
         var popupWindow2=PopupWindow(popupView1,WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
         popupWindow2.showAtLocation(ovajView,Gravity.NO_GRAVITY,100,100)
         println("pusten" )
-
+        popupWindow2.isOutsideTouchable=true
         Handler(Looper.getMainLooper()).postDelayed({
             popupWindow2.dismiss()
         }, 500)

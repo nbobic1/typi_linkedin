@@ -251,6 +251,15 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                         "Translate this text to: "
                     )
                 }
+                -11->
+                {
+                    var smallLettersKeyboard = Keyboard(this, R.xml.google2_capslock)
+                    keyboardView.keyboard = smallLettersKeyboard
+                }
+                -1->{
+                    var capitalLettersKeyboard = Keyboard(this, R.xml.google_capslock)
+                    keyboardView.keyboard = capitalLettersKeyboard
+                }
             }
         } else
         {
@@ -322,27 +331,18 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
 
     override fun onPress(primaryCode: Int)
     {
-        println("primaryCode===" + primaryCode)
+
         if (primaryCode > 96 && primaryCode < 122)
         {
             keyboardView.showPopupWindow(primaryCode - 97)
         }
         else if(primaryCode==-1||primaryCode==-11)
         {
-            if(primaryCode==-1)
-            {
-                var capitalLettersKeyboard = Keyboard(this, R.xml.google_capslock)
-                keyboardView.keyboard = capitalLettersKeyboard
-            }
-            else
-            {
-                var smallLettersKeyboard = Keyboard(this, R.xml.google2_capslock)
-                keyboardView.keyboard = smallLettersKeyboard
-            }
             Handler(Looper.getMainLooper()).postDelayed({
                 if(proba==0)
                 {
                     TypiInputMethodService.capsLock=true
+                    println("prikaz")
                     TypiKeyboardView.capsNot()
                     proba=2
                 }
@@ -350,23 +350,26 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                     proba=0
                     Log.d("caps","ne radi :.(")
                 }
-            }, 750)
+            }, 150)
+
         }
     }
 
     override fun onRelease(primaryCode: Int)
     {
+        println("relead="+primaryCode)
         if (primaryCode > 96 && primaryCode < 122)
         {
             keyboardView.dismissPopupWindow(primaryCode - 97)
-        }
-        else if(primaryCode==-1||primaryCode==-11)
+        }else if(primaryCode==-1||primaryCode==-11)
         {
             if(proba==2)
-                proba=0
-            else
-            proba=1
-        }
+            {
+                proba = 0
+            }else
+            {   proba=1
+        }}
+
     }
 
     companion object

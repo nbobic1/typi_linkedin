@@ -18,7 +18,7 @@
         <Key android:codes="69" android:keyLabel="E"/>
         <Key android:codes="82" android:keyLabel="R"/>
         <Key android:codes="84" android:keyLabel="T"/>
-        <Key android:codes="89" android:keyLabel="Y"/>
+        <Key android:codes="90" android:keyLabel="Z"/>
         <Key android:codes="85" android:keyLabel="U"/>
         <Key android:codes="73" android:keyLabel="I"/>
         <Key android:codes="79" android:keyLabel="O"/>
@@ -42,7 +42,7 @@
         <Key android:codes="-2" android:keyIcon="@drawable/capslock_turned_on"
             android:keyWidth="15%p" android:isModifier="true"
             android:isSticky="true" android:keyEdgeFlags="left"/>
-        <Key android:codes="90" android:keyLabel="Z"/>
+        <Key android:codes="89" android:keyLabel="Y"/>
         <Key android:codes="88" android:keyLabel="X"/>
         <Key android:codes="67" android:keyLabel="C"/>
         <Key android:codes="86" android:keyLabel="V"/>
