@@ -5,7 +5,7 @@
     <dimen name="medium_key_width">8.9%p</dimen>
     <dimen name="small_key_width">8.6%p</dimen>
     <dimen name="horizontal_gap">0.8%</dimen>
-    <dimen name="vertical_gap">0.5%</dimen>
+    <dimen name="vertical_gap">0.85%</dimen>
     <dimen name="small_horizontal_gap">0.4%</dimen>
     <dimen name="key_height">44dip</dimen>
     <dimen name="key_heightx4">200dip</dimen>
