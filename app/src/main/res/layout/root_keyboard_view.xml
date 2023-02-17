@@ -9,8 +9,6 @@
     android:background="@color/dark_gray"
     android:orientation="vertical">
 
-
-
 <HorizontalScrollView
     android:id="@+id/optionScroll"
     android:layout_width="match_parent"

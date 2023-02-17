@@ -43,7 +43,8 @@ mixpanel = MixpanelAPI.getInstance(this, "04a8679d9c235e46100327d4f06c43aa", tru
         var keyboard: Keyboard = Keyboard(this, R.xml.bosanska_google)
         keyboardView.keyboard = keyboard
         keyboardView.setOnKeyboardActionListener(this)
-        //keyboardView.isPreviewEnabled=false
+        keyboardView.isPreviewEnabled=false
+        keyboardView.pripremi()
        /*
         keyboard = Keyboard(this, R.xml.options)
         keyboardViewOptions.keyboard = keyboard
@@ -84,7 +85,7 @@ mixpanel = MixpanelAPI.getInstance(this, "04a8679d9c235e46100327d4f06c43aa", tru
         if (primaryCode == resources.getInteger(R.integer.space)) {
             keyboardView.setPreviewEnabled(false);
         } else {
-            keyboardView.setPreviewEnabled(true);
+           // keyboardView.setPreviewEnabled(true);
         }
         when (primaryCode)
         {
@@ -280,6 +281,7 @@ mixpanel = MixpanelAPI.getInstance(this, "04a8679d9c235e46100327d4f06c43aa", tru
 
                 }
                 else {
+
                     ic.commitText(primaryCode.toChar().toString(), 1)
                     var text=ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
                     if(text!=null&&text.length>2&&text[text.length-3]=='.'&&text[text.length-2]==' ')
@@ -323,14 +325,23 @@ mixpanel = MixpanelAPI.getInstance(this, "04a8679d9c235e46100327d4f06c43aa", tru
     {
     }
 
-    override fun onPress(p0: Int)
+    override fun onPress(primaryCode: Int)
     {
+        println("primaryCode==="+primaryCode)
+        if(primaryCode>96&&primaryCode<122)
+        {
+
+            keyboardView.showPopupWindow(primaryCode-97)
+        }
     }
 
-    override fun onRelease(p0: Int)
+    override fun onRelease(primaryCode: Int)
     {
+        if(primaryCode>96&&primaryCode<122)
+        {
+            keyboardView.dismissPopupWindow(primaryCode-97)
+        }
     }
-
     companion object
     {
         lateinit var mixpanel: MixpanelAPI

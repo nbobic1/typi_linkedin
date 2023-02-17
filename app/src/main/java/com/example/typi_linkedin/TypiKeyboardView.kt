@@ -5,7 +5,9 @@ import android.content.Context
 import android.graphics.Canvas
 import android.inputmethodservice.Keyboard
 import android.inputmethodservice.KeyboardView
+import android.os.Handler
 import android.os.IBinder
+import android.os.Looper
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.util.AttributeSet
@@ -18,9 +20,22 @@ import androidx.appcompat.app.AppCompatActivity
 class TypiKeyboardView(context: Context, attrs: AttributeSet) : KeyboardView(context, attrs) {
 //ovaj klas omogucuje cutom crtanje dugmadi kako sva dugmad ne bi morala izgledati isto
     //da bi radio mora se u xml koji se u njega ucitava staviti on kao root tag
-
+companion object{
+    var popupWindow:ArrayList<PopupWindow> = ArrayList()
+    var xovi:ArrayList<Int> = ArrayList()
+    var yoni:ArrayList<Int> = ArrayList()
+}
     var inputMethod: TypiInputMethodService = TypiInputMethodService()
-
+        fun pripremi()
+        {
+            for(i in 97 until 122)
+            {
+                var t=keyboard.keys.filter { v->v.codes[0]==i }[0]
+                popupWindow.add(PopupWindow(createPopupView(i.toChar().toString()), WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT))
+                xovi.add(t.x)
+                yoni.add(t.y)
+            }
+        }
     override fun onLongPress(popupKey: Keyboard.Key?): Boolean
     {
         var kod= popupKey?.codes?.get(0)
@@ -63,59 +78,44 @@ class TypiKeyboardView(context: Context, attrs: AttributeSet) : KeyboardView(con
 
 
     // Check if the specified key code is a popup key
-    private fun isPopupKey(label:String): Boolean {
-        return label=="c" || label=="s" || label=="d"
-    }
 
-    private fun getPopupCharactersForKey(code:Int):ArrayList<String>{
-        if (code==99) return arrayListOf("č","ć")
-        if (code==100) return arrayListOf("đ","dž")
-        return if (code==115) arrayListOf("š")
-        else arrayListOf()
-    }
     // Show the popup window for the specified key
-   private fun showPopupWindow(label: Int?, x: Float, y: Float) {
-        val popupCharacters = label?.let { getPopupCharactersForKey(it) }
-        Log.v("POPUP CHARACTERS ",popupCharacters.toString())
-        val popupView = popupCharacters?.let { createPopupView(it) }
-        val popupWindow = PopupWindow(popupView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
-        popupWindow.showAtLocation(this, Gravity.NO_GRAVITY, x.toInt(), y.toInt())
+   fun makePopupWindow(label: Int?) :PopupWindow{
+        return PopupWindow(createPopupView(label.toString()), WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
+        /*
+       Handler(Looper.getMainLooper()).postDelayed({
+            popupWindow.dismiss()
+        }, 100)
+        */
+    }
+    fun showPopupWindow(i:Int)
+    {
+        popupWindow[i].showAtLocation(this, Gravity.NO_GRAVITY,xovi[i],yoni[i])
     }
 
     // Create a custom view for the popup window
-    private fun createPopupView(popupCharacters: ArrayList<String>): View {
-        val context = context
+    private fun createPopupView(popupCharacters: String): View {
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val popupView = inflater.inflate(R.layout.popup_layout, null)
         val popupText = popupView.findViewById<TextView>(R.id.popup_text)
-        val popupTextBuilder = SpannableStringBuilder()
-        for (i in popupCharacters) {
-            val popup = PopupWindow(context)
-            // ovo ne moze ovako nego mora nekako jedno po jedno i onClick metoda
-            val popupCharWithSeparator = "$i"
-            popupTextBuilder.append(popupCharWithSeparator)
-        }
-
-       popupText.setText(popupTextBuilder, TextView.BufferType.SPANNABLE)
+       popupText.setText(popupCharacters)
+        popupText.setTextColor(context.getColor(R.color.white))
         return popupView
     }
 
 
     // Dismiss the popup window
-    private fun dismissPopupWindow() {
+     fun dismissPopupWindow(i: Int) {
         // If the popup window is currently displayed, dismiss it
+        Handler(Looper.getMainLooper()).postDelayed({
+            popupWindow[i].dismiss()
+        }, 60)
+       // popupWindow.dismiss()
     }
 
     // In the onTouchEvent method, handle the MotionEvent.ACTION_UP and MotionEvent.ACTION_CANCEL events
 // If the user releases the key without selecting a popup character, dismiss the popup window:
-    override fun onTouchEvent(event: MotionEvent): Boolean {
-        when (event.action) {
-            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-                dismissPopupWindow()
-            }
-        }
-        return super.onTouchEvent(event)
-    }
+
 
     fun returnInput(token: IBinder)
 {
