@@ -3,8 +3,13 @@ package com.example.typi_linkedin
 import android.app.ActionBar.LayoutParams
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
 import android.inputmethodservice.Keyboard
 import android.inputmethodservice.KeyboardView
+import android.os.Build
 import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
@@ -18,6 +23,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import okhttp3.internal.wait
+import kotlin.math.roundToInt
 
 class TypiKeyboardView(context: Context, attrs: AttributeSet) : KeyboardView(context, attrs) {
 //ovaj klas omogucuje cutom crtanje dugmadi kako sva dugmad ne bi morala izgledati isto
@@ -26,10 +32,30 @@ companion object{
     var popupWindow:ArrayList<PopupWindow> = ArrayList()
     var xovi:ArrayList<Int> = ArrayList()
     var yoni:ArrayList<Int> = ArrayList()
+    lateinit var  context: Context
+    lateinit var ovajView:View
+    fun capsNot()
+    {
+        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val popupView1 = inflater.inflate(R.layout.popup_layout, null)
+        val popupText = popupView1.findViewById<TextView>(R.id.popup_text)
+        popupText.setText("CapsLock")
+        popupText.setTextColor(context.getColor(R.color.white))
+        popupText.setTextSize(TypedValue.COMPLEX_UNIT_DIP,35f)
+        var popupWindow2=PopupWindow(popupView1,WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
+        popupWindow2.showAtLocation(ovajView,Gravity.NO_GRAVITY,100,100)
+        println("pusten" )
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            popupWindow2.dismiss()
+        }, 500)
+
+    }
 }
     var inputMethod: TypiInputMethodService = TypiInputMethodService()
         fun pripremi()
         {
+
             popupWindow.clear()
             for(i in 97 until 122)
             {
@@ -41,6 +67,7 @@ companion object{
                 yoni.add(t.y-10)
             }
         }
+
     override fun onLongPress(popupKey: Keyboard.Key?): Boolean
     {
         var kod= popupKey?.codes?.get(0)
@@ -50,14 +77,13 @@ companion object{
             imeManager.showInputMethodPicker()
             return false
         }
+
         return super.onLongPress(popupKey)
 
     }
     fun showPopupWindow(i:Int)
     {
-
         popupWindow[i].showAtLocation(this, Gravity.NO_GRAVITY,xovi[i],yoni[i])
-
     }
 
     // Create a custom view for the popup window
@@ -124,33 +150,36 @@ companion object{
     //funkcija u kojoj obavljamo crtanje
     override fun onDraw(canvas: Canvas?) {
 
-        super.onDraw(canvas)
-      /* var keys: List<Keyboard.Key> = getKeyboard().getKeys()
+      //  super.onDraw(canvas)
+       var keys: List<Keyboard.Key> = getKeyboard().getKeys()
         for (key: Keyboard.Key in keys) {
-            if (key.codes.size!=0&&key.codes[0] == 107) {
-                Log.e("KEY", "Drawing key with code " + key.codes[0]);
+            if (key.codes.size!=0&&key.codes[0] == 10700) {
+              /*  Log.e("KEY", "Drawing key with code " + key.codes[0]);
                 //crtanje pozadine
                 var dr: Drawable = context.getResources().getDrawable(R.drawable.key_bg_gpt);
                 dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
                 if (canvas != null) {
                     dr.draw(canvas)
                 }
-
+*/
             } else {
                 //crtanje pozadine dugmeeta
-                var dr: Drawable = context.getResources().getDrawable(R.drawable.key_bg);
-                dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
+                var horizontalGap:Int= (width*0.008).roundToInt()
+                var dr1:Drawable =
+                    context.getResources().getDrawable(R.drawable.key_bg)
+                dr1.setBounds(key.x+horizontalGap, key.y+10, key.x + key.width-horizontalGap, key.y + key.height);
                 if (canvas != null) {
-                    dr.draw(canvas)
+                    dr1.draw(canvas)
+                   // dr.draw(canvas)
                     val paint = Paint()
                     paint.textAlign = Paint.Align.CENTER
                     paint.textSize = 48f
-                    paint.color = Color.GRAY
+                    paint.color = Color.WHITE
                     //crtanje slova/ikone dgmeta
                     if (key.label != null) {
                         canvas.drawText(
                             key.label.toString(), (key.x + key.width / 2).toFloat(),
-                            (key.y + key.height / 2).toFloat(), paint
+                            (key.y + key.height / 2+5).toFloat(), paint
                         )
                     } else if(key.icon!=null) {
                         key.icon.setBounds(key.x, key.y, key.x + key.width, key.y + key.height)
@@ -161,6 +190,6 @@ companion object{
 
         }
 
-       */
+
     }
 }
