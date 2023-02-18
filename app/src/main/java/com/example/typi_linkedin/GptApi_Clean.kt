@@ -73,10 +73,11 @@ class GptApi_Clean
             val choices = JSONTokener(choices1).nextValue() as JSONArray
             val tokens=JSONTokener(jsonObject.getString("usage")).nextValue() as JSONObject
             val tokensCount=tokens.getString("total_tokens").toInt()
+            var tSto=Pref_Clean.getIntPref(context,"tokens")
+            Pref_Clean.setIntPref(context,"tokens",tokensCount+tSto)
             val mixpanel: MixpanelAPI = MixpanelAPI.getInstance(context, token, true)
             if(text=="")
             {
-                //answer
                 val props = JSONObject()
                 props.put("TypiAnswer tokens", tokensCount)
                 mixpanel.track("TypiAnswer", props)

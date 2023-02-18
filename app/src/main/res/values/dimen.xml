@@ -20,4 +20,6 @@
 
     <dimen name="btnHeight">35dp</dimen>
     <dimen name="btnGap">5dp</dimen>
+    <dimen name="imageH">150dp</dimen>
+    <dimen name="imageW">300dp</dimen>
 </resources>

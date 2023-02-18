@@ -26,6 +26,22 @@ class ViewMaker
         }
         fun     optionsSetup(keyboardRoot: View,context:Context,onKey: (primaryCode: Int, keyCodes: IntArray) -> Unit)
         {
+            keyboardRoot.findViewById<Button>(R.id.help).setOnClickListener {
+                var tk= FrameLayout(context)
+                tk.layoutParams= ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                val custom: View = LayoutInflater.from(context)
+                    .inflate(R.layout.popup_help,tk)
+                val popup = PopupWindow(context)
+                popup.contentView = custom
+                popup.isOutsideTouchable=true
+                if(popup.isShowing()){
+                    popup.update(200, 200, ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT)
+                } else {
+                    popup.setWidth(ActionBar.LayoutParams.WRAP_CONTENT)
+                    popup.setHeight(ActionBar.LayoutParams.WRAP_CONTENT)
+                    popup.showAtLocation(keyboardRoot, Gravity.CENTER, 0, 0)
+                }
+            }
             keyboardRoot.findViewById<Button>(R.id.answer).setOnClickListener {
                 onKey(context.resources.getInteger(R.integer.gpt), intArrayOf(-1))
             }
@@ -427,7 +443,9 @@ class ViewMaker
             println("preajr")
             linearLayout.removeAllViews()
             var k=Button(context)
-            k.setTextColor(context.getColor(R.color.green))
+            k.setText("Back to keyboard")
+            k.background=context.resources.getDrawable(R.drawable.key_bg)
+            k.setTextColor(context.getColor(R.color.white))
             k.setOnClickListener {
                 showKeyboard(keyboardRoot)
             }
@@ -446,6 +464,9 @@ class ViewMaker
                 println("lafjalga")
                 var t=TextView(context)
                 t.setText(paste[i])
+                t.textSize=30f
+                t.setPadding(10)
+                t.gravity=Gravity.CENTER_HORIZONTAL
                 t.setOnClickListener { 
                     ic.commitText(t.text.toString(),t.text.length)
                 }
