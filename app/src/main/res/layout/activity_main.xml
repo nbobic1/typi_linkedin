@@ -7,7 +7,6 @@
     android:orientation="vertical"
     android:gravity="center"
     >
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="88dp"
@@ -65,7 +64,7 @@
         android:layout_height="346dp"
         android:layout_marginBottom="140dp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="textMultiLine"
         android:text="Name a city"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -171,7 +171,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                         context,
                         keyboardRoot,
                         ::onKey,
-                        arrayOf<String>("funny", "professional", "classy"),
+                        arrayOf<String>("excited","formal","sincere","caring","friendly","humoristic", "sympathetic","sarcastic","authoritative"),
                         ic,
                         keyCodes,
                         "Rephrase this text so it sounds"
@@ -321,7 +321,6 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                 {
                     if (Pref_Clean.getIntPref(context, "jezik") == 0)
                     {
-                        println("dsafagdaljaglčajglčjaglčajgl")
                         keyboardView.dismissPopupWindowImedietly(primaryCode-65)
                         var capitalLettersKeyboard = Keyboard(this, R.xml.bosanska_google)
                         keyboardView.keyboard = capitalLettersKeyboard

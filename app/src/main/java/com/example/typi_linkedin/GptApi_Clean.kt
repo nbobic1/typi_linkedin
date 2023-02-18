@@ -45,7 +45,7 @@ class GptApi_Clean
             val mediaType = "application/json".toMediaType()
             val requestBody = """{ "model": "text-davinci-003",
                                     "prompt": "$text",
-                                    "max_tokens": 7,
+                                    "max_tokens": 40,
                                     "temperature": 0.7,
                                     "frequency_penalty": 0.5 }"""
                 .toRequestBody(mediaType)
