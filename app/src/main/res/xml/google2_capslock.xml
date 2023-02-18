@@ -48,7 +48,7 @@
         <Key android:codes="272" android:keyLabel="Đ"/>
         <Key android:codes="381" android:keyLabel="Ž"/>
         <Key android:codes="-5" android:keyIcon="@drawable/delete_arrow"
-            android:keyWidth="@dimen/delete" android:keyEdgeFlags="right"
+            android:keyWidth="@dimen/medium_key_width" android:keyEdgeFlags="right"
             android:isRepeatable="true"/>
     </Row>
 

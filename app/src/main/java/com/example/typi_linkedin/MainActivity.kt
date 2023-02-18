@@ -35,11 +35,12 @@ class MainActivity : AppCompatActivity()
 
         var defaultKbBtn: Button = findViewById(R.id.defaultKbBtn)
         defaultKbBtn.setOnClickListener {
-            val imeManager: InputMethodManager = applicationContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-                imeManager.showInputMethodPicker()
-
             val mixpanel = MixpanelAPI.getInstance(applicationContext, GptApi_Clean.token, true)
             mixpanel.track("TypiDefault")
+            val imeManager: InputMethodManager =
+                (applicationContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).apply {
+                    showInputMethodPicker()
+                }
             }
         // Get the string resource that contains the link URL
         val linkUrl = resources.getString(R.string.hyperlink)

@@ -56,15 +56,31 @@ companion object{
     var inputMethod: TypiInputMethodService = TypiInputMethodService()
         fun pripremi()
         {
-
+                println("pripremi -----------------------------------")
             popupWindow.clear()
-            for(i in 97 until 122)
+            for(i in 97 until 123)
             {
-                var t=keyboard.keys.filter { v->v.codes[0]==i }[0]
+                var t1=keyboard.keys.filter { v->v.codes.size>0&&v.codes[0]==i }
+                if(t1.size==0)
+                    break
+                var t=t1[0]
                 popupWindow.add(PopupWindow(createPopupView(i.toChar().toString()), WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT))
                 popupWindow[i-97].isOutsideTouchable=true
                 popupWindow[i-97].width=t.width
                 xovi.add(t.x)
+                yoni.add(t.y-10)
+            }
+            for(i in 65 until 91)
+            {
+
+                var t1=keyboard.keys.filter { v->v.codes.size>0&&v.codes[0]==i }
+                if(t1.size==0)
+                    break
+                var t=t1[0]
+                popupWindow.add(PopupWindow(createPopupView(i.toChar().toString()), WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT))
+                popupWindow[i-65].isOutsideTouchable=true
+                popupWindow[i-65].width=t.width
+                xovi.add((t.x*0.9).toInt())
                 yoni.add(t.y-10)
             }
         }
@@ -89,6 +105,7 @@ companion object{
     }
     fun showPopupWindow(i:Int)
     {
+        println("pokaza="+i)
         popupWindow[i].showAtLocation(this, Gravity.NO_GRAVITY,xovi[i],yoni[i])
     }
 
@@ -107,8 +124,10 @@ companion object{
     // Dismiss the popup window
      fun dismissPopupWindow(i: Int) {
         // If the popup window is currently displayed, dismiss it
+        println("dimeis")
         Handler(Looper.getMainLooper()).postDelayed({
             popupWindow[i].dismiss()
+            println("pokuado dimsis="+i)
         }, 60)
        // popupWindow.dismiss()
     }
@@ -160,12 +179,13 @@ companion object{
 
       //  super.onDraw(canvas)
        var keys: List<Keyboard.Key> = getKeyboard().getKeys()
-        var horizontalGap:Int=(width*resources.getInteger(R.integer.hGap)/10000.0f).roundToInt()
-        /*if(Pref_Clean.getIntPref(context,"jezik")==0&&(key.codes.size!=0&&((key.codes[0]>96&&key.codes[0]<123)||(key.codes[0]>64&&key.codes[0]<91))))
+        var horizontalGap:Int=0
+        if(Pref_Clean.getIntPref(context,"jezik")==0)
         {
             horizontalGap=(width*resources.getInteger(R.integer.hGap)*3/40000.0f).roundToInt()
         }
-        else*/
+        else
+            horizontalGap=(width*resources.getInteger(R.integer.hGapBos)/10000.0f).roundToInt()
         var verticalGap:Int= (width*resources.getInteger(R.integer.vGap)/10000.0f).roundToInt()
         var dr1:Drawable = context.getResources().getDrawable(R.drawable.key_bg)
         for (key: Keyboard.Key in keys) {

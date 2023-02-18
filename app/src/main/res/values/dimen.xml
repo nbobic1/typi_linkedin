@@ -3,7 +3,7 @@
     <dimen name="big_key_width">11%p</dimen>
     <dimen name="key_width">10%p</dimen>
     <dimen name="medium_key_width">8.9%p</dimen>
-    <dimen name="small_key_width">9%p</dimen>
+    <dimen name="small_key_width">9.1%p</dimen>
     <dimen name="horizontal_gap">0%</dimen>
     <dimen name="vertical_gap">0%</dimen>
     <dimen name="small_horizontal_gap">0%</dimen>
@@ -16,6 +16,7 @@
     <!-- vGap=8 to je 0.8%p -->
     <integer name="vGap">120</integer>
     <integer name="hGap">81</integer>
+    <integer name="hGapBos">41</integer>
 
     <dimen name="btnHeight">35dp</dimen>
     <dimen name="btnGap">5dp</dimen>
