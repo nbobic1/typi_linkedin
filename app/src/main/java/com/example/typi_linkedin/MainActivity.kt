@@ -14,7 +14,6 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.mixpanel.android.mpmetrics.MixpanelAPI
-import org.json.JSONObject
 
 
 class MainActivity : AppCompatActivity()
@@ -26,6 +25,9 @@ class MainActivity : AppCompatActivity()
         Pref_Clean.setIntPref(this,"jezik",0)
         var enableKbBtn: Button = findViewById(R.id.enableKbBtn)
         enableKbBtn.setOnClickListener {
+            val mixpanel = MixpanelAPI.getInstance(applicationContext, GptApi_Clean.token, true)
+            mixpanel.identify(mixpanel.distinctId)
+            mixpanel.track("TypiEnable")
              val enableIntent = Intent(Settings.ACTION_INPUT_METHOD_SETTINGS)
               enableIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
               this.startActivity(enableIntent)
@@ -35,6 +37,9 @@ class MainActivity : AppCompatActivity()
         defaultKbBtn.setOnClickListener {
             val imeManager: InputMethodManager = applicationContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
                 imeManager.showInputMethodPicker()
+
+            val mixpanel = MixpanelAPI.getInstance(applicationContext, GptApi_Clean.token, true)
+            mixpanel.track("TypiDefault")
             }
         // Get the string resource that contains the link URL
         val linkUrl = resources.getString(R.string.hyperlink)

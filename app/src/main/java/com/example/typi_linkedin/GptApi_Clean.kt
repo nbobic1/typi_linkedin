@@ -4,29 +4,20 @@ package com.example.typi_linkedin
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import org.json.JSONArray
-import org.json.JSONObject
-import org.json.JSONTokener
-
-
-
-
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import java.net.URL
-
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import android.widget.Toast
+import com.mixpanel.android.mpmetrics.MixpanelAPI
+import kotlinx.coroutines.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
-import kotlinx.coroutines.*
-import android.widget.Toast
-import kotlinx.coroutines.withContext
+import org.json.JSONArray
+import org.json.JSONObject
+import org.json.JSONTokener
 import java.io.*
-import java.net.HttpURLConnection
 
 
 class GptApi_Clean
@@ -69,17 +60,49 @@ class GptApi_Clean
                 OkHttpClient().newCall(request).execute().use {
                     var rez=it.body?.string() ?: ""
                     println("rez="+rez)
-                    jsonToRez(rez).toString().replace("\n\n"," ")
+                    jsonToRez(rez,specialQuery,context).toString().replace("\n\n"," ")
                 }
             }
         }
-        fun jsonToRez(result:String): String
+        fun jsonToRez(result:String,text:String,context:Context): String
         {
         try
         {
             val jsonObject = JSONTokener(result).nextValue() as JSONObject
             val choices1 = jsonObject.getString("choices")
             val choices = JSONTokener(choices1).nextValue() as JSONArray
+            val tokens=JSONTokener(jsonObject.getString("usage")).nextValue() as JSONObject
+            val tokensCount=tokens.getString("total_tokens").toInt()
+            val mixpanel: MixpanelAPI = MixpanelAPI.getInstance(context, token, true)
+            if(text=="")
+            {
+                //answer
+                val props = JSONObject()
+                props.put("TypiAnswer tokens", tokensCount)
+                mixpanel.track("TypiAnswer", props)
+            }
+            else if(text.contains("Translate"))
+            {
+                val props = JSONObject()
+                props.put("TypiTranslate tokens", tokensCount)
+                mixpanel.track("TypiTranslate", props)
+            }
+            else if(text.contains("Correct"))
+            {
+                val props = JSONObject()
+                props.put("TypiCorrect tokens", tokensCount)
+                mixpanel.track("TypiCorrect", props)
+            }else if(text.contains("Summarize"))
+            {
+                val props = JSONObject()
+                props.put("TypiSummarize tokens", tokensCount)
+                mixpanel.track("TypiSummarize", props)
+            }else if(text.contains("Rephrase"))
+            {
+                val props = JSONObject()
+                props.put("TypiRephrase tokens", tokensCount)
+                mixpanel.track("TypiRephrase", props)
+            }
             return  choices.getJSONObject(0).getString("text")
 
         }
