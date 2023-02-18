@@ -120,7 +120,12 @@ companion object{
         return popupView
     }
 
-
+    fun dismissPopupWindowImedietly(i: Int) {
+        // If the popup window is currently displayed, dismiss it
+        println("dimeis2")
+            popupWindow[i].dismiss()
+        // popupWindow.dismiss()
+    }
     // Dismiss the popup window
      fun dismissPopupWindow(i: Int) {
         // If the popup window is currently displayed, dismiss it

@@ -34,6 +34,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
     lateinit var keyboardRoot: LinearLayout
 
     lateinit var llSmily: View
+    var letterBefore:Int=0
     override fun onCreateInputView(): View
     {
         mixpanel = MixpanelAPI.getInstance(this, "04a8679d9c235e46100327d4f06c43aa", true);
@@ -302,7 +303,6 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                         var capitalLettersKeyboard = Keyboard(this, R.xml.google_capslock)
                         keyboardView.keyboard = capitalLettersKeyboard
                         caps=true
-                        println("jedan")
                         keyboardView.pripremi()
                     } else
                     {
@@ -321,6 +321,8 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                 {
                     if (Pref_Clean.getIntPref(context, "jezik") == 0)
                     {
+                        println("dsafagdaljaglčajglčjaglčajgl")
+                        keyboardView.dismissPopupWindowImedietly(primaryCode-65)
                         var capitalLettersKeyboard = Keyboard(this, R.xml.bosanska_google)
                         keyboardView.keyboard = capitalLettersKeyboard
                         caps=false
@@ -338,7 +340,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
 
 
         }
-
+            letterBefore=primaryCode
     }
 
     override fun onText(text: CharSequence)
