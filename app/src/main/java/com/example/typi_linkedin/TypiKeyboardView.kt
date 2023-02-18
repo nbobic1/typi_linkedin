@@ -22,6 +22,7 @@ import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.mixpanel.android.mpmetrics.MixpanelAPI
 import okhttp3.internal.wait
 import kotlin.math.roundToInt
 
@@ -72,9 +73,14 @@ companion object{
     {
         var kod= popupKey?.codes?.get(0)
         if (kod==32) {
+
+            val mixpanel = MixpanelAPI.getInstance(TypiInputMethodService.context, GptApi_Clean.token, true)
+            mixpanel.track("TypiKbChange")
+
             val imeManager: InputMethodManager =
                 context.getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager
             imeManager.showInputMethodPicker()
+
             return false
         }
 
@@ -128,6 +134,8 @@ companion object{
         tt.setTextColor(context.getColor(R.color.white))
         tt.gravity=Gravity.CENTER
         tt.setOnClickListener {
+            val mixpanel = MixpanelAPI.getInstance(TypiInputMethodService.context, GptApi_Clean.token, true)
+            mixpanel.track("TypiKbChange")
             imeManager.setInputMethod(token, i.id)
         }
         lista.addView(tt)

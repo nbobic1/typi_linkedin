@@ -2,10 +2,8 @@ package com.example.typi_linkedin
 
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
-import android.text.Html
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.method.LinkMovementMethod
@@ -14,6 +12,10 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import com.mixpanel.android.mpmetrics.MixpanelAPI
+import org.json.JSONObject
+
 
 class MainActivity : AppCompatActivity()
 {
@@ -45,6 +47,8 @@ class MainActivity : AppCompatActivity()
         val clickableSpan = object : ClickableSpan() {
             override fun onClick(view: View) {
                 // Open the link URL in a web browser
+                val mixpanel: MixpanelAPI = MixpanelAPI.getInstance(applicationContext, GptApi_Clean.token, true)
+                mixpanel.track("TypiFeedback")
                 val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(linkUrl))
                 startActivity(browserIntent)
             }

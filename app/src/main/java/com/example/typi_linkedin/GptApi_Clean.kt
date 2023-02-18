@@ -13,9 +13,18 @@ import org.json.JSONTokener
 
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import java.net.URL
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody.Companion.toRequestBody
+import kotlinx.coroutines.*
 import android.widget.Toast
+import kotlinx.coroutines.withContext
 import java.io.*
 import java.net.HttpURLConnection
 
@@ -25,49 +34,59 @@ class GptApi_Clean
     //sadrži funkcije koje se ponavljaju kako bi kod bio pregleniji
     companion object
     {
+        var token="04a8679d9c235e46100327d4f06c43aa"
         fun apiKey(context: Context):String{
 
             return  BuildConfig.API_KEY
         }
         //HTTP GLUPOSTI
         //api call
-        fun gptApiCall(text:String,context: Context,specialQuery:String="", ):String
+        suspend fun gptApiCall(text:String,context: Context,specialQuery:String="" ):String
         {
+            println("endpoint")
             var text=text
             if(specialQuery!="")
                 text=specialQuery+text
+            println("text="+text)
+            println("kraj teksta")
+            text=text.replace("\n"," ")
             var key = GptApi_Clean.apiKey(context)
-            val url = URL("https://api.openai.com/v1/completions")
-            val postData = """{ "model": "text-davinci-003",
+            val mediaType = "application/json".toMediaType()
+            val requestBody = """{ "model": "text-davinci-003",
                                     "prompt": "$text",
                                     "max_tokens": 7,
                                     "temperature": 0.7,
                                     "frequency_penalty": 0.5 }"""
-            val conn = url.openConnection() as HttpURLConnection
-            conn.requestMethod = "POST"
-            conn.doOutput = true
-            conn.setRequestProperty("Content-Type", "application/json")
-            conn.setRequestProperty("Content-Length", postData.length.toString())
-            conn.setRequestProperty("Authorization", key)
-            conn.useCaches = false
-
-            var rez:String=""
-            DataOutputStream(conn.outputStream).use { it.writeBytes(postData) }
-            BufferedReader(InputStreamReader(conn.inputStream)).use { br ->
-                var line: String?
-                while (br.readLine().also { line = it } != null) {
-                    println(line)
-                    rez+=line
+                .toRequestBody(mediaType)
+            Log.d("key", requestBody.toString())
+            val request = Request.Builder()
+                .url("https://api.openai.com/v1/completions")
+                .addHeader("Authorization", key)
+                .post(requestBody)
+                .build()
+            println(request.toString())
+            return withContext(Dispatchers.IO) {
+                OkHttpClient().newCall(request).execute().use {
+                    var rez=it.body?.string() ?: ""
+                    println("rez="+rez)
+                    jsonToRez(rez).toString().replace("\n\n"," ")
                 }
             }
-            return  jsonToRez(rez)
         }
         fun jsonToRez(result:String): String
+        {
+        try
         {
             val jsonObject = JSONTokener(result).nextValue() as JSONObject
             val choices1 = jsonObject.getString("choices")
             val choices = JSONTokener(choices1).nextValue() as JSONArray
             return  choices.getJSONObject(0).getString("text")
+
+        }
+        catch (ex: Exception)
+        {
+            return "Error"
+        }
         }
 
         fun countMatches(string: String, pattern: String): Int {

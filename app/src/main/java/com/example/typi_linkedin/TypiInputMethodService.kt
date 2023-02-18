@@ -21,6 +21,10 @@ import androidx.core.content.ContextCompat
 import com.mixpanel.android.mpmetrics.MixpanelAPI
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import org.json.JSONObject
+
+
+
 
 
 class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
@@ -144,6 +148,8 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                         GptApi_Clean.paste("Old text", ic.getSelectedText(0).toString(), context)
                         ic.commitText(container, container.length)
                     }
+                    val mixpanel = MixpanelAPI.getInstance(context, GptApi_Clean.token, true)
+                    mixpanel.track("TypiReverse")
                     //vracanjena verziju sto je usla u gpt
                 }
                 resources.getInteger(R.integer.clip) ->
@@ -390,6 +396,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                 container = text.toString()
                 GlobalScope.launch {
                     //response je ono sto chatgpt vrati
+                    println("pozivam iz 1")
                     val response = GptApi_Clean.gptRequest(text.toString(), context, str3)
                     ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
                         ?.let { ic.setSelection(it.length - 7, it.length) }
@@ -407,6 +414,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                     GptApi_Clean.paste("Old text", text.toString(), context)
                     GlobalScope.launch {
                         //response je ono sto chatgpt vrati
+                        println("pozivam iz 2")
                         val response = GptApi_Clean.gptRequest(text.toString(), context, str3)
                         ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
                             ?.let { ic.setSelection(it.length - 7, it.length) }
