@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Typi</string>
+    <string name="app_name">Typi beta</string>
     <string name="enableKbBtn">Step1: Enable keyboard</string>
     <string name="defaultKbBtn">Step 2: Set Keyboard as default</string>
 
