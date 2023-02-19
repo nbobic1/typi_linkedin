@@ -236,7 +236,7 @@
                 </LinearLayout>
     </ScrollView>
 
-    <com.example.typi_linkedin.TypiKeyboardView
+    <com.beta.typi_linkedin.TypiKeyboardView
         android:id="@+id/keyboard_view"
         android:background="@color/dark_gray"
         android:layout_width="match_parent"
@@ -245,5 +245,5 @@
         android:keyTextColor="@color/white"
         android:popupLayout="@layout/popup_kb_layout"
         android:keyPreviewLayout="@layout/key_preview">
-    </com.example.typi_linkedin.TypiKeyboardView>
+    </com.beta.typi_linkedin.TypiKeyboardView>
 </LinearLayout >

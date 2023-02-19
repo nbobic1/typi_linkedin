@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.example.typi_linkedin.TypiKeyboardView
+<com.beta.typi_linkedin.TypiKeyboardView
 xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/keyboard_view"
     android:background="@color/dark_gray"
@@ -9,4 +9,4 @@ xmlns:android="http://schemas.android.com/apk/res/android"
     android:keyTextColor="@color/white"
     android:keyPreviewLayout="@layout/key_preview"
     android:layout_alignParentBottom="true">
-</com.example.typi_linkedin.TypiKeyboardView>
+</com.beta.typi_linkedin.TypiKeyboardView>

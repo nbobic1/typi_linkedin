@@ -6,11 +6,11 @@ def localPropertiesFile = rootProject.file("local.properties")
 def localProperties = new Properties()
 localProperties.load(new FileInputStream(localPropertiesFile))
 android {
-    namespace 'com.example.typi_linkedin'
+    namespace 'com.beta.typi_linkedin'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.typi_linkedin"
+        applicationId "com.beta.typi_linkedin"
         minSdk 24
         targetSdk 33
         versionCode 1
