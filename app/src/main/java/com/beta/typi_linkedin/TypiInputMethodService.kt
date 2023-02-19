@@ -73,13 +73,13 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
         {
             val keyboard = Keyboard(this, R.xml.bosanska_google)
             keyboardView.keyboard = keyboard
-            caps=true
+            caps=false
             keyboardView.pripremi()
         } else
         {
             val keyboard = Keyboard(this, R.xml.bosanska_google2)
             keyboardView.keyboard = keyboard
-            caps=true
+            caps=false
         }
     }
 
@@ -315,6 +315,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                 var text = ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
                 if ((!capsLock&&caps)||(text != null && text.length > 2 && text[text.length - 3] == '.' && text[text.length - 2] == ' '))
                 {
+                    Log.v("jel Capslock ", capsLock.toString()+", a caps "+caps.toString())
                     if (Pref_Clean.getIntPref(context, "jezik") == 0)
                     {
                         keyboardView.dismissPopupWindowImedietly(primaryCode-65)
