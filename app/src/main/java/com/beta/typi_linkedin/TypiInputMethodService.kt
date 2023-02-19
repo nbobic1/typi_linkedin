@@ -71,13 +71,13 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
 
         if (highScore == 0)
         {
-            val keyboard = Keyboard(this, R.xml.google_capslock)
+            val keyboard = Keyboard(this, R.xml.bosanska_google)
             keyboardView.keyboard = keyboard
             caps=true
             keyboardView.pripremi()
         } else
         {
-            val keyboard = Keyboard(this, R.xml.google2_capslock)
+            val keyboard = Keyboard(this, R.xml.bosanska_google2)
             keyboardView.keyboard = keyboard
             caps=true
         }
@@ -245,7 +245,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                 resources.getInteger(R.integer.enter) ->
                 {
                     //  this.requestHideSelf(0)
-                  //  ic.commitText("\n", 1)
+                    //  ic.commitText("\n", 1)
                     ic.sendKeyEvent(KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER))
                 }
                 //options
@@ -335,7 +335,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
 
 
         }
-            letterBefore=primaryCode
+        letterBefore=primaryCode
     }
 
     override fun onText(text: CharSequence)
@@ -407,7 +407,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                 proba = 0
             }else
             {   proba=1
-        }}
+            }}
 
     }
 

@@ -206,7 +206,7 @@ companion object{
                    // dr.draw(canvas)
                     val paint = Paint()
                     paint.textAlign = Paint.Align.CENTER
-                    paint.textSize = 48f
+                    paint.textSize = 60f
                     paint.color = Color.WHITE
                     //crtanje slova/ikone dgmeta
                     if (key.label != null) {

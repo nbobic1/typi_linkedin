@@ -6,7 +6,7 @@
     android:keyHeight="@dimen/key_height">
 
     <Row>
-        <Key android:codes="113" android:keyLabel="q" android:keyEdgeFlags="left"/>
+        <Key android:codes="113" android:keyLabel="q" android:keyEdgeFlags="left" android:horizontalGap="1%p"/>
         <Key android:codes="119" android:keyLabel="w"/>
         <Key android:codes="101" android:keyLabel="e"/>
         <Key android:codes="114" android:keyLabel="r"/>
@@ -21,7 +21,7 @@
 
     <Row>
         <Key android:codes="97" android:keyLabel="a"
-            android:keyEdgeFlags="left"/>
+            android:keyEdgeFlags="left" android:horizontalGap="1%p"/>
         <Key android:codes="115" android:keyLabel="s" />
         <Key android:codes="100" android:keyLabel="d" />
         <Key android:codes="102" android:keyLabel="f" />
@@ -37,7 +37,7 @@
     <Row>
         <Key android:codes="-11" android:keyIcon="@drawable/capslock"
             android:keyWidth="@dimen/medium_key_width" android:isModifier="true"
-            android:isSticky="true" android:keyEdgeFlags="left"/>
+            android:isSticky="true" android:keyEdgeFlags="left" android:horizontalGap="1%p"/>
         <Key android:codes="121" android:keyLabel="y"/>
         <Key android:codes="120" android:keyLabel="x"/>
         <Key android:codes="99" android:keyLabel="c" android:popupKeyboard="@xml/keyboard_popup_template" android:popupCharacters="čć"/>

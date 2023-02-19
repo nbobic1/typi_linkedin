@@ -28,9 +28,9 @@ class MainActivity : AppCompatActivity()
             val mixpanel = MixpanelAPI.getInstance(applicationContext, GptApi_Clean.token, true)
             mixpanel.identify(mixpanel.distinctId)
             mixpanel.track("TypiEnable")
-             val enableIntent = Intent(Settings.ACTION_INPUT_METHOD_SETTINGS)
-              enableIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-              this.startActivity(enableIntent)
+            val enableIntent = Intent(Settings.ACTION_INPUT_METHOD_SETTINGS)
+            enableIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            this.startActivity(enableIntent)
         }
 
         var defaultKbBtn: Button = findViewById(R.id.defaultKbBtn)
@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity()
                 (applicationContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).apply {
                     showInputMethodPicker()
                 }
-            }
+        }
         // Get the string resource that contains the link URL
         val linkUrl = resources.getString(R.string.hyperlink)
 

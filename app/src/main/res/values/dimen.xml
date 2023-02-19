@@ -3,11 +3,11 @@
     <dimen name="big_key_width">11%p</dimen>
     <dimen name="key_width">10%p</dimen>
     <dimen name="medium_key_width">8.9%p</dimen>
-    <dimen name="small_key_width">9.1%p</dimen>
+    <dimen name="small_key_width">8.9%p</dimen>
     <dimen name="horizontal_gap">0%</dimen>
     <dimen name="vertical_gap">0%</dimen>
     <dimen name="small_horizontal_gap">0%</dimen>
-    <dimen name="key_height">48dip</dimen>
+    <dimen name="key_height">50dip</dimen>
     <dimen name="key_heightx4">211dip</dimen>
     <dimen name="long_key_width">24%p</dimen>
     <dimen name="space">38%p</dimen>
@@ -18,7 +18,7 @@
     <integer name="hGap">81</integer>
     <integer name="hGapBos">41</integer>
 
-    <dimen name="btnHeight">35dp</dimen>
+    <dimen name="btnHeight">40dp</dimen>
     <dimen name="btnGap">5dp</dimen>
     <dimen name="imageH">150dp</dimen>
     <dimen name="imageW">300dp</dimen>

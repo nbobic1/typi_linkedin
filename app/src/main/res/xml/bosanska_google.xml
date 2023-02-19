@@ -3,10 +3,11 @@
     android:keyWidth="@dimen/key_width"
     android:horizontalGap="@dimen/vertical_gap"
     android:verticalGap="@dimen/vertical_gap"
-    android:keyHeight="@dimen/key_height">
+    android:keyHeight="@dimen/key_height"
+    >
 
     <Row>
-        <Key android:codes="113"  android:keyLabel="q" android:keyEdgeFlags="left"/>
+        <Key android:codes="113" android:keyLabel="q" android:keyEdgeFlags="left"/>
         <Key android:codes="119" android:keyLabel="w"/>
         <Key android:codes="101" android:keyLabel="e"/>
         <Key android:codes="114" android:keyLabel="r"/>
