@@ -43,7 +43,6 @@ class MainActivity : AppCompatActivity()
                 }
         }
         // Get the string resource that contains the link URL
-        val linkUrl = resources.getString(R.string.hyperlink)
 
 // Create a SpannableString with your custom text
         val customText = "Step 4: Make a meaningful impact on our journey! Once you've used Typi, simply fill out our form and help us grow! "
@@ -55,8 +54,8 @@ class MainActivity : AppCompatActivity()
                 // Open the link URL in a web browser
                 val mixpanel: MixpanelAPI = MixpanelAPI.getInstance(applicationContext, GptApi_Clean.token, true)
                 mixpanel.track("TypiFeedback")
-                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(linkUrl))
-                startActivity(browserIntent)
+                val feedbackIntent = Intent(applicationContext,feedback::class.java)
+                startActivity(feedbackIntent)
             }
         }
         spannableString.setSpan(clickableSpan, 0, customText.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
@@ -65,8 +64,8 @@ class MainActivity : AppCompatActivity()
         val textView = findViewById<TextView>(R.id.textView3)
         textView.text = spannableString
         textView.setOnClickListener {
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(linkUrl))
-            startActivity(browserIntent)
+            val feedbackIntent = Intent(applicationContext,feedback::class.java)
+            startActivity(feedbackIntent)
         }
         textView.movementMethod = LinkMovementMethod.getInstance()
 

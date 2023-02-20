@@ -422,14 +422,14 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
             //ako je selectovan
             if (keyCodes[0] == -1 && text != null)
             {
-                ic.commitText("wait...", 7)
+                ic.commitText("processing...", 13)
                 GptApi_Clean.paste("Old text", text.toString(), context)
                 container = text.toString()
                 GlobalScope.launch {
                     //response je ono sto chatgpt vrati
                     val response = GptApi_Clean.gptRequest(text.toString(), context, str3)
                     ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
-                        ?.let { ic.setSelection(it.length - 7, it.length) }
+                        ?.let { ic.setSelection(it.length - 13, it.length) }
                     ic.commitText(response, response.length)
                 }
             } else
@@ -439,14 +439,14 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                 var text = ic.getSelectedText(0);
                 if (text != null)
                 {
-                    ic.commitText("wait...", 7)
+                    ic.commitText("processing...", 13)
                     container = text.toString()
                     GptApi_Clean.paste("Old text", text.toString(), context)
                     GlobalScope.launch {
                         //response je ono sto chatgpt vrati
                         val response = GptApi_Clean.gptRequest(text.toString(), context, str3)
                         ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
-                            ?.let { ic.setSelection(it.length - 7, it.length) }
+                            ?.let { ic.setSelection(it.length - 13, it.length) }
                         ic.commitText(response, response.length)
                     }
                 }
