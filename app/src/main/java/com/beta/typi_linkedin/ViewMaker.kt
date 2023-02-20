@@ -434,7 +434,7 @@ class ViewMaker
             var linearLayout=keyboardRoot.findViewById<LinearLayout>(R.id.clipboard)
             linearLayout.visibility=View.VISIBLE
             val clipboard: ClipboardManager =context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-            println("preajr")
+
             linearLayout.removeAllViews()
             var k=Button(context)
             k.setText("Back to keyboard")
@@ -455,7 +455,6 @@ class ViewMaker
                 paste.removeAt(0)
             for(i in 0 until paste.size)
             {
-                println("lafjalga")
                 var t=TextView(context)
                 t.setText(paste[i])
                 t.textSize=30f

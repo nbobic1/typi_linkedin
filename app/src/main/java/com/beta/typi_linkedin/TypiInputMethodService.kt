@@ -170,7 +170,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                         arrayOf<String>("excited","formal","sincere","caring","friendly","humoristic", "sympathetic","sarcastic","authoritative"),
                         ic,
                         keyCodes,
-                        "Rephrase this text so it sounds"
+                        "Rephrase this text so it sounds more"
                     )
                     /*
                     var selectedText = ic.getSelectedText(0);
@@ -322,7 +322,6 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                         var capitalLettersKeyboard = Keyboard(this, R.xml.bosanska_google)
                         keyboardView.keyboard = capitalLettersKeyboard
                         caps=false
-                        println("tri")
                         keyboardView.pripremi()
                     } else
                     {
@@ -361,7 +360,6 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
 
     override fun onPress(primaryCode: Int)
     {
-        println("Pressed="+primaryCode)
 
         if (primaryCode > 95 && primaryCode < 123&&Pref_Clean.getIntPref(context,"jezik")==0)
         {
@@ -377,7 +375,6 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                 if(proba==0)
                 {
                     TypiInputMethodService.capsLock=true
-                    println("prikaz")
                     TypiKeyboardView.capsNot()
                     proba=2
                 }
@@ -392,7 +389,6 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
 
     override fun onRelease(primaryCode: Int)
     {
-        println("relead="+primaryCode)
         if (primaryCode > 96 && primaryCode < 123&&Pref_Clean.getIntPref(context,"jezik")==0)
         {
             keyboardView.dismissPopupWindow(primaryCode - 97)
@@ -431,7 +427,6 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                 container = text.toString()
                 GlobalScope.launch {
                     //response je ono sto chatgpt vrati
-                    println("pozivam iz 1")
                     val response = GptApi_Clean.gptRequest(text.toString(), context, str3)
                     ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
                         ?.let { ic.setSelection(it.length - 7, it.length) }
@@ -449,7 +444,6 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                     GptApi_Clean.paste("Old text", text.toString(), context)
                     GlobalScope.launch {
                         //response je ono sto chatgpt vrati
-                        println("pozivam iz 2")
                         val response = GptApi_Clean.gptRequest(text.toString(), context, str3)
                         ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
                             ?.let { ic.setSelection(it.length - 7, it.length) }

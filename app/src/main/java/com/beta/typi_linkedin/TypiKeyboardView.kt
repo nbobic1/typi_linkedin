@@ -39,7 +39,6 @@ companion object{
         popupText.setTextSize(TypedValue.COMPLEX_UNIT_DIP,35f)
         var popupWindow2=PopupWindow(popupView1,WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
         popupWindow2.showAtLocation(ovajView,Gravity.NO_GRAVITY,100,100)
-        println("pusten" )
         popupWindow2.isOutsideTouchable=true
         Handler(Looper.getMainLooper()).postDelayed({
             popupWindow2.dismiss()
@@ -50,7 +49,6 @@ companion object{
     var inputMethod: TypiInputMethodService = TypiInputMethodService()
         fun pripremi()
         {
-                println("pripremi -----------------------------------")
             popupWindow.clear()
             for(i in 97 until 123)
             {
@@ -99,7 +97,6 @@ companion object{
     }
     fun showPopupWindow(i:Int)
     {
-        println("pokaza="+i)
         popupWindow[i].showAtLocation(this, Gravity.NO_GRAVITY,xovi[i],yoni[i])
     }
 
@@ -116,17 +113,14 @@ companion object{
 
     fun dismissPopupWindowImedietly(i: Int) {
         // If the popup window is currently displayed, dismiss it
-        println("dimeis2")
             popupWindow[i].dismiss()
         // popupWindow.dismiss()
     }
     // Dismiss the popup window
      fun dismissPopupWindow(i: Int) {
         // If the popup window is currently displayed, dismiss it
-        println("dimeis")
         Handler(Looper.getMainLooper()).postDelayed({
             popupWindow[i].dismiss()
-            println("pokuado dimsis="+i)
         }, 60)
        // popupWindow.dismiss()
     }

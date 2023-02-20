@@ -33,12 +33,9 @@ class GptApi_Clean
         //api call
         suspend fun gptApiCall(text:String,context: Context,specialQuery:String="" ):String
         {
-            println("endpoint")
             var text=text
             if(specialQuery!="")
                 text=specialQuery+text
-            println("text="+text)
-            println("kraj teksta")
             text=text.replace("\n"," ")
             var key = GptApi_Clean.apiKey(context)
             val mediaType = "application/json".toMediaType()
@@ -54,11 +51,9 @@ class GptApi_Clean
                 .addHeader("Authorization", key)
                 .post(requestBody)
                 .build()
-            println(request.toString())
             return withContext(Dispatchers.IO) {
                 OkHttpClient().newCall(request).execute().use {
                     var rez=it.body?.string() ?: ""
-                    println("rez="+rez)
                     jsonToRez(rez,specialQuery,context).toString().replace("\n\n"," ")
                 }
             }
@@ -118,7 +113,6 @@ class GptApi_Clean
         suspend fun gptRequest(str:String, context:Context,str2:String=""):String
         {
             var k=countMatches(str,context.getString(R.string.gptChar));
-            println("k="+k)
             if(k>1)
             {
                 Handler(Looper.getMainLooper()).post {
