@@ -5,5 +5,5 @@
         android:drawable="@drawable/help3"
         android:gravity="center"
         android:width="@dimen/imageW"
-        android:height="@dimen/imageH"/>
+        android:height="45dp"/>
 </layer-list>
