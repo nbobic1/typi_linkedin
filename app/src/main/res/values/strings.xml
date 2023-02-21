@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Typi beta</string>
-    <string name="enableKbBtn">Step1: Enable keyboard</string>
-    <string name="defaultKbBtn">Step 2: Set Keyboard as default</string>
+    <string name="enableKbBtn">Step1: Enable Typi keyboard</string>
+    <string name="defaultKbBtn">Step 2: Set Typi as default keyboard</string>
 
     <!-- Unicode for special character that will be used to separate text from manipulation instruction  -->
     <string name="gptChar">"\uDB40\uDD34"</string>
