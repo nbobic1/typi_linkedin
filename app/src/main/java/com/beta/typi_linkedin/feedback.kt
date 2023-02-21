@@ -20,7 +20,7 @@ class feedback : AppCompatActivity()
         var text=findViewById<TextView>(R.id.textView4)
         var token=Pref_Clean.getIntPref(applicationContext,"tokens")
         var tokens1=token*0.00003
-            text.setText("This service would cost You "+tokens1+"$ and the cost of this service is based on your usage. Considering the value you receive from our services, would You pay to use this app?")
+        text.setText("This service would cost You "+tokens1+"$ and the cost of this service is based on your usage. Considering the value you receive from our services, would You pay to use this app?")
         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(linkUrl))
         var da=findViewById<Button>(R.id.button4)
         da.setOnClickListener {

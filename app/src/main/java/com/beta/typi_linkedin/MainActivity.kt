@@ -2,6 +2,7 @@ package com.beta.typi_linkedin
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import android.text.SpannableString
@@ -42,6 +43,10 @@ class MainActivity : AppCompatActivity()
                 (applicationContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).apply {
                     showInputMethodPicker()
                 }
+        }
+        var video:Button=findViewById(R.id.button5)
+        video.setOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://youtube.com/shorts/HQVchjFBoPM")))
         }
         var tryBtn:Button=findViewById(R.id.textView2)
         tryBtn.setOnClickListener {

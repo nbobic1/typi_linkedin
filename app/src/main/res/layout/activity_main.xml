@@ -62,14 +62,30 @@
     <EditText
         android:id="@+id/input"
         android:layout_width="298dp"
-        android:layout_height="346dp"
-        android:layout_marginBottom="140dp"
+        android:layout_height="250dp"
         android:ems="10"
         android:inputType="textMultiLine"
         android:text="Name a city"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:paddingBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent" />
+
+
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:padding="7dp"
+        android:text="If you have problems enabling Typi, you can watch a video by clicking the button below. If you are unable to resolve your problems, feel free to reach out to us at typi.keyboard@gmail.com" />
+    <Button
+    android:id="@+id/button5"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Open video" />
+
 
 </LinearLayout>
