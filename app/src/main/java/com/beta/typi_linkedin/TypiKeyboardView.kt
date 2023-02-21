@@ -105,7 +105,7 @@ companion object{
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val popupView = inflater.inflate(R.layout.popup_layout, null)
         val popupText = popupView.findViewById<TextView>(R.id.popup_text)
-       popupText.setText(popupCharacters)
+        popupText.setText(popupCharacters)
         popupText.setTextColor(context.getColor(R.color.white))
         popupText.setTextSize(TypedValue.COMPLEX_UNIT_DIP,35f)
         return popupView

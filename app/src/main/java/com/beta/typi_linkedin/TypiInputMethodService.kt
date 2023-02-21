@@ -167,7 +167,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                         context,
                         keyboardRoot,
                         ::onKey,
-                        arrayOf<String>("excited","formal","sincere","caring","friendly","humoristic", "sympathetic","sarcastic","authoritative"),
+                        arrayOf<String>("exciteing","formal","sincere","caring","friendly","humoristic", "sympathetic","sarcastic","authoritative"),
                         ic,
                         keyCodes,
                         "Rephrase this text so it sounds more"

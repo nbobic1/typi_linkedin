@@ -1,7 +1,7 @@
 package com.beta.typi_linkedin
 
+import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import android.text.SpannableString
@@ -11,6 +11,7 @@ import android.text.style.ClickableSpan
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.mixpanel.android.mpmetrics.MixpanelAPI
@@ -42,28 +43,24 @@ class MainActivity : AppCompatActivity()
                     showInputMethodPicker()
                 }
         }
+        var tryBtn:Button=findViewById(R.id.textView2)
+        tryBtn.setOnClickListener {
+            var editText=findViewById<EditText>(R.id.input)
+            editText.requestFocus()
+            editText.setSelection(11)
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT)
+
+        }
         // Get the string resource that contains the link URL
 
 // Create a SpannableString with your custom text
-        val customText = "Step 4: Make a meaningful impact on our journey! Once you've used Typi, simply fill out our form and help us grow! "
-        val spannableString = SpannableString(customText)
-
-// Create a clickable URL span for the link
-        val clickableSpan = object : ClickableSpan() {
-            override fun onClick(view: View) {
-                // Open the link URL in a web browser
-                val mixpanel: MixpanelAPI = MixpanelAPI.getInstance(applicationContext, GptApi_Clean.token, true)
-                mixpanel.track("TypiFeedback")
-                val feedbackIntent = Intent(applicationContext,feedback::class.java)
-                startActivity(feedbackIntent)
-            }
-        }
-        spannableString.setSpan(clickableSpan, 0, customText.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
 // Set the SpannableString to your TextView
-        val textView = findViewById<TextView>(R.id.textView3)
-        textView.text = spannableString
+        val textView = findViewById<Button>(R.id.textView3)
         textView.setOnClickListener {
+            val mixpanel: MixpanelAPI = MixpanelAPI.getInstance(applicationContext, GptApi_Clean.token, true)
+            mixpanel.track("TypiFeedback")
             val feedbackIntent = Intent(applicationContext,feedback::class.java)
             startActivity(feedbackIntent)
         }
