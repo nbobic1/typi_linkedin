@@ -41,7 +41,7 @@ class GptApi_Clean
             val mediaType = "application/json".toMediaType()
             val requestBody = """{ "model": "text-davinci-003",
                                     "prompt": "$text",
-                                    "max_tokens": 40,
+                                    "max_tokens": 30,
                                     "temperature": 0.7,
                                     "frequency_penalty": 0.5 }"""
                 .toRequestBody(mediaType)
@@ -52,10 +52,17 @@ class GptApi_Clean
                 .post(requestBody)
                 .build()
             return withContext(Dispatchers.IO) {
-                OkHttpClient().newCall(request).execute().use {
-                    var rez=it.body?.string() ?: ""
-                    jsonToRez(rez,specialQuery,context).toString().replace("\n\n"," ")
-                }
+              try
+              {
+                  OkHttpClient().newCall(request).execute().use {
+                      var rez = it.body?.string() ?: ""
+                      jsonToRez(rez, specialQuery, context).toString().replace("\n\n", " ")
+                  }
+              }
+              catch (exx: Exception)
+              {
+                 "connection error"
+              }
             }
         }
         fun jsonToRez(result:String,text:String,context:Context): String
