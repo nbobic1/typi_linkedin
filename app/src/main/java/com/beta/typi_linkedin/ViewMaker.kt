@@ -3,11 +3,15 @@ package com.beta.typi_linkedin
 import android.app.ActionBar
 import android.content.ClipboardManager
 import android.content.Context
+import android.os.Build
+import android.text.InputType
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.core.view.setPadding
 
@@ -63,6 +67,24 @@ class ViewMaker
                 onKey(context.resources.getInteger(com.beta.typi_linkedin.R.integer.grammar),
                     kotlin.intArrayOf(-1)
                 )
+            }
+            keyboardRoot.findViewById<Button>(R.id.chat).setOnClickListener {
+
+                var tk= FrameLayout(context)
+                tk.layoutParams= ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                val custom: View = LayoutInflater.from(context).inflate(R.layout.chat_layout,tk)
+                val popup = PopupWindow(context)
+
+                var oldInputConnection=TypiInputMethodService.inputConnection
+                tk.findViewById<Button>(R.id.zatvori_popup).setOnClickListener {
+                   TypiInputMethodService.inputConnection=oldInputConnection
+                    popup.dismiss()
+                }
+                var editText=tk.findViewById<EditText>(R.id.chatInput1)
+                TypiInputMethodService.inputConnection=editText.onCreateInputConnection(EditorInfo())
+                popup.contentView = custom
+                popup.showAtLocation(keyboardRoot, Gravity.CENTER, 0, -1150)
+                TypiInputMethodService.output=tk.findViewById<TextView>(R.id.chatOutput)
             }
         }
         fun categorySetup(keyboardRoot: View,context:Context,onKey: (primaryCode: Int, keyCodes: IntArray) -> Unit):View

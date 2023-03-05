@@ -17,6 +17,7 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
 import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.mixpanel.android.mpmetrics.MixpanelAPI
 import kotlinx.coroutines.GlobalScope
@@ -33,6 +34,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
     var letterBefore:Int=0
     override fun onCreateInputView(): View
     {
+        inputConnection=currentInputConnection
         mixpanel = MixpanelAPI.getInstance(this, "04a8679d9c235e46100327d4f06c43aa", true);
         context = this
         keyboardRoot = layoutInflater.inflate(R.layout.root_keyboard_view, null) as LinearLayout
@@ -86,7 +88,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
 
     override fun onKey(primaryCode: Int, keyCodes: IntArray)
     {
-        val ic = currentInputConnection ?: return
+        var ic= inputConnection
         if (primaryCode < 0)
         {
 
@@ -411,7 +413,9 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
     companion object
     {
         lateinit var mixpanel: MixpanelAPI
+        lateinit var inputConnection: InputConnection
         var capsLock:Boolean=true
+        var output: TextView?=null
         var caps:Boolean=true
         var proba=0;
         lateinit var context: Context
