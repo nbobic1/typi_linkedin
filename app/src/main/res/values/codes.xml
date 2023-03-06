@@ -26,4 +26,6 @@
     <integer name="summerize">-410</integer>
 
     <integer name="grammar">-411</integer>
+
+    <integer name="chat">-412</integer>
 </resources>

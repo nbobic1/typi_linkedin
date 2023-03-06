@@ -37,81 +37,90 @@ class GptApi_Clean
             if(specialQuery!="")
                 text=specialQuery+text
             text=text.replace("\n"," ")
-            var key = GptApi_Clean.apiKey(context)
+            var key = apiKey(context)
             val mediaType = "application/json".toMediaType()
-            val requestBody = """{ "model": "text-davinci-003",
-                                    "prompt": "$text",
-                                    "max_tokens": 30,
+            val requestBody = """{ "model": "gpt-3.5-turbo",
+                                    "messages": [{"role": "user", "content": "$text"}],
+                                    "max_tokens": 40,
                                     "temperature": 0.7,
                                     "frequency_penalty": 0.5 }"""
                 .toRequestBody(mediaType)
             Log.d("key", requestBody.toString())
             val request = Request.Builder()
-                .url("https://api.openai.com/v1/completions")
+                .url("https://api.openai.com/v1/chat/completions")
                 .addHeader("Authorization", key)
                 .post(requestBody)
                 .build()
             return withContext(Dispatchers.IO) {
-              try
-              {
-                  OkHttpClient().newCall(request).execute().use {
-                      var rez = it.body?.string() ?: ""
-                      jsonToRez(rez, specialQuery, context).toString().replace("\n\n", " ")
-                  }
-              }
-              catch (exx: Exception)
-              {
-                 "connection error"
-              }
+                try
+                {
+                    OkHttpClient().newCall(request).execute().use {
+                        var rez = it.body?.string() ?: ""
+                        jsonToRez(rez, specialQuery, context).toString().replace("\n\n", " ")
+                    }
+                }
+                catch (exx: Exception)
+                {
+                    "connection error"
+                }
             }
         }
         fun jsonToRez(result:String,text:String,context:Context): String
         {
-        try
-        {
-            val jsonObject = JSONTokener(result).nextValue() as JSONObject
-            val choices1 = jsonObject.getString("choices")
-            val choices = JSONTokener(choices1).nextValue() as JSONArray
-            val tokens=JSONTokener(jsonObject.getString("usage")).nextValue() as JSONObject
-            val tokensCount=tokens.getString("total_tokens").toInt()
-            var tSto=Pref_Clean.getIntPref(context,"tokens")
-            Pref_Clean.setIntPref(context,"tokens",tokensCount+tSto)
-            val mixpanel: MixpanelAPI = MixpanelAPI.getInstance(context, token, true)
-            if(text=="")
+            try
             {
-                val props = JSONObject()
-                props.put("TypiAnswer tokens", tokensCount)
-                mixpanel.track("TypiAnswer", props)
-            }
-            else if(text.contains("Translate"))
-            {
-                val props = JSONObject()
-                props.put("TypiTranslate tokens", tokensCount)
-                mixpanel.track("TypiTranslate", props)
-            }
-            else if(text.contains("Correct"))
-            {
-                val props = JSONObject()
-                props.put("TypiCorrect tokens", tokensCount)
-                mixpanel.track("TypiCorrect", props)
-            }else if(text.contains("Summarize"))
-            {
-                val props = JSONObject()
-                props.put("TypiSummarize tokens", tokensCount)
-                mixpanel.track("TypiSummarize", props)
-            }else if(text.contains("Rephrase"))
-            {
-                val props = JSONObject()
-                props.put("TypiRephrase tokens", tokensCount)
-                mixpanel.track("TypiRephrase", props)
-            }
-            return  choices.getJSONObject(0).getString("text")
+                println(result)
+                val jsonObject = JSONTokener(result).nextValue() as JSONObject
+                val choices1 = jsonObject.getString("choices")
+                print("choices=")
+                println(choices1)
+                val choices = JSONTokener(choices1).nextValue() as JSONArray
+                val tokens=JSONTokener(jsonObject.getString("usage")).nextValue() as JSONObject
+                println("dgjladčgjakčdgjag")
+                val tokensCount=tokens.getString("total_tokens").toInt()
+                var tSto= Pref_Clean.getIntPref(context, "tokens")
+                Pref_Clean.setIntPref(context, "tokens", tokensCount + tSto)
+                val mixpanel: MixpanelAPI = MixpanelAPI.getInstance(context, token, true)
+                if(text=="")
+                {
+                    val props = JSONObject()
+                    props.put("TypiAnswer tokens", tokensCount)
+                    mixpanel.track("TypiAnswer", props)
+                }
+                else if(text.contains("Translate"))
+                {
+                    val props = JSONObject()
+                    props.put("TypiTranslate tokens", tokensCount)
+                    mixpanel.track("TypiTranslate", props)
+                }
+                else if(text.contains("Correct"))
+                {
+                    val props = JSONObject()
+                    props.put("TypiCorrect tokens", tokensCount)
+                    mixpanel.track("TypiCorrect", props)
+                }else if(text.contains("Summarize"))
+                {
+                    val props = JSONObject()
+                    props.put("TypiSummarize tokens", tokensCount)
+                    mixpanel.track("TypiSummarize", props)
+                }else if(text.contains("Rephrase"))
+                {
+                    val props = JSONObject()
+                    props.put("TypiRephrase tokens", tokensCount)
+                    mixpanel.track("TypiRephrase", props)
+                }
+                print("kill seisapg")
+                var kte=choices.getJSONObject(0).getString("message")
+                println(kte)
+                var message=JSONTokener(kte).nextValue() as JSONObject
 
-        }
-        catch (ex: Exception)
-        {
-            return "Error"
-        }
+                return  message.getString("content")
+
+            }
+            catch (ex: Exception)
+            {
+                return "Error"
+            }
         }
 
         fun countMatches(string: String, pattern: String): Int {

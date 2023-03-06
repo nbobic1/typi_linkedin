@@ -80,6 +80,9 @@ class ViewMaker
                    TypiInputMethodService.inputConnection=oldInputConnection
                     popup.dismiss()
                 }
+                tk.findViewById<Button>(R.id.send).setOnClickListener {
+                    onKey(context.resources.getInteger(R.integer.chat), intArrayOf(-1))
+                   }
                 var editText=tk.findViewById<EditText>(R.id.chatInput1)
                 TypiInputMethodService.inputConnection=editText.onCreateInputConnection(EditorInfo())
                 popup.contentView = custom

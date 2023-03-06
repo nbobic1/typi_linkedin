@@ -259,6 +259,9 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                 {
                     callGptForInput(keyCodes, ic, "Correct grammar in this text: ")
                 }
+                resources.getInteger(R.integer.chat) ->{
+                    callChatGptForInput(intArrayOf(-1), ic, "")
+                }
                 resources.getInteger(R.integer.translate) ->
                 {
                     ViewMaker.popupInput(
@@ -448,6 +451,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                     GptApi_Clean.paste("Old text", text.toString(), context)
                     GlobalScope.launch {
                         //response je ono sto chatgpt vrati
+
                         val response = GptApi_Clean.gptRequest(text.toString(), context, str3)
                         ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
                             ?.let { ic.setSelection(it.length - 13, it.length) }
@@ -456,5 +460,46 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                 }
             }
         }
+        fun callChatGptForInput(keyCodes: IntArray, ic: InputConnection, str3: String = "")
+        {
+            val text = ic.getSelectedText(0)
+            //ako je selectovan
+            if (keyCodes[0] == -1 && text != null)
+            {
+                ic.commitText("", 0)
+                GptApi_Clean.paste("Old text", text.toString(), context)
+                container = text.toString()
+                output?.setText(output?.text.toString()+"\n\nYou: "+text.toString()+"\n\nprocessing...")
+                GlobalScope.launch {
+                    //response je ono sto chatgpt vrati
+                    val response = GptApi_Clean.gptRequest(text.toString(), context, str3)
+                    var tempText=output?.text.toString().replace("processing...","")+"Typi: "+response
+                    println("1=")
+                    println(tempText)
+                    output?.text=tempText
+                }
+            } else
+            {
+                ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
+                    ?.let { ic.setSelection(0, it.length) }
+                var text = ic.getSelectedText(0);
+                if (text != null)
+                {
+                    ic.commitText("",0)
+                    container = text.toString()
+                    output?.setText(output?.text.toString()+"\n\nYou: "+text.toString()+"\n\nprocessing...")
+                    GptApi_Clean.paste("Old text", text.toString(), context)
+                    GlobalScope.launch {
+                        //response je ono sto chatgpt vrati
+                        val response = GptApi_Clean.gptRequest(text.toString(), context, str3)
+                        var tempText=output?.text.toString().replace("processing...","")+"Typi: "+response
+                        println("2=")
+                        println(tempText)
+                        output?.text=tempText
+                    }
+                }
+            }
+        }
+
     }
 }
