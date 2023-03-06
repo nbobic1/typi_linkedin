@@ -14,14 +14,17 @@ import android.view.inputmethod.InputConnection
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.core.view.setPadding
+import kotlinx.coroutines.newFixedThreadPoolContext
 
 class ViewMaker
 {
     companion object{
         var paste= mutableListOf<String>()
+        var chatPopup:PopupWindow?=null
         enum class Category {
             SMILY, FOOD, CARS, NATURE
         }
+
         fun     optionsSetup(keyboardRoot: View,context:Context,onKey: (primaryCode: Int, keyCodes: IntArray) -> Unit)
         {
             keyboardRoot.findViewById<Button>(R.id.help).setOnClickListener {
@@ -74,10 +77,11 @@ class ViewMaker
                 tk.layoutParams= ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
                 val custom: View = LayoutInflater.from(context).inflate(R.layout.chat_layout,tk)
                 val popup = PopupWindow(context)
-
-                var oldInputConnection=TypiInputMethodService.inputConnection
+                chatPopup=popup
+               var oldInputConnection=TypiInputMethodService.inputConnection
                 tk.findViewById<Button>(R.id.zatvori_popup).setOnClickListener {
-                   TypiInputMethodService.inputConnection=oldInputConnection
+                    TypiInputMethodService.inputConnection=oldInputConnection
+                    TypiInputMethodService.history=""
                     popup.dismiss()
                 }
                 tk.findViewById<Button>(R.id.send).setOnClickListener {
@@ -542,6 +546,13 @@ class ViewMaker
             vie.setOnClickListener {
                 popup.dismiss()
             }*/
+        }
+
+        fun closeChat()
+        {
+            TypiInputMethodService.history=""
+            chatPopup?.dismiss()
+            chatPopup=null
         }
     }
 }

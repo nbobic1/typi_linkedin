@@ -31,7 +31,7 @@ class GptApi_Clean
         }
         //HTTP GLUPOSTI
         //api call
-        suspend fun gptApiCall(text:String,context: Context,specialQuery:String="" ):String
+        suspend fun gptApiCall(text:String,context: Context,specialQuery:String="",history:String="" ):String
         {
             var text=text
             if(specialQuery!="")
@@ -39,13 +39,35 @@ class GptApi_Clean
             text=text.replace("\n"," ")
             var key = apiKey(context)
             val mediaType = "application/json".toMediaType()
-            val requestBody = """{ "model": "gpt-3.5-turbo",
-                                    "messages": [{"role": "user", "content": "$text"}],
+            var tempP= """{ "model": "gpt-3.5-turbo",
+                                    "messages": [$history{"role": "user", "content": "$text"}],
                                     "max_tokens": 40,
                                     "temperature": 0.7,
                                     "frequency_penalty": 0.5 }"""
+            if(history!="")
+            {
+                var his=history
+                his=history.substring(0,history.length-1)
+                tempP= """{ "model": "gpt-3.5-turbo",
+                                    "messages": [$his],
+                                    "max_tokens": 40,
+                                    "temperature": 0.7,
+                                    "frequency_penalty": 0.5 }"""
+                Log.d("key", """{ "model": "gpt-3.5-turbo",
+                                    "messages": [$his],
+                                    "max_tokens": 40,
+                                    "temperature": 0.7,
+                                    "frequency_penalty": 0.5 }""")
+              }
+            else  Log.d("key", """{ "model": "gpt-3.5-turbo",
+                                    "messages": [$history{"role": "user", "content": "$text"}],
+                                    "max_tokens": 40,
+                                    "temperature": 0.7,
+                                    "frequency_penalty": 0.5 }""")
+            val requestBody =tempP
                 .toRequestBody(mediaType)
-            Log.d("key", requestBody.toString())
+
+
             val request = Request.Builder()
                 .url("https://api.openai.com/v1/chat/completions")
                 .addHeader("Authorization", key)
@@ -113,7 +135,8 @@ class GptApi_Clean
                 var kte=choices.getJSONObject(0).getString("message")
                 println(kte)
                 var message=JSONTokener(kte).nextValue() as JSONObject
-
+                print("msg===")
+                TypiInputMethodService.history=TypiInputMethodService.history+message.toString()+","
                 return  message.getString("content")
 
             }
@@ -126,7 +149,7 @@ class GptApi_Clean
         fun countMatches(string: String, pattern: String): Int {
             return Regex(pattern).findAll(string).count()
         }
-        suspend fun gptRequest(str:String, context:Context,str2:String=""):String
+        suspend fun gptRequest(str:String, context:Context,str2:String="",history: String=""):String
         {
             var k=countMatches(str,context.getString(R.string.gptChar));
             if(k>1)
@@ -139,12 +162,12 @@ class GptApi_Clean
 
             else if(k==1)
             {
-                return gptApiCall(str.split(context.getString(R.string.gptChar))[0],context,str.split(context.getString(R.string.gptChar))[1])
+                return gptApiCall(str.split(context.getString(R.string.gptChar))[0],context,str.split(context.getString(R.string.gptChar))[1],history)
                   //  return apiCallEdit(str.split(context.getString(R.string.gptChar))[0],str.split(context.getString(R.string.gptChar))[1],context)
             }
             else
             {
-             return gptApiCall(str,context,str2)
+             return gptApiCall(str,context,str2,history)
             }
 
 

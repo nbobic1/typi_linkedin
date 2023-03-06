@@ -64,6 +64,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
 
     override fun onStartInputView(info: EditorInfo?, restarting: Boolean)
     {
+        inputConnection=currentInputConnection
         super.onStartInputView(info, restarting)
         var optionScroll = keyboardRoot.findViewById<HorizontalScrollView>(R.id.optionScroll)
         optionScroll.post { optionScroll.fullScroll(View.FOCUS_RIGHT) }
@@ -85,6 +86,11 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
         }
     }
 
+    override fun onFinishInputView(finishingInput: Boolean)
+    {
+        ViewMaker.closeChat()
+        super.onFinishCandidatesView(finishingInput)
+    }
 
     override fun onKey(primaryCode: Int, keyCodes: IntArray)
     {
@@ -363,6 +369,8 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
     {
     }
 
+
+
     override fun onPress(primaryCode: Int)
     {
 
@@ -417,6 +425,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
     {
         lateinit var mixpanel: MixpanelAPI
         lateinit var inputConnection: InputConnection
+        var history=""
         var capsLock:Boolean=true
         var output: TextView?=null
         var caps:Boolean=true
@@ -469,11 +478,12 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                 ic.commitText("", 0)
                 GptApi_Clean.paste("Old text", text.toString(), context)
                 container = text.toString()
-                output?.setText(output?.text.toString()+"\n\nYou: "+text.toString()+"\n\nprocessing...")
+                output?.setText(output?.text.toString()+"\n\nYou: \n"+text.toString()+"\n\nprocessing...")
+                history= history+"{\"role\":\"user\",\"content\":\"$text\"},"
                 GlobalScope.launch {
                     //response je ono sto chatgpt vrati
-                    val response = GptApi_Clean.gptRequest(text.toString(), context, str3)
-                    var tempText=output?.text.toString().replace("processing...","")+"Typi: "+response
+                    val response = GptApi_Clean.gptRequest(text.toString(), context, str3, history)
+                    var tempText=output?.text.toString().replace("processing...","")+"Typi: \n"+response
                     println("1=")
                     println(tempText)
                     output?.text=tempText
@@ -487,12 +497,13 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                 {
                     ic.commitText("",0)
                     container = text.toString()
-                    output?.setText(output?.text.toString()+"\n\nYou: "+text.toString()+"\n\nprocessing...")
+                    output?.setText(output?.text.toString()+"\n\nYou: \n"+text.toString()+"\n\nprocessing...")
                     GptApi_Clean.paste("Old text", text.toString(), context)
+                    history= history+"{\"role\":\"user\",\"content\":\"$text\"},"
                     GlobalScope.launch {
                         //response je ono sto chatgpt vrati
-                        val response = GptApi_Clean.gptRequest(text.toString(), context, str3)
-                        var tempText=output?.text.toString().replace("processing...","")+"Typi: "+response
+                        val response = GptApi_Clean.gptRequest(text.toString(), context, str3, history)
+                        var tempText=output?.text.toString().replace("processing...","")+"Typi: \n"+response
                         println("2=")
                         println(tempText)
                         output?.text=tempText
