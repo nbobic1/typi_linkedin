@@ -1,5 +1,7 @@
 package com.beta.typi_linkedin
 
+import android.annotation.SuppressLint
+import android.app.ActionBar.LayoutParams
 import android.content.Context
 import android.inputmethodservice.InputMethodService
 import android.inputmethodservice.Keyboard
@@ -11,13 +13,18 @@ import android.text.SpannableString
 import android.text.TextUtils
 import android.text.style.ImageSpan
 import android.util.Log
+import android.view.Gravity
 import android.view.KeyEvent
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
+import android.widget.Button
 import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
+import android.widget.ScrollView
 import android.widget.TextView
+import androidx.annotation.UiThread
 import androidx.core.content.ContextCompat
 import com.mixpanel.android.mpmetrics.MixpanelAPI
 import kotlinx.coroutines.GlobalScope
@@ -423,11 +430,12 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
 
     companion object
     {
+        var chatScroll:ScrollView?=null
         lateinit var mixpanel: MixpanelAPI
         lateinit var inputConnection: InputConnection
         var history=""
         var capsLock:Boolean=true
-        var output: TextView?=null
+        var output: LinearLayout?=null
         var caps:Boolean=true
         var proba=0;
         lateinit var context: Context
@@ -469,6 +477,36 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                 }
             }
         }
+
+        fun setOutputChat(tempText:String)
+        {
+            print("tem u fun=")
+            println(tempText)
+            var linearLayout1=LinearLayout(output?.context)
+          //  linearLayout1.orientation=LinearLayout.L
+            linearLayout1.setPadding(0,10,0,0)
+            var textView=TextView(linearLayout1.context)
+            textView.text="Typi:\n"+tempText
+            textView.setTextColor(context.getColor(R.color.white))
+            var btn=Button(linearLayout1.context)
+            btn.setText("Copy")
+            var parms=LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT)
+            parms.weight=0.1f
+            parms.gravity=Gravity.CENTER_VERTICAL
+            btn.layoutParams=parms
+            var parms1=LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT)
+            parms1.weight=0.9f
+            textView.layoutParams=parms1
+            btn.setOnClickListener {
+                GptApi_Clean.paste("chat answer",textView.text.toString().replace("Typi:\n",""), context)
+            }
+            textView.setOnClickListener {
+                GptApi_Clean.paste("chat answer",textView.text.toString().replace("Typi:\n",""), context)
+            }
+            linearLayout1.addView(textView)
+            linearLayout1.addView(btn)
+            output?.addView(linearLayout1)
+        }
         fun callChatGptForInput(keyCodes: IntArray, ic: InputConnection, str3: String = "")
         {
             val text = ic.getSelectedText(0)
@@ -478,15 +516,23 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                 ic.commitText("", 0)
                 GptApi_Clean.paste("Old text", text.toString(), context)
                 container = text.toString()
-                output?.setText(output?.text.toString()+"\n\nYou: \n"+text.toString()+"\n\nprocessing...")
+                var textView=TextView(output?.context)
+                textView.setText("\n\nYou: \n"+text.toString()+"\n\nprocessing...")
+                textView.setTextColor(context.getColor(R.color.white))
+                output?.addView(textView)
                 history= history+"{\"role\":\"user\",\"content\":\"$text\"},"
+                chatScroll?.post { chatScroll?.fullScroll(View.FOCUS_DOWN) }
                 GlobalScope.launch {
                     //response je ono sto chatgpt vrati
                     val response = GptApi_Clean.gptRequest(text.toString(), context, str3, history)
-                    var tempText=output?.text.toString().replace("processing...","")+"Typi: \n"+response
+
                     println("1=")
-                    println(tempText)
-                    output?.text=tempText
+                    Handler(Looper.getMainLooper()).post{
+                        textView.text=textView.text.toString().replace("processing...","")
+                        var tempText=response
+                        setOutputChat(tempText)
+                        chatScroll?.post { chatScroll?.fullScroll(View.FOCUS_DOWN) }
+                    }
                 }
             } else
             {
@@ -497,16 +543,24 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                 {
                     ic.commitText("",0)
                     container = text.toString()
-                    output?.setText(output?.text.toString()+"\n\nYou: \n"+text.toString()+"\n\nprocessing...")
+                    var textView=TextView(output?.context)
+                    textView.text="\n\nYou: \n"+text.toString()+"\n\nprocessing..."
+                    textView.setTextColor(context.getColor(R.color.white))
+                    output?.addView(textView)
                     GptApi_Clean.paste("Old text", text.toString(), context)
                     history= history+"{\"role\":\"user\",\"content\":\"$text\"},"
+                    chatScroll?.post { chatScroll?.fullScroll(View.FOCUS_DOWN) }
                     GlobalScope.launch {
                         //response je ono sto chatgpt vrati
                         val response = GptApi_Clean.gptRequest(text.toString(), context, str3, history)
-                        var tempText=output?.text.toString().replace("processing...","")+"Typi: \n"+response
+
                         println("2=")
-                        println(tempText)
-                        output?.text=tempText
+                        Handler(Looper.getMainLooper()).post{
+                            textView.text=textView.text.toString().replace("processing...","")
+                            var tempText=response
+                            setOutputChat(tempText)
+                            chatScroll?.post { chatScroll?.fullScroll(View.FOCUS_DOWN) }
+                        }
                     }
                 }
             }

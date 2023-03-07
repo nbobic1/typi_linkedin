@@ -25,7 +25,7 @@ class ViewMaker
             SMILY, FOOD, CARS, NATURE
         }
 
-        fun     optionsSetup(keyboardRoot: View,context:Context,onKey: (primaryCode: Int, keyCodes: IntArray) -> Unit)
+        fun optionsSetup(keyboardRoot: View,context:Context,onKey: (primaryCode: Int, keyCodes: IntArray) -> Unit)
         {
             keyboardRoot.findViewById<Button>(R.id.help).setOnClickListener {
                 var tk= FrameLayout(context)
@@ -78,6 +78,7 @@ class ViewMaker
                 val custom: View = LayoutInflater.from(context).inflate(R.layout.chat_layout,tk)
                 val popup = PopupWindow(context)
                 chatPopup=popup
+                TypiInputMethodService.chatScroll=tk.findViewById(R.id.chatScroll)
                var oldInputConnection=TypiInputMethodService.inputConnection
                 tk.findViewById<Button>(R.id.zatvori_popup).setOnClickListener {
                     TypiInputMethodService.inputConnection=oldInputConnection
@@ -88,10 +89,13 @@ class ViewMaker
                     onKey(context.resources.getInteger(R.integer.chat), intArrayOf(-1))
                    }
                 var editText=tk.findViewById<EditText>(R.id.chatInput1)
+              //  editText.setTextIsSelectable(true)
+               // editText.requestFocus()
+                //ne pomaze ovo dvoje gore
                 TypiInputMethodService.inputConnection=editText.onCreateInputConnection(EditorInfo())
                 popup.contentView = custom
                 popup.showAtLocation(keyboardRoot, Gravity.CENTER, 0, -1150)
-                TypiInputMethodService.output=tk.findViewById<TextView>(R.id.chatOutput)
+                TypiInputMethodService.output=tk.findViewById<LinearLayout>(R.id.outputLayout)
             }
         }
         fun categorySetup(keyboardRoot: View,context:Context,onKey: (primaryCode: Int, keyCodes: IntArray) -> Unit):View
@@ -553,6 +557,7 @@ class ViewMaker
             TypiInputMethodService.history=""
             chatPopup?.dismiss()
             chatPopup=null
+            TypiInputMethodService.chatScroll=null
         }
     }
 }

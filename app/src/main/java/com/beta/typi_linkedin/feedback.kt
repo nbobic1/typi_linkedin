@@ -24,7 +24,6 @@ class feedback : AppCompatActivity()
         val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(linkUrl))
         var da=findViewById<Button>(R.id.button4)
         da.setOnClickListener {
-
             val mixpanel: MixpanelAPI = MixpanelAPI.getInstance(applicationContext, GptApi_Clean.token, true)
             val props = JSONObject()
             props.put("TypiYes tokens", token)
@@ -35,7 +34,6 @@ class feedback : AppCompatActivity()
         }
         var no=findViewById<Button>(R.id.button)
         no.setOnClickListener {
-
             val mixpanel: MixpanelAPI = MixpanelAPI.getInstance(applicationContext, GptApi_Clean.token, true)
             val props = JSONObject()
             props.put("TypiNo tokens", token)

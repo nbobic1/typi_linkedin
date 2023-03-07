@@ -142,7 +142,7 @@ class GptApi_Clean
             }
             catch (ex: Exception)
             {
-                return "Error"
+                return "Server Response Error"
             }
         }
 

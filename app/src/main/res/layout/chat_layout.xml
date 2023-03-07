@@ -11,34 +11,43 @@
         android:id="@+id/zatvori_popup"
         >
     </Button>
-    <TextView
-        android:id="@+id/chatOutput"
+    <ScrollView
+        android:id="@+id/chatScroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:color="@color/white"
         android:layout_weight="0.8">
-    </TextView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/outputLayout"
+            android:orientation="vertical"
+            >
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="0.1"
-    android:background="@color/medium_gray"
-    android:orientation="horizontal">
-    <EditText
-        android:id="@+id/chatInput1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:color="@color/white"
-        android:layout_weight="0.8">
-    </EditText>
-    <Button
-        android:id="@+id/send"
-        android:layout_width="0dp"
-        android:layout_weight="0.2"
-        android:layout_height="wrap_content"
-        android:text="Send"
-        ></Button>
 
-</LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.1"
+            android:background="@color/medium_gray"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/chatInput1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textIsSelectable="true"
+                android:layout_weight="0.8">
+            </EditText>
+            <Button
+                android:id="@+id/send"
+                android:layout_width="0dp"
+                android:layout_weight="0.2"
+                android:layout_height="wrap_content"
+                android:text="Send"
+                ></Button>
+
+        </LinearLayout>
 </LinearLayout>
