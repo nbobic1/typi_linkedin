@@ -188,7 +188,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                         arrayOf<String>("exciteing","formal","sincere","caring","friendly","humoristic", "sympathetic","sarcastic","authoritative"),
                         ic,
                         keyCodes,
-                        "Rephrase this text so it sounds more"
+                        "Rephrase this text so it sounds more: \""
                     )
                     /*
                     var selectedText = ic.getSelectedText(0);
@@ -215,7 +215,10 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                 }
                 resources.getInteger(R.integer.gpt) ->
                 {
-                    callGptForInput(keyCodes, ic)
+                    if(ViewMaker.chatPopup!=null)
+                        callChatGptForInput(keyCodes,ic,"")
+                    else
+                    callGptForInput(keyCodes, ic,"")
                 }
 
                 -2 ->
@@ -269,11 +272,11 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                 //options
                 resources.getInteger(R.integer.summerize) ->
                 {
-                    callGptForInput(keyCodes, ic, "Summarize this text: ")
+                    callGptForInput(keyCodes, ic, "Summarize this text: \"")
                 }
                 resources.getInteger(R.integer.grammar) ->
                 {
-                    callGptForInput(keyCodes, ic, "Correct grammar in this text: ")
+                    callGptForInput(keyCodes, ic, "Correct grammar in this text: \"")
                 }
                 resources.getInteger(R.integer.chat) ->{
                     callChatGptForInput(intArrayOf(-1), ic, "")
@@ -513,21 +516,21 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
             linearLayout1.addView(btn)
             output?.addView(linearLayout1)
         }
-        fun callChatGptForInput(keyCodes: IntArray, ic: InputConnection, str3: String = "")
+        fun callChatGptForInput(keyCodes: IntArray, ic: InputConnection, str3: String)
         {
             val text = ic.getSelectedText(0)
             //ako je selectovan
             if (keyCodes[0] == -1 && text != null)
             {
                 ic.commitText("", 0)
-                GptApi_Clean.paste("Old text", text.toString(), context)
-                container = text.toString()
+                GptApi_Clean.paste("Old text", str3+" "+text.toString(), context)
+                container = str3+" "+text.toString()
                 var textView=TextView(output?.context)
                 textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, textSize)
-                textView.setText("\n\nYou: \n"+text.toString()+"\n\nprocessing...")
+                textView.setText("\n\nYou: \n"+str3+" "+text.toString()+"\n\nprocessing...")
                 textView.setTextColor(context.getColor(R.color.white))
                 output?.addView(textView)
-                history= history+"{\"role\":\"user\",\"content\":\"$text\"},"
+                history= history+"{\"role\":\"user\",\"content\":\"$str3 $text\"},"
                 chatScroll?.post { chatScroll?.fullScroll(View.FOCUS_DOWN) }
                 GlobalScope.launch {
                     //response je ono sto chatgpt vrati
@@ -549,14 +552,14 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                 if (text != null)
                 {
                     ic.commitText("",0)
-                    container = text.toString()
+                    container =str3+" "+ text.toString()
                     var textView=TextView(output?.context)
                     textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, textSize)
-                    textView.text="\n\nYou: \n"+text.toString()+"\n\nprocessing..."
+                    textView.text="\n\nYou: \n"+str3+" "+text.toString()+"\n\nprocessing..."
                     textView.setTextColor(context.getColor(R.color.white))
                     output?.addView(textView)
-                    GptApi_Clean.paste("Old text", text.toString(), context)
-                    history= history+"{\"role\":\"user\",\"content\":\"$text\"},"
+                    GptApi_Clean.paste("Old text", str3+" "+text.toString(), context)
+                    history= history+"{\"role\":\"user\",\"content\":\"$str3 $text\"},"
                     chatScroll?.post { chatScroll?.fullScroll(View.FOCUS_DOWN) }
                     GlobalScope.launch {
                         //response je ono sto chatgpt vrati

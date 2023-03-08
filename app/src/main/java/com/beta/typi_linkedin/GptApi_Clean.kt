@@ -31,17 +31,20 @@ class GptApi_Clean
         }
         //HTTP GLUPOSTI
         //api call
-        suspend fun gptApiCall(text:String,context: Context,specialQuery:String="",history:String="" ):String
+        suspend fun gptApiCall(text1:String,context: Context,specialQuery:String="",history:String="" ):String
         {
-            var text=text
+            print("................................=")
+            println(specialQuery)
+            var text=text1
             if(specialQuery!="")
-                text=specialQuery+text
+                text=specialQuery+" "+text
             text=text.replace("\n"," ")
+            Log.d("text!!!",text+"#"+specialQuery+"#"+text1)
             var key = apiKey(context)
             val mediaType = "application/json".toMediaType()
             var tempP= """{ "model": "gpt-3.5-turbo",
                                     "messages": [$history{"role": "user", "content": "$text"}],
-                                    "max_tokens": 40,
+                                    "max_tokens": 100,
                                     "temperature": 0.7,
                                     "frequency_penalty": 0.5 }"""
             if(history!="")
@@ -50,20 +53,21 @@ class GptApi_Clean
                 his=history.substring(0,history.length-1)
                 tempP= """{ "model": "gpt-3.5-turbo",
                                     "messages": [$his],
-                                    "max_tokens": 40,
+                                    "max_tokens": 100,
                                     "temperature": 0.7,
                                     "frequency_penalty": 0.5 }"""
-                Log.d("key", """{ "model": "gpt-3.5-turbo",
+                Log.d("key4", """{ "model": "gpt-3.5-turbo",
                                     "messages": [$his],
-                                    "max_tokens": 40,
+                                    "max_tokens": 100,
                                     "temperature": 0.7,
                                     "frequency_penalty": 0.5 }""")
               }
-            else  Log.d("key", """{ "model": "gpt-3.5-turbo",
+            else  Log.d("key6", """{ "model": "gpt-3.5-turbo",
                                     "messages": [$history{"role": "user", "content": "$text"}],
-                                    "max_tokens": 40,
+                                    "max_tokens": 100,
                                     "temperature": 0.7,
                                     "frequency_penalty": 0.5 }""")
+
             val requestBody =tempP
                 .toRequestBody(mediaType)
 
@@ -149,7 +153,7 @@ class GptApi_Clean
         fun countMatches(string: String, pattern: String): Int {
             return Regex(pattern).findAll(string).count()
         }
-        suspend fun gptRequest(str:String, context:Context,str2:String="",history: String=""):String
+        suspend fun gptRequest(str:String, context:Context,str2:String,history: String=""):String
         {
             var k=countMatches(str,context.getString(R.string.gptChar));
             if(k>1)
@@ -162,11 +166,14 @@ class GptApi_Clean
 
             else if(k==1)
             {
+                Log.d("parametri1","bez veze")
                 return gptApiCall(str.split(context.getString(R.string.gptChar))[0],context,str.split(context.getString(R.string.gptChar))[1],history)
                   //  return apiCallEdit(str.split(context.getString(R.string.gptChar))[0],str.split(context.getString(R.string.gptChar))[1],context)
             }
             else
             {
+
+                Log.d("parametri12",str+"#"+str2+history)
              return gptApiCall(str,context,str2,history)
             }
 

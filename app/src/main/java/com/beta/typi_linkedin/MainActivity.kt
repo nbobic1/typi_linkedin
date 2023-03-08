@@ -57,11 +57,6 @@ class MainActivity : AppCompatActivity()
             imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT)
 
         }
-        // Get the string resource that contains the link URL
-
-// Create a SpannableString with your custom text
-
-// Set the SpannableString to your TextView
         val textView = findViewById<Button>(R.id.textView3)
         textView.setOnClickListener {
             val mixpanel: MixpanelAPI = MixpanelAPI.getInstance(applicationContext, GptApi_Clean.token, true)

@@ -83,6 +83,7 @@ class ViewMaker
                 tk.findViewById<Button>(R.id.zatvori_popup).setOnClickListener {
                     TypiInputMethodService.inputConnection=oldInputConnection
                     TypiInputMethodService.history=""
+                    chatPopup=null
                     popup.dismiss()
                 }
                 tk.findViewById<Button>(R.id.send).setOnClickListener {
@@ -472,7 +473,11 @@ class ViewMaker
             var k=Button(context)
             k.setText("Back to keyboard")
             k.background=context.resources.getDrawable(R.drawable.key_bg)
-            k.setTextColor(context.getColor(R.color.white))
+            k.setTextColor(context.getColor(R.color.green))
+            var layoutParams=LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT,)
+            layoutParams.gravity=Gravity.CENTER_HORIZONTAL
+            k.setPadding(10,0,10,0)
+            k.layoutParams=layoutParams
             k.setOnClickListener {
                 showKeyboard(keyboardRoot)
             }
@@ -483,14 +488,20 @@ class ViewMaker
                 linearLayout.addView(k)
             }*/
             if(clipboard.primaryClip?.getItemAt(0)?.text ?: ""!="")
-            paste.add(clipboard.primaryClip?.getItemAt(0)?.text.toString() ?: "")
-            if(paste.size>5)
+                paste.add(clipboard.primaryClip?.getItemAt(0)?.text.toString() ?: "")
+            if(paste.size<3)
+                {
+                    paste.add("Write an encouraging comment for this LinkedIn post: ")
+                    paste.add("Write an excuse for being late for work")
+                    paste.add("Who is the President of the USA?")
+                }
+            if(paste.size>10)
                 paste.removeAt(0)
             for(i in 0 until paste.size)
             {
                 var t=TextView(context)
                 t.setText(paste[i])
-                t.textSize=30f
+                t.textSize=18f
                 t.setPadding(10)
                 t.gravity=Gravity.CENTER_HORIZONTAL
                 t.setOnClickListener { 
@@ -530,7 +541,10 @@ class ViewMaker
                 tt.gravity=Gravity.CENTER
                 tt.setTextColor(context.getColor(R.color.white))
                 tt.setOnClickListener {
-                    TypiInputMethodService.callGptForInput(keyCodes,ic,order+" "+i)
+                    if(chatPopup!=null)
+                        TypiInputMethodService.callChatGptForInput(keyCodes,ic,order+" "+i)
+                    else
+                        TypiInputMethodService.callGptForInput(keyCodes,ic,order+" "+i)
                     popup.dismiss()
                 }
                 lista.addView(tt)
