@@ -13,6 +13,7 @@ import android.text.SpannableString
 import android.text.TextUtils
 import android.text.style.ImageSpan
 import android.util.Log
+import android.util.TypedValue
 import android.view.Gravity
 import android.view.KeyEvent
 import android.view.View
@@ -26,6 +27,8 @@ import android.widget.ScrollView
 import android.widget.TextView
 import androidx.annotation.UiThread
 import androidx.core.content.ContextCompat
+import androidx.core.view.marginLeft
+import androidx.core.view.setMargins
 import com.mixpanel.android.mpmetrics.MixpanelAPI
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -430,6 +433,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
 
     companion object
     {
+        var textSize=18f
         var chatScroll:ScrollView?=null
         lateinit var mixpanel: MixpanelAPI
         lateinit var inputConnection: InputConnection
@@ -487,15 +491,17 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
             linearLayout1.setPadding(0,10,0,0)
             var textView=TextView(linearLayout1.context)
             textView.text="Typi:\n"+tempText
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, textSize)
             textView.setTextColor(context.getColor(R.color.white))
             var btn=Button(linearLayout1.context)
-            btn.setText("Copy")
-            var parms=LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT)
-            parms.weight=0.1f
+            btn.background= context.resources.getDrawable(R.drawable.baseline_content_copy_24)
+            var parms=LinearLayout.LayoutParams(60,70)
+            parms.weight=0.05f
             parms.gravity=Gravity.CENTER_VERTICAL
+            parms.setMargins(10,10,50,10)
             btn.layoutParams=parms
             var parms1=LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT)
-            parms1.weight=0.9f
+            parms1.weight=0.95f
             textView.layoutParams=parms1
             btn.setOnClickListener {
                 GptApi_Clean.paste("chat answer",textView.text.toString().replace("Typi:\n",""), context)
@@ -517,6 +523,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                 GptApi_Clean.paste("Old text", text.toString(), context)
                 container = text.toString()
                 var textView=TextView(output?.context)
+                textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, textSize)
                 textView.setText("\n\nYou: \n"+text.toString()+"\n\nprocessing...")
                 textView.setTextColor(context.getColor(R.color.white))
                 output?.addView(textView)
@@ -544,6 +551,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                     ic.commitText("",0)
                     container = text.toString()
                     var textView=TextView(output?.context)
+                    textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, textSize)
                     textView.text="\n\nYou: \n"+text.toString()+"\n\nprocessing..."
                     textView.setTextColor(context.getColor(R.color.white))
                     output?.addView(textView)
