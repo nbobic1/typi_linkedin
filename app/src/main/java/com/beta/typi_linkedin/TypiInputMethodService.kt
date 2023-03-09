@@ -173,7 +173,10 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                         ic.commitText(container, container.length)
                     }
                     val mixpanel = MixpanelAPI.getInstance(context, GptApi_Clean.token, true)
-                    mixpanel.track("TypiReverse")
+                    if(ViewMaker.chatPopup!=null)
+                        mixpanel.track("TypiChatReverse")
+                    else
+                        mixpanel.track("TypiReverse")
                     //vracanjena verziju sto je usla u gpt
                 }
                 resources.getInteger(R.integer.clip) ->
@@ -448,13 +451,13 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
 
     companion object
     {
-        var textSize=18f
+        var textSize=18f //text size in chat
         var chatScroll:ScrollView?=null
         lateinit var mixpanel: MixpanelAPI
-        lateinit var inputConnection: InputConnection
-        var history=""
+        lateinit var inputConnection: InputConnection //added to solve bug which prevent as from typeing in chat (redirects inputConnection of TypiInputMethodeService to edit text of chat, and return it after chat closes)
+        var history="" //contains prompts that were sent in that chat before current one, and current one(enables chat memory)
         var capsLock:Boolean=true
-        var output: LinearLayout?=null
+        var output: LinearLayout?=null //layout that contains prompts and answers in chat
         var caps:Boolean=true
         var proba=0;
         lateinit var context: Context

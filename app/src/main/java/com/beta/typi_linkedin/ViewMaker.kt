@@ -32,7 +32,8 @@ class ViewMaker
             context: Context,
             onKey: (primaryCode: Int, keyCodes: IntArray) -> Unit
         ) {
-            /* keyboardRoot.findViewById<Button>(R.id.help).setOnClickListener {
+             keyboardRoot.findViewById<Button>(R.id.help).setOnClickListener {
+            /*
                  var tk= FrameLayout(context)
                  tk.layoutParams= ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
                  val custom: View = LayoutInflater.from(context)
@@ -48,10 +49,9 @@ class ViewMaker
                      val parentView = keyboardRoot.parent as View
                      popup.showAtLocation(parentView, Gravity.CENTER, 0, -1000)
                  }
-             }*/
-            keyboardRoot.findViewById<Button>(R.id.help).setOnClickListener {
-                onKey(-399, intArrayOf(-1))
-            }
+                 */
+                 onKey(-399, intArrayOf(-1))    //dinamic help, ovo iznad je static(zamjenjen je sa ovoom linijom)
+             }
             keyboardRoot.findViewById<Button>(R.id.answer).setOnClickListener {
                 onKey(context.resources.getInteger(R.integer.gpt), intArrayOf(-1))
             }
@@ -557,6 +557,7 @@ class ViewMaker
                         TypiInputMethodService.callChatGptForInput(keyCodes,ic,order+" "+i)
                     else
                         TypiInputMethodService.callGptForInput(keyCodes,ic,order+" "+i)
+                    chatPopup=null
                     popup.dismiss()
                 }
                 lista.addView(tt)

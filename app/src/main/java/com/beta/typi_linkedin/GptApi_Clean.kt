@@ -107,34 +107,38 @@ class GptApi_Clean
                 var tSto= Pref_Clean.getIntPref(context, "tokens")
                 Pref_Clean.setIntPref(context, "tokens", tokensCount + tSto)
                 val mixpanel: MixpanelAPI = MixpanelAPI.getInstance(context, token, true)
+                var chat=""
+                if(ViewMaker.chatPopup!=null)
+                    chat="Chat"
                 if(text=="")
                 {
                     val props = JSONObject()
-                    props.put("TypiAnswer tokens", tokensCount)
-                    mixpanel.track("TypiAnswer", props)
+                    props.put("Typi"+chat+"Answer tokens", tokensCount)
+                    mixpanel.track("Typi"+chat+"Answer", props)
                 }
                 else if(text.contains("Translate"))
                 {
                     val props = JSONObject()
-                    props.put("TypiTranslate tokens", tokensCount)
-                    mixpanel.track("TypiTranslate", props)
+                    props.put("Typi"+chat+"slate tokens", tokensCount)
+                    mixpanel.track("Typi"+chat+"Translate", props)
                 }
                 else if(text.contains("Correct"))
                 {
                     val props = JSONObject()
-                    props.put("TypiCorrect tokens", tokensCount)
-                    mixpanel.track("TypiCorrect", props)
+                    props.put("Typi"+chat+"Correct tokens", tokensCount)
+                    mixpanel.track("Typi"+chat+"Correct", props)
                 }else if(text.contains("Summarize"))
                 {
                     val props = JSONObject()
-                    props.put("TypiSummarize tokens", tokensCount)
-                    mixpanel.track("TypiSummarize", props)
+                    props.put("Typi"+chat+"Summarize tokens", tokensCount)
+                    mixpanel.track("Typi"+chat+"Summarize", props)
                 }else if(text.contains("Rephrase"))
                 {
                     val props = JSONObject()
-                    props.put("TypiRephrase tokens", tokensCount)
-                    mixpanel.track("TypiRephrase", props)
+                    props.put("Typi"+chat+"Rephrase tokens", tokensCount)
+                    mixpanel.track("Typi"+chat+"Rephrase", props)
                 }
+
                 print("kill seisapg")
                 var kte=choices.getJSONObject(0).getString("message")
                 println(kte)
