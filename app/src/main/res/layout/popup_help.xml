@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:background="@drawable/popup_border"
-    android:layout_height="@dimen/key_heightx4">
-    <LinearLayout
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/key_heightx4"
+        android:background="@drawable/popup_border"
+        android:layout_centerInParent="true">
+
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -23,3 +31,4 @@
             android:background="@drawable/help33" />
     </LinearLayout>
 </ScrollView>
+</RelativeLayout>

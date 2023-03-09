@@ -5,6 +5,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.os.Build
 import android.text.InputType
+
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import androidx.core.content.ContextCompat
 import androidx.core.view.setPadding
 import kotlinx.coroutines.newFixedThreadPoolContext
 
@@ -25,23 +27,30 @@ class ViewMaker
             SMILY, FOOD, CARS, NATURE
         }
 
-        fun optionsSetup(keyboardRoot: View,context:Context,onKey: (primaryCode: Int, keyCodes: IntArray) -> Unit)
-        {
+        fun optionsSetup(
+            keyboardRoot: View,
+            context: Context,
+            onKey: (primaryCode: Int, keyCodes: IntArray) -> Unit
+        ) {
+            /* keyboardRoot.findViewById<Button>(R.id.help).setOnClickListener {
+                 var tk= FrameLayout(context)
+                 tk.layoutParams= ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                 val custom: View = LayoutInflater.from(context)
+                     .inflate(R.layout.popup_help2,tk)
+                 val popup = PopupWindow(context)
+                 popup.contentView = custom
+                 popup.isOutsideTouchable=true
+                 if(popup.isShowing()){
+                     popup.update(200, 200, ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT)
+                 } else {
+                     popup.setWidth(ActionBar.LayoutParams.WRAP_CONTENT)
+                     popup.setHeight(ActionBar.LayoutParams.MATCH_PARENT)
+                     val parentView = keyboardRoot.parent as View
+                     popup.showAtLocation(parentView, Gravity.CENTER, 0, -1000)
+                 }
+             }*/
             keyboardRoot.findViewById<Button>(R.id.help).setOnClickListener {
-                var tk= FrameLayout(context)
-                tk.layoutParams= ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-                val custom: View = LayoutInflater.from(context)
-                    .inflate(R.layout.popup_help,tk)
-                val popup = PopupWindow(context)
-                popup.contentView = custom
-                popup.isOutsideTouchable=true
-                if(popup.isShowing()){
-                    popup.update(200, 200, ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT)
-                } else {
-                    popup.setWidth(ActionBar.LayoutParams.WRAP_CONTENT)
-                    popup.setHeight(ActionBar.LayoutParams.WRAP_CONTENT)
-                    popup.showAtLocation(keyboardRoot, Gravity.CENTER, 0, 0)
-                }
+                onKey(-399, intArrayOf(-1))
             }
             keyboardRoot.findViewById<Button>(R.id.answer).setOnClickListener {
                 onKey(context.resources.getInteger(R.integer.gpt), intArrayOf(-1))
@@ -569,6 +578,134 @@ class ViewMaker
             }*/
         }
 
+        fun slikaPopup(context: Context,
+                       root: View,
+                       onKey: (primaryCode: Int, keyCodes: IntArray) -> Unit,
+                       options: Array<String>,
+                       ic: InputConnection,
+                       keyCodes: IntArray,popup2:PopupWindow,tone:String){
+
+            popup2.dismiss()
+
+            val tk = FrameLayout(context)
+            tk.layoutParams = ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+            val popup = PopupWindow(context)
+            var answerButtonView : View = View(context)
+            if (tone=="Answer"){
+                answerButtonView=LayoutInflater.from(context).inflate(R.layout.answer_button, tk)
+            }
+            else if (tone=="Rephrase"){
+                answerButtonView=LayoutInflater.from(context).inflate(R.layout.rephrase_button, tk)
+
+            }
+            else if (tone=="Chat"){
+                answerButtonView=LayoutInflater.from(context).inflate(R.layout.chat_button, tk)
+            }
+            else if (tone=="Translate"){
+                answerButtonView=LayoutInflater.from(context).inflate(R.layout.translate_button, tk)
+            }
+            else if (tone=="Correct grammar"){
+                answerButtonView=LayoutInflater.from(context).inflate(R.layout.correct_grammar_button, tk)
+            }
+            else if (tone=="Reverse"){
+                answerButtonView=LayoutInflater.from(context).inflate(R.layout.reverse, tk)
+            }
+            else {
+                answerButtonView=LayoutInflater.from(context).inflate(R.layout.reverse, tk)
+
+            }
+
+
+            //  answerButtonView.setBackgroundColor(Color.argb(0, 0, 0, 0))
+
+            answerButtonView.setBackgroundDrawable(null)
+            answerButtonView.elevation = 0f
+
+            popup.contentView = answerButtonView
+            popup.isOutsideTouchable = true
+
+            if (popup.isShowing) {
+                popup.update(
+                    200,
+                    200,
+                    ActionBar.LayoutParams.WRAP_CONTENT,
+                    ActionBar.LayoutParams.WRAP_CONTENT
+                )
+            } else {
+                popup.width = ActionBar.LayoutParams.WRAP_CONTENT
+                popup.height = ActionBar.LayoutParams.WRAP_CONTENT
+                popup.showAtLocation(root, Gravity.CENTER, 0, -900)
+            }
+            var exitButton=answerButtonView.findViewById<Button>(R.id.buttonExit)
+            exitButton.setOnClickListener{
+
+                helpPopupInput(context,root,onKey,options,ic,keyCodes)
+            }
+        }
+        fun helpPopupInput(
+            context: Context,
+            root: View,
+            onKey: (primaryCode: Int, keyCodes: IntArray) -> Unit,
+            options: Array<String>,
+            ic: InputConnection,
+            keyCodes: IntArray
+        ) {
+
+            val tk = FrameLayout(context)
+            tk.layoutParams = ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+
+            val custom: View = LayoutInflater.from(context)
+                .inflate(R.layout.popup_help2, tk)
+            val lista = custom.findViewById<LinearLayout>(R.id.llhelp)
+            val popup = PopupWindow(context)
+
+
+            for (option in options) {
+                var button = Button(context).apply {
+                    text = option
+                    textSize = 14.0F
+
+                    background = context.getDrawable(R.drawable.button_background)
+                    gravity = Gravity.CENTER
+                    val margin = resources.getDimensionPixelSize(R.dimen.button_margin)
+                    layoutParams = ViewGroup.MarginLayoutParams(
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT
+                    ).apply {
+                        setMargins(margin, margin, margin, margin)
+                        setPadding(2)
+                    }
+                    setTextColor(ContextCompat.getColor(context, R.color.light_gray))
+                    setOnClickListener {
+                        slikaPopup(context, root, onKey, options, ic, keyCodes, popup, option)
+                    }
+
+                }
+                lista.addView(button)
+            }
+
+            popup.contentView = custom
+            popup.isOutsideTouchable = true
+
+            if (popup.isShowing) {
+                popup.update(
+                    200,
+                    200,
+                    ActionBar.LayoutParams.WRAP_CONTENT,
+                    ActionBar.LayoutParams.WRAP_CONTENT
+                )
+            } else {
+                popup.width = ActionBar.LayoutParams.WRAP_CONTENT
+                popup.height = ActionBar.LayoutParams.WRAP_CONTENT
+                popup.showAtLocation(root, Gravity.CENTER, 0, -900)
+            }
+        }
         fun closeChat()
         {
             TypiInputMethodService.history=""

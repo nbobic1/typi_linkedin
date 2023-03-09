@@ -180,6 +180,16 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                 {
                     ViewMaker.clipBoard(keyboardRoot, context, ic)
                 }
+                -399  -> {
+                    ViewMaker.helpPopupInput(
+                        context,
+                        keyboardRoot,
+                        ::onKey,
+                        arrayOf("Answer","Rephrase", "Chat","Correct grammar", "History","Reverse", "Translate", "Summarize","Change keyboard"),
+                        ic,
+                        keyCodes
+                    )
+                }
                 //funkcija za rephrase dok ona ne proradi bolje
                 resources.getInteger(R.integer.rephrase) ->
                 {

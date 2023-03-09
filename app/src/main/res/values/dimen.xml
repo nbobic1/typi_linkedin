@@ -9,6 +9,7 @@
     <dimen name="small_horizontal_gap">0%</dimen>
     <dimen name="key_height">50dip</dimen>
     <dimen name="key_heightx4">211dip</dimen>
+    <dimen name="button_margin">16dp</dimen>
     <dimen name="long_key_width">24%p</dimen>
     <dimen name="space">38%p</dimen>
     <dimen name="done">17%p</dimen>
