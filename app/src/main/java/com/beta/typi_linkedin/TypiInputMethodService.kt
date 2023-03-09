@@ -19,6 +19,8 @@ import android.view.KeyEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.ExtractedText
+import android.view.inputmethod.ExtractedTextRequest
 import android.view.inputmethod.InputConnection
 import android.widget.Button
 import android.widget.HorizontalScrollView
@@ -188,7 +190,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                         arrayOf<String>("exciteing","formal","sincere","caring","friendly","humoristic", "sympathetic","sarcastic","authoritative"),
                         ic,
                         keyCodes,
-                        "Rephrase this text so it sounds more: \""
+                        "Rephrase this text so it sounds more: "
                     )
                     /*
                     var selectedText = ic.getSelectedText(0);
@@ -272,11 +274,11 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                 //options
                 resources.getInteger(R.integer.summerize) ->
                 {
-                    callGptForInput(keyCodes, ic, "Summarize this text: \"")
+                    callGptForInput(keyCodes, ic, "Summarize this text: ")
                 }
                 resources.getInteger(R.integer.grammar) ->
                 {
-                    callGptForInput(keyCodes, ic, "Correct grammar in this text: \"")
+                    callGptForInput(keyCodes, ic, "Correct grammar in this text: ")
                 }
                 resources.getInteger(R.integer.chat) ->{
                     callChatGptForInput(intArrayOf(-1), ic, "")
@@ -430,8 +432,8 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                 proba = 0
             }else
             {   proba=1
-            }}
-
+            }
+        }
     }
 
     companion object
@@ -453,7 +455,10 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
             //ako je selectovan
             if (keyCodes[0] == -1 && text != null)
             {
+                var textBefore=ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
                 ic.commitText("processing...", 13)
+                var len:Int= textBefore?.length!!
+                ic.setSelection(len+13,len+13)
                 GptApi_Clean.paste("Old text", text.toString(), context)
                 container = text.toString()
                 GlobalScope.launch {
@@ -462,21 +467,34 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                     ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
                         ?.let { ic.setSelection(it.length - 13, it.length) }
                     ic.commitText(response, response.length)
+                    var extractedText=ExtractedTextRequest()
+                    var et = ic.getExtractedText(extractedText,0)
+                    var  text1=""
+                    if(et!=null)
+                        text1=et.text.toString()
+                    ic.setSelection(text1.length,text1.length)
                 }
-            } else
+            }
+            //ako tekst nije selektovan
+            else
             {
-                ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
-                    ?.let { ic.setSelection(0, it.length) }
-                var text = ic.getSelectedText(0);
-                if (text != null)
+                var extractedText=ExtractedTextRequest()
+               var et = ic.getExtractedText(extractedText,0)
+                var  text1=""
+                if(et!=null)
+                    text1=et.text.toString()
+                print("text11111111111111=")
+                println(text1)
+                ic.setSelection(0, text1.length)
+             if (text1 != null)
                 {
                     ic.commitText("processing...", 13)
-                    container = text.toString()
-                    GptApi_Clean.paste("Old text", text.toString(), context)
+                    container = text1.toString()
+                    GptApi_Clean.paste("Old text", text1.toString(), context)
                     GlobalScope.launch {
                         //response je ono sto chatgpt vrati
 
-                        val response = GptApi_Clean.gptRequest(text.toString(), context, str3)
+                        val response = GptApi_Clean.gptRequest(text1.toString(), context, str3)
                         ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
                             ?.let { ic.setSelection(it.length - 13, it.length) }
                         ic.commitText(response, response.length)
@@ -490,7 +508,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
             print("tem u fun=")
             println(tempText)
             var linearLayout1=LinearLayout(output?.context)
-          //  linearLayout1.orientation=LinearLayout.L
+            //  linearLayout1.orientation=LinearLayout.L
             linearLayout1.setPadding(0,10,0,0)
             var textView=TextView(linearLayout1.context)
             textView.text="Typi:\n"+tempText
@@ -546,24 +564,30 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                 }
             } else
             {
-                ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
-                    ?.let { ic.setSelection(0, it.length) }
-                var text = ic.getSelectedText(0);
-                if (text != null)
+
+                var extractedText=ExtractedTextRequest()
+                var et = ic.getExtractedText(extractedText,0)
+                var  text1=""
+                if(et!=null)
+                    text1=et.text.toString()
+                ic.setSelection(0, text1.length)
+                if (text1 != null)
                 {
                     ic.commitText("",0)
-                    container =str3+" "+ text.toString()
+                    container =str3+" "+ text1.toString()
                     var textView=TextView(output?.context)
                     textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, textSize)
-                    textView.text="\n\nYou: \n"+str3+" "+text.toString()+"\n\nprocessing..."
+                    textView.text="\n\nYou: \n"+str3+" "+text1+"\n\nprocessing..."
                     textView.setTextColor(context.getColor(R.color.white))
                     output?.addView(textView)
-                    GptApi_Clean.paste("Old text", str3+" "+text.toString(), context)
-                    history= history+"{\"role\":\"user\",\"content\":\"$str3 $text\"},"
+                    GptApi_Clean.paste("Old text", str3+" "+text1, context)
+                    history= history+"{\"role\":\"user\",\"content\":\"$str3 $text1\"},"
                     chatScroll?.post { chatScroll?.fullScroll(View.FOCUS_DOWN) }
                     GlobalScope.launch {
                         //response je ono sto chatgpt vrati
-                        val response = GptApi_Clean.gptRequest(text.toString(), context, str3, history)
+                        print("laucan====")
+                        println(text1)
+                        val response = GptApi_Clean.gptRequest(text1, context, str3, history)
 
                         println("2=")
                         Handler(Looper.getMainLooper()).post{

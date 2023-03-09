@@ -476,6 +476,7 @@ class ViewMaker
             k.setTextColor(context.getColor(R.color.green))
             var layoutParams=LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT,)
             layoutParams.gravity=Gravity.CENTER_HORIZONTAL
+            layoutParams.bottomMargin=30
             k.setPadding(10,0,10,0)
             k.layoutParams=layoutParams
             k.setOnClickListener {
@@ -489,11 +490,12 @@ class ViewMaker
             }*/
             if(clipboard.primaryClip?.getItemAt(0)?.text ?: ""!="")
                 paste.add(clipboard.primaryClip?.getItemAt(0)?.text.toString() ?: "")
-            if(paste.size<3)
+            if(paste.size<4)
                 {
                     paste.add("Write an encouraging comment for this LinkedIn post: ")
                     paste.add("Write an excuse for being late for work")
                     paste.add("Who is the President of the USA?")
+                    paste.add("Can we meet at 7?")
                 }
             if(paste.size>10)
                 paste.removeAt(0)
@@ -502,7 +504,8 @@ class ViewMaker
                 var t=TextView(context)
                 t.setText(paste[i])
                 t.textSize=18f
-                t.setPadding(10)
+                t.setBackground(context.getDrawable(R.drawable.button_bottom_greenborder))
+                t.setPadding(30)
                 t.gravity=Gravity.CENTER_HORIZONTAL
                 t.setOnClickListener { 
                     ic.commitText(t.text.toString(),t.text.length)
