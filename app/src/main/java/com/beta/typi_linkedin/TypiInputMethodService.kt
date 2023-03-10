@@ -181,7 +181,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                         context,
                         keyboardRoot,
                         ::onKey,
-                        arrayOf("Answer","Rephrase", "Chat","Correct grammar", "History","Reverse", "Translate", "Summarize","Change keyboard"),
+                        arrayOf("How to use","Answer","Rephrase", "Chat","Correct grammar", "History","Reverse", "Translate", "Summarize","Change keyboard"),
                         ic,
                         keyCodes
                     )

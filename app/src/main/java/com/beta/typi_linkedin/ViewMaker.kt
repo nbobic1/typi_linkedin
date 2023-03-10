@@ -89,7 +89,9 @@ class ViewMaker
         {
             var optionLayout=keyboardRoot.findViewById<LinearLayout>(R.id.optionLayout)
                 for(i in optionLayout.children)
-                i.isEnabled=isEnabled
+                {
+                    i.isEnabled = isEnabled
+                }
         }
         //seting upp emojis, makeing view (probalbly only once)
         fun categorySetup(keyboardRoot: View,context:Context,onKey: (primaryCode: Int, keyCodes: IntArray) -> Unit):View
@@ -597,6 +599,9 @@ class ViewMaker
             else if (tone=="Reverse"){
                 answerButtonView=LayoutInflater.from(context).inflate(R.layout.reverse, tk)
             }
+            else if (tone=="How to use"){
+                answerButtonView=LayoutInflater.from(context).inflate(R.layout.help_how_to_use_button, tk)
+            }
             else {
                 answerButtonView=LayoutInflater.from(context).inflate(R.layout.reverse, tk)
 
@@ -654,7 +659,6 @@ class ViewMaker
                 var button = Button(context).apply {
                     text = option
                     textSize = 14.0F
-
                     background = context.getDrawable(R.drawable.button_background)
                     gravity = Gravity.CENTER
                     val margin = resources.getDimensionPixelSize(R.dimen.button_margin)
