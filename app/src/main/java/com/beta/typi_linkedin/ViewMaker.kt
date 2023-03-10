@@ -3,8 +3,6 @@ package com.beta.typi_linkedin
 import android.app.ActionBar
 import android.content.ClipboardManager
 import android.content.Context
-import android.os.Build
-import android.text.InputType
 
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -12,45 +10,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputConnection
-import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.core.content.ContextCompat
+import androidx.core.view.children
 import androidx.core.view.setPadding
-import kotlinx.coroutines.newFixedThreadPoolContext
 
 class ViewMaker
 {
     companion object{
+        var chatSendBtn:Button?=null//need this to disable this button while proccessing request
         var paste= mutableListOf<String>()
         var chatPopup:PopupWindow?=null
-        enum class Category {
-            SMILY, FOOD, CARS, NATURE
-        }
-
         fun optionsSetup(
             keyboardRoot: View,
             context: Context,
             onKey: (primaryCode: Int, keyCodes: IntArray) -> Unit
         ) {
              keyboardRoot.findViewById<Button>(R.id.help).setOnClickListener {
-            /*
-                 var tk= FrameLayout(context)
-                 tk.layoutParams= ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-                 val custom: View = LayoutInflater.from(context)
-                     .inflate(R.layout.popup_help2,tk)
-                 val popup = PopupWindow(context)
-                 popup.contentView = custom
-                 popup.isOutsideTouchable=true
-                 if(popup.isShowing()){
-                     popup.update(200, 200, ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT)
-                 } else {
-                     popup.setWidth(ActionBar.LayoutParams.WRAP_CONTENT)
-                     popup.setHeight(ActionBar.LayoutParams.MATCH_PARENT)
-                     val parentView = keyboardRoot.parent as View
-                     popup.showAtLocation(parentView, Gravity.CENTER, 0, -1000)
-                 }
-                 */
-                 onKey(-399, intArrayOf(-1))    //dinamic help, ovo iznad je static(zamjenjen je sa ovoom linijom)
+                 onKey(-399, intArrayOf(-1))    //dinamic help, ovo iznad(bio, sad je borisan) je static(zamjenjen je sa ovoom linijom)
              }
             keyboardRoot.findViewById<Button>(R.id.answer).setOnClickListener {
                 onKey(context.resources.getInteger(R.integer.gpt), intArrayOf(-1))
@@ -71,43 +48,50 @@ class ViewMaker
                 onKey(context.resources.getInteger(R.integer.summerize), intArrayOf(-1))
             }
             keyboardRoot.findViewById<Button>(R.id.changeKb).setOnClickListener {
-                onKey(context.resources.getInteger(com.beta.typi_linkedin.R.integer.lanCustom),
-                    kotlin.intArrayOf(-1)
-                )
+                onKey(context.resources.getInteger(com.beta.typi_linkedin.R.integer.lanCustom),intArrayOf(-1))
             }
             keyboardRoot.findViewById<Button>(R.id.grammar).setOnClickListener {
-                onKey(context.resources.getInteger(com.beta.typi_linkedin.R.integer.grammar),
-                    kotlin.intArrayOf(-1)
-                )
+                onKey(context.resources.getInteger(com.beta.typi_linkedin.R.integer.grammar), intArrayOf(-1))
             }
-            keyboardRoot.findViewById<Button>(R.id.chat).setOnClickListener {
 
-                var tk= FrameLayout(context)
-                tk.layoutParams= ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-                val custom: View = LayoutInflater.from(context).inflate(R.layout.chat_layout,tk)
-                val popup = PopupWindow(context)
-                chatPopup=popup
-                TypiInputMethodService.chatScroll=tk.findViewById(R.id.chatScroll)
-               var oldInputConnection=TypiInputMethodService.inputConnection
-                tk.findViewById<Button>(R.id.zatvori_popup).setOnClickListener {
-                    TypiInputMethodService.inputConnection=oldInputConnection
-                    TypiInputMethodService.history=""
-                    chatPopup=null
-                    popup.dismiss()
+            keyboardRoot.findViewById<Button>(R.id.chat).setOnClickListener {
+                if(chatPopup==null)
+                {
+                    //shows chat popup
+                    var tk= FrameLayout(context)
+                    tk.layoutParams= ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                    val custom: View = LayoutInflater.from(context).inflate(R.layout.chat_layout,tk)
+                    val popup = PopupWindow(context)
+                    chatPopup=popup
+                    TypiInputMethodService.chatScroll=tk.findViewById(R.id.chatScroll)//we need this to scroll chat to bottom when new answer arrives
+                    var oldInputConnection=TypiInputMethodService.inputConnection//storeing old connecton so we can redirect it when chat is closed
+                    tk.findViewById<Button>(R.id.zatvori_popup).setOnClickListener {
+                        TypiInputMethodService.inputConnection=oldInputConnection//restoreing old input, so we can write again after closeing chat
+                        TypiInputMethodService.history=""
+                        chatPopup=null
+                        chatSendBtn=null
+                        popup.dismiss()
+                    }
+                    chatSendBtn=tk.findViewById<Button>(R.id.send)
+                    chatSendBtn?.setOnClickListener {
+                        onKey(context.resources.getInteger(R.integer.chat), intArrayOf(-1))
+                    }
+                    var editText=tk.findViewById<EditText>(R.id.chatInput1)
+                    TypiInputMethodService.inputConnection=editText.onCreateInputConnection(EditorInfo())//redirecting input to editText in chat, so we can write in chat
+                    popup.contentView = custom
+                    popup.showAtLocation(keyboardRoot, Gravity.CENTER, 0, -1150)//-1150 so we move it abore keyboard
+                    TypiInputMethodService.output=tk.findViewById<LinearLayout>(R.id.outputLayout)//we need output to add results from api in chat window
                 }
-                tk.findViewById<Button>(R.id.send).setOnClickListener {
-                    onKey(context.resources.getInteger(R.integer.chat), intArrayOf(-1))
-                   }
-                var editText=tk.findViewById<EditText>(R.id.chatInput1)
-              //  editText.setTextIsSelectable(true)
-               // editText.requestFocus()
-                //ne pomaze ovo dvoje gore
-                TypiInputMethodService.inputConnection=editText.onCreateInputConnection(EditorInfo())
-                popup.contentView = custom
-                popup.showAtLocation(keyboardRoot, Gravity.CENTER, 0, -1150)
-                TypiInputMethodService.output=tk.findViewById<LinearLayout>(R.id.outputLayout)
             }
         }
+        //enables/dissables buttons in options bar
+        fun optionsEnabled(keyboardRoot: View,isEnabled:Boolean)
+        {
+            var optionLayout=keyboardRoot.findViewById<LinearLayout>(R.id.optionLayout)
+                for(i in optionLayout.children)
+                i.isEnabled=isEnabled
+        }
+        //seting upp emojis, makeing view (probalbly only once)
         fun categorySetup(keyboardRoot: View,context:Context,onKey: (primaryCode: Int, keyCodes: IntArray) -> Unit):View
         {
             var linearLayoutEmoji=keyboardRoot.findViewById<LinearLayout>(R.id.emoji)
@@ -444,6 +428,8 @@ class ViewMaker
             }
 */
         }
+
+        //hides everything and shows emojis
                 fun emoji(keyboardRoot: View, context: Context, onKey: (primaryCode: Int, keyCodes: IntArray) -> Unit ,view:View)
                 {
                     view.visibility=View.VISIBLE
@@ -462,8 +448,9 @@ class ViewMaker
                     var linearLayout=keyboardRoot.findViewById<LinearLayout>(R.id.clipboard)
                     linearLayout.visibility=View.GONE
 
-                    //   treba priakzivati samo 1 kategoirj, odraditi
                 }
+
+        //hides everything in keyboardview exept clipboard, adds content to cliboardview(text for paste)
         fun clipBoard(keyboardRoot: View, context: Context, ic: InputConnection)
         {
             var scroll=keyboardRoot.findViewById<ScrollView>(R.id.topHScrollView)
@@ -492,11 +479,7 @@ class ViewMaker
                 showKeyboard(keyboardRoot)
             }
             linearLayout.addView(k)
-            /*if(clipboard.primaryClip?.itemCount ?: 0==0)
-            {
-                linearLayout.removeAllViews()
-                linearLayout.addView(k)
-            }*/
+
             if(clipboard.primaryClip?.getItemAt(0)?.text ?: ""!="")
                 paste.add(clipboard.primaryClip?.getItemAt(0)?.text.toString() ?: "")
             if(paste.size<4)
@@ -516,7 +499,7 @@ class ViewMaker
                 t.setBackground(context.getDrawable(R.drawable.button_bottom_greenborder))
                 t.setPadding(30)
                 t.gravity=Gravity.CENTER_HORIZONTAL
-                t.setOnClickListener { 
+                t.setOnClickListener {
                     ic.commitText(t.text.toString(),t.text.length)
                 }
                 linearLayout.addView(t)
@@ -535,6 +518,7 @@ class ViewMaker
             linearLayout.visibility=View.GONE
         }
 
+        //shows popup for rephrase, translate
         fun popupInput(context:Context, root:View,onKey: (primaryCode: Int, keyCodes: IntArray) -> Unit ,options:Array<String>,ic:InputConnection,keyCodes: IntArray,order:String)
         {
             var tk= FrameLayout(context)
@@ -557,7 +541,6 @@ class ViewMaker
                         TypiInputMethodService.callChatGptForInput(keyCodes,ic,order+" "+i)
                     else
                         TypiInputMethodService.callGptForInput(keyCodes,ic,order+" "+i)
-                    chatPopup=null
                     popup.dismiss()
                 }
                 lista.addView(tt)
@@ -707,11 +690,14 @@ class ViewMaker
                 popup.showAtLocation(root, Gravity.CENTER, 0, -900)
             }
         }
+
+
         fun closeChat()
         {
             TypiInputMethodService.history=""
             chatPopup?.dismiss()
             chatPopup=null
+            chatSendBtn=null
             TypiInputMethodService.chatScroll=null
         }
     }

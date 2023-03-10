@@ -1,7 +1,5 @@
 package com.beta.typi_linkedin
 
-import android.annotation.SuppressLint
-import android.app.ActionBar.LayoutParams
 import android.content.Context
 import android.inputmethodservice.InputMethodService
 import android.inputmethodservice.Keyboard
@@ -17,9 +15,7 @@ import android.util.TypedValue
 import android.view.Gravity
 import android.view.KeyEvent
 import android.view.View
-import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.ExtractedText
 import android.view.inputmethod.ExtractedTextRequest
 import android.view.inputmethod.InputConnection
 import android.widget.Button
@@ -27,10 +23,7 @@ import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
-import androidx.annotation.UiThread
 import androidx.core.content.ContextCompat
-import androidx.core.view.marginLeft
-import androidx.core.view.setMargins
 import com.mixpanel.android.mpmetrics.MixpanelAPI
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -40,7 +33,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
 {
     lateinit var keyboardView: TypiKeyboardView
 
-    lateinit var keyboardRoot: LinearLayout
+
 
     lateinit var llSmily: View
     var letterBefore:Int=0
@@ -460,10 +453,14 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
         var output: LinearLayout?=null //layout that contains prompts and answers in chat
         var caps:Boolean=true
         var proba=0;
+
+        lateinit var keyboardRoot: LinearLayout
         lateinit var context: Context
         var container: String = ""//spremam sto je uslo u gpt kako bi mogao vratiti
         fun callGptForInput(keyCodes: IntArray, ic: InputConnection, str3: String = "")
         {
+
+            ViewMaker.optionsEnabled(keyboardRoot,isEnabled = false)
             val text = ic.getSelectedText(0)
             //ako je selectovan
             if (keyCodes[0] == -1 && text != null)
@@ -486,11 +483,15 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                     if(et!=null)
                         text1=et.text.toString()
                     ic.setSelection(text1.length,text1.length)
+                    Handler(Looper.getMainLooper()).post{
+                        ViewMaker.optionsEnabled(keyboardRoot,isEnabled = true)
+                    }
                 }
             }
-            //ako tekst nije selektovan
+            //if there is no selected text do
             else
             {
+                //extracts all text from input(no matter where cursor is)
                 var extractedText=ExtractedTextRequest()
                var et = ic.getExtractedText(extractedText,0)
                 var  text1=""
@@ -511,12 +512,87 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                         ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
                             ?.let { ic.setSelection(it.length - 13, it.length) }
                         ic.commitText(response, response.length)
+                        Handler(Looper.getMainLooper()).post{
+                            ViewMaker.optionsEnabled(keyboardRoot,isEnabled = true)
+                        }
                     }
                 }
             }
         }
 
-        fun setOutputChat(tempText:String)
+
+        fun callChatGptForInput(keyCodes: IntArray, ic: InputConnection, str3: String)
+        {
+            ViewMaker.optionsEnabled(keyboardRoot,isEnabled = false)
+            val text = ic.getSelectedText(0)
+            //ako je selectovan
+            if (keyCodes[0] == -1 && text != null)
+            {
+                ic.commitText("", 0)
+                GptApi_Clean.paste("Old text", str3+" "+text.toString(), context)
+                container = str3+" "+text.toString()
+                var textView=TextView(output?.context)
+                textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, textSize)
+                textView.setText("\n\nYou: \n"+str3+" "+text.toString()+"\n\nprocessing...")
+                textView.setTextColor(context.getColor(R.color.white))
+                output?.addView(textView)
+                history= history+"{\"role\":\"user\",\"content\":\"$str3 $text\"},"
+                chatScroll?.post { chatScroll?.fullScroll(View.FOCUS_DOWN) }
+                GlobalScope.launch {
+                    //response je ono sto chatgpt vrati
+                    val response = GptApi_Clean.gptRequest(text.toString(), context, str3, history)
+
+                    println("1=")
+                    Handler(Looper.getMainLooper()).post{
+                        textView.text=textView.text.toString().replace("processing...","")
+                        var tempText=response
+                        setChatOutput(tempText)
+                        chatScroll?.post { chatScroll?.fullScroll(View.FOCUS_DOWN) }
+                        ViewMaker.optionsEnabled(keyboardRoot,isEnabled = true)
+                    }
+                }
+            }
+            //if there is no selected text do
+            else
+            {
+                //extracts all text from input(no matter where cursor is)
+                var extractedText=ExtractedTextRequest()
+                var et = ic.getExtractedText(extractedText,0)
+                var  text1=""
+                if(et!=null)
+                    text1=et.text.toString()
+                ic.setSelection(0, text1.length)
+                if (text1 != null)
+                {
+                    ic.commitText("",0)
+                    container =str3+" "+ text1.toString()
+                    var textView=TextView(output?.context)
+                    textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, textSize)
+                    textView.text="\n\nYou: \n"+str3+" "+text1+"\n\nprocessing..."
+                    textView.setTextColor(context.getColor(R.color.white))
+                    output?.addView(textView)
+                    GptApi_Clean.paste("Old text", str3+" "+text1, context)
+                    history= history+"{\"role\":\"user\",\"content\":\"$str3 $text1\"},"
+                    chatScroll?.post { chatScroll?.fullScroll(View.FOCUS_DOWN) }
+                    GlobalScope.launch {
+                        //response je ono sto chatgpt vrati
+                        print("laucan====")
+                        println(text1)
+                        val response = GptApi_Clean.gptRequest(text1, context, str3, history)
+
+                        println("2=")
+                        Handler(Looper.getMainLooper()).post{
+                            textView.text=textView.text.toString().replace("processing...","")
+                            var tempText=response
+                            setChatOutput(tempText)
+                            chatScroll?.post { chatScroll?.fullScroll(View.FOCUS_DOWN) }
+                            ViewMaker.optionsEnabled(keyboardRoot,isEnabled = true)
+                        }
+                    }
+                }
+            }
+        }
+        fun setChatOutput(tempText:String)
         {
             print("tem u fun=")
             println(tempText)
@@ -546,72 +622,6 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
             linearLayout1.addView(textView)
             linearLayout1.addView(btn)
             output?.addView(linearLayout1)
-        }
-        fun callChatGptForInput(keyCodes: IntArray, ic: InputConnection, str3: String)
-        {
-            val text = ic.getSelectedText(0)
-            //ako je selectovan
-            if (keyCodes[0] == -1 && text != null)
-            {
-                ic.commitText("", 0)
-                GptApi_Clean.paste("Old text", str3+" "+text.toString(), context)
-                container = str3+" "+text.toString()
-                var textView=TextView(output?.context)
-                textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, textSize)
-                textView.setText("\n\nYou: \n"+str3+" "+text.toString()+"\n\nprocessing...")
-                textView.setTextColor(context.getColor(R.color.white))
-                output?.addView(textView)
-                history= history+"{\"role\":\"user\",\"content\":\"$str3 $text\"},"
-                chatScroll?.post { chatScroll?.fullScroll(View.FOCUS_DOWN) }
-                GlobalScope.launch {
-                    //response je ono sto chatgpt vrati
-                    val response = GptApi_Clean.gptRequest(text.toString(), context, str3, history)
-
-                    println("1=")
-                    Handler(Looper.getMainLooper()).post{
-                        textView.text=textView.text.toString().replace("processing...","")
-                        var tempText=response
-                        setOutputChat(tempText)
-                        chatScroll?.post { chatScroll?.fullScroll(View.FOCUS_DOWN) }
-                    }
-                }
-            } else
-            {
-
-                var extractedText=ExtractedTextRequest()
-                var et = ic.getExtractedText(extractedText,0)
-                var  text1=""
-                if(et!=null)
-                    text1=et.text.toString()
-                ic.setSelection(0, text1.length)
-                if (text1 != null)
-                {
-                    ic.commitText("",0)
-                    container =str3+" "+ text1.toString()
-                    var textView=TextView(output?.context)
-                    textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, textSize)
-                    textView.text="\n\nYou: \n"+str3+" "+text1+"\n\nprocessing..."
-                    textView.setTextColor(context.getColor(R.color.white))
-                    output?.addView(textView)
-                    GptApi_Clean.paste("Old text", str3+" "+text1, context)
-                    history= history+"{\"role\":\"user\",\"content\":\"$str3 $text1\"},"
-                    chatScroll?.post { chatScroll?.fullScroll(View.FOCUS_DOWN) }
-                    GlobalScope.launch {
-                        //response je ono sto chatgpt vrati
-                        print("laucan====")
-                        println(text1)
-                        val response = GptApi_Clean.gptRequest(text1, context, str3, history)
-
-                        println("2=")
-                        Handler(Looper.getMainLooper()).post{
-                            textView.text=textView.text.toString().replace("processing...","")
-                            var tempText=response
-                            setOutputChat(tempText)
-                            chatScroll?.post { chatScroll?.fullScroll(View.FOCUS_DOWN) }
-                        }
-                    }
-                }
-            }
         }
 
     }
