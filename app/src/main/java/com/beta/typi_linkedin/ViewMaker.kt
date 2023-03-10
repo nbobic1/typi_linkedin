@@ -580,32 +580,36 @@ class ViewMaker
             )
             val popup = PopupWindow(context)
             var answerButtonView : View = View(context)
+            answerButtonView=LayoutInflater.from(context).inflate(R.layout.help_popup_layout, tk)
             if (tone=="Answer"){
-                answerButtonView=LayoutInflater.from(context).inflate(R.layout.answer_button, tk)
+                answerButtonView.findViewById<TextView>(R.id.answerButton).background=context.getDrawable(R.drawable.answer_button)
             }
             else if (tone=="Rephrase"){
-                answerButtonView=LayoutInflater.from(context).inflate(R.layout.rephrase_button, tk)
-
+                answerButtonView.findViewById<TextView>(R.id.answerButton).background=context.getDrawable(R.drawable.rephrase_button)
             }
             else if (tone=="Chat"){
-                answerButtonView=LayoutInflater.from(context).inflate(R.layout.chat_button, tk)
+                answerButtonView.findViewById<TextView>(R.id.answerButton).background=context.getDrawable(R.drawable.chat_button)
             }
             else if (tone=="Translate"){
-                answerButtonView=LayoutInflater.from(context).inflate(R.layout.translate_button, tk)
+                answerButtonView.findViewById<TextView>(R.id.answerButton).background=context.getDrawable(R.drawable.translate_button)
             }
             else if (tone=="Correct grammar"){
-                answerButtonView=LayoutInflater.from(context).inflate(R.layout.correct_grammar_button, tk)
+                answerButtonView.findViewById<TextView>(R.id.answerButton).background=context.getDrawable(R.drawable.correct_grammar)
             }
             else if (tone=="Reverse"){
-                answerButtonView=LayoutInflater.from(context).inflate(R.layout.reverse, tk)
+                answerButtonView.findViewById<TextView>(R.id.answerButton).background=context.getDrawable(R.drawable.reverse)
             }
             else if (tone=="How to use"){
-                answerButtonView=LayoutInflater.from(context).inflate(R.layout.help_how_to_use_button, tk)
+                answerButtonView.findViewById<TextView>(R.id.answerButton).background=context.getDrawable(R.drawable.how_to_use)
+            }
+            else if (tone=="Summarize"){
+                answerButtonView.findViewById<TextView>(R.id.answerButton).background=context.getDrawable(R.drawable.summarize_button)
             }
             else {
-                answerButtonView=LayoutInflater.from(context).inflate(R.layout.reverse, tk)
-
+                answerButtonView.findViewById<TextView>(R.id.answerButton).background=context.getDrawable(R.drawable.reverse)
             }
+
+            // answerButtonView.findViewById<TextView>(R.id.answerButton).setBackground(ContextCompat.getDrawable(context, R.drawable.how_to_use))
 
 
             //  answerButtonView.setBackgroundColor(Color.argb(0, 0, 0, 0))
@@ -630,8 +634,8 @@ class ViewMaker
             }
             var exitButton=answerButtonView.findViewById<Button>(R.id.buttonExit)
             exitButton.setOnClickListener{
-
                 helpPopupInput(context,root,onKey,options,ic,keyCodes)
+                popup.dismiss()
             }
         }
         fun helpPopupInput(

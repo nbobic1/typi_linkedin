@@ -9,7 +9,6 @@
            android:id="@+id/answerButton"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:background="@drawable/rephrase_button"
            android:padding="5dp"
            android:textAlignment="center"
            android:textColor="@color/black"
@@ -22,7 +21,8 @@
            android:layout_height="wrap_content"
            android:layout_marginStart="600px"
            android:layout_marginTop="40px"
-           android:background="@android:color/transparent"            app:layout_constraintEnd_toEndOf="parent"
+           android:background="@android:color/transparent"
+           app:layout_constraintEnd_toEndOf="parent"
            app:layout_constraintStart_toStartOf="parent"
            app:layout_constraintTop_toTopOf="parent" />
 
