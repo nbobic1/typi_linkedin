@@ -33,9 +33,6 @@ import kotlinx.coroutines.launch
 class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
 {
 
-
-
-
     lateinit var llSmily: View
     var letterBefore:Int=0
     override fun onCreateInputView(): View
@@ -45,23 +42,13 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
         context = this
         keyboardRoot = layoutInflater.inflate(R.layout.root_keyboard_view, null) as LinearLayout
         keyboardView = keyboardRoot.findViewById(R.id.keyboard_view) as TypiKeyboardView
-        //var  keyboardViewOptions = keyboardRoot.findViewById(R.id.keyboard_view_options) as TypiKeyboardView
-        //keyboardView = layoutInflater.inflate(R.layout.keyboard_view, null) as ba.etf.us.typi.KeyboardView
-        // get the KeyboardView and add our Keyboard layout to it
         var keyboard: Keyboard = Keyboard(this, R.xml.eng_keyboard)
-        caps=false
         keyboardView.keyboard = keyboard
         keyboardView.setOnKeyboardActionListener(this)
         keyboardView.isPreviewEnabled = false
         keyboardView.pripremi()
         TypiKeyboardView.context= keyboardView.context
         TypiKeyboardView.ovajView=keyboardView
-        /*
-         keyboard = Keyboard(this, R.xml.options)
-         keyboardViewOptions.keyboard = keyboard
-         keyboardViewOptions.isPreviewEnabled=false
-         keyboardViewOptions.setOnKeyboardActionListener(this)
-         */
         ViewMaker.allViewSetup(keyboardRoot, context, ::onKey)
         ViewMaker.optionsSetup(keyboardRoot, context, ::onKey)
         llSmily = ViewMaker.categorySetup(keyboardRoot, context, ::onKey)
@@ -75,20 +62,16 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
         var optionScroll = keyboardRoot.findViewById<HorizontalScrollView>(R.id.optionScroll)
         optionScroll.post { optionScroll.fullScroll(View.FOCUS_RIGHT) }
         //different keyboard_layout
-        capsLock=false
         var highScore = Pref_Clean.getIntPref(context, "jezik")
-
         if (highScore == 0)
         {
             val keyboard = Keyboard(this, R.xml.eng_keyboard)
             keyboardView.keyboard = keyboard
-            caps=false
             keyboardView.pripremi()
         } else
         {
             val keyboard = Keyboard(this, R.xml.bos_keyboard)
             keyboardView.keyboard = keyboard
-            caps=false
         }
     }
 
@@ -97,13 +80,40 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
         ViewMaker.closeChat()
         super.onFinishCandidatesView(finishingInput)
     }
-
+    fun setKeyboard(caps:Boolean,lan1:Int=-1)
+    {
+        var lan=0
+        if(lan1==-1)
+        {
+            lan=Pref_Clean.getIntPref(context,"jezik",0)
+        }
+        if(lan==0)
+        {
+            var keyboard :Keyboard
+            if(caps)
+                keyboard= Keyboard(context, R.xml.eng_keyboard)
+            else
+                keyboard= Keyboard(context, R.xml.eng_caps_keyboard)
+            keyboardView.keyboard = keyboard
+            keyboardView.pripremi()
+            Pref_Clean.setIntPref(context, "jezik", 0)
+        }
+        else
+        {
+            var keyboard :Keyboard
+            if(caps)
+                keyboard= Keyboard(context, R.xml.eng_keyboard)
+            else
+                keyboard= Keyboard(context, R.xml.eng_caps_keyboard)
+            keyboardView.keyboard = keyboard
+            Pref_Clean.setIntPref(context, "jezik", 1)
+        }
+    }
     override fun onKey(primaryCode: Int, keyCodes: IntArray)
     {
         var ic= inputConnection
         if (primaryCode < 0)
         {
-
             when (primaryCode)
             {
                 Keyboard.KEYCODE_DELETE ->
@@ -132,17 +142,13 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                         {
                             var capitalLettersKeyboard = Keyboard(this, R.xml.eng_caps_keyboard)
                             keyboardView.keyboard = capitalLettersKeyboard
-                            caps=true
                             keyboardView.pripremi()
                         } else
                         {
                             var capitalLettersKeyboard = Keyboard(this, R.xml.bos_caps_keyboard)
                             keyboardView.keyboard = capitalLettersKeyboard
-                            caps=true
                         }
                     }
-
-
                 }
                 resources.getInteger(R.integer.gptCharCode) ->
                 {
@@ -237,22 +243,16 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                 {
                     var numbersKeyboard = Keyboard(this, R.xml.numbers)
                     keyboardView.keyboard = numbersKeyboard
-                    caps=false
 
                 }
-                -420 ->
+                resources.getInteger(R.integer.abc)->
                 {
-                    var bosanskaKeyboard = Keyboard(this, R.xml.eng_keyboard)
-                    keyboardView.keyboard = bosanskaKeyboard
-                    caps=false
-                    keyboardView.pripremi()
-                    Pref_Clean.setIntPref(context, "jezik", 0)
+                  setKeyboard(false)
                 }
                 -10 ->
                 {
                     var specialKeyboard = Keyboard(this, R.xml.special_symbols)
                     keyboardView.keyboard = specialKeyboard
-                    caps=false
                 }
                 resources.getInteger(R.integer.enter) ->
                 {
@@ -290,18 +290,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                         "Translate this text to "
                     )
                 }
-                -11->
-                {
-                    var smallLettersKeyboard = Keyboard(this, R.xml.bos_caps_keyboard)
-                    keyboardView.keyboard = smallLettersKeyboard
-                    caps=true
-                }
-                -1->{
-                    var capitalLettersKeyboard = Keyboard(this, R.xml.eng_caps_keyboard)
-                    keyboardView.keyboard = capitalLettersKeyboard
-                    caps=true
-                    keyboardView.pripremi()
-                }
+
             }
         } else
         {
@@ -319,41 +308,32 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                     {
                         var capitalLettersKeyboard = Keyboard(this, R.xml.eng_caps_keyboard)
                         keyboardView.keyboard = capitalLettersKeyboard
-                        caps=true
                         keyboardView.pripremi()
                     } else
                     {
                         var capitalLettersKeyboard = Keyboard(this, R.xml.bos_caps_keyboard)
                         keyboardView.keyboard = capitalLettersKeyboard
-                        caps=true
                     }
                 }
             }
             else
             {
-
                 ic.commitText(primaryCode.toChar().toString(), 1)
                 var text = ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
-                if ((!capsLock&&caps)||(text != null && text.length > 2 && text[text.length - 3] == '.' && text[text.length - 2] == ' '))
+                if (text != null && text.length > 2 && text[text.length - 3] == '.' && text[text.length - 2] == ' ')
                 {
-                    Log.v("jel Capslock ", capsLock.toString()+", a caps "+caps.toString())
                     if (Pref_Clean.getIntPref(context, "jezik") == 0)
                     {
                         var capitalLettersKeyboard = Keyboard(this, R.xml.eng_keyboard)
                         keyboardView.keyboard = capitalLettersKeyboard
-                        caps=false
                         keyboardView.pripremi()
                     } else
                     {
                         var capitalLettersKeyboard = Keyboard(this, R.xml.bos_keyboard)
                         keyboardView.keyboard = capitalLettersKeyboard
-                        caps=false
                     }
-
                 }
             }
-
-
         }
         letterBefore=primaryCode
     }
@@ -391,49 +371,23 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
         {
             keyboardView.showPopupWindow(primaryCode - 65)
         }
-        else if(primaryCode==-1||primaryCode==-11)
-        {
-            Handler(Looper.getMainLooper()).postDelayed({
-                if(proba==0)
-                {
-                    TypiInputMethodService.capsLock=true
-                    TypiKeyboardView.capsNot()
-                    proba=2
-                }
-                else{
-                    proba=0
-                    Log.d("caps","ne radi :.(")
-                }
-            }, 150)
 
-        }
     }
 
     override fun onRelease(primaryCode: Int)
     {
-     if(primaryCode==-1||primaryCode==-11)
-        {
-            if(proba==2)
-            {
-                proba = 0
-            }else
-            {   proba=1
-            }
-        }
+
     }
 
     companion object
     {
+        var capsType=0
         var textSize=18f //text size in chat
         var chatScroll:ScrollView?=null
         lateinit var mixpanel: MixpanelAPI
         lateinit var inputConnection: InputConnection //added to solve bug which prevent as from typeing in chat (redirects inputConnection of TypiInputMethodeService to edit text of chat, and return it after chat closes)
         var history="" //contains prompts that were sent in that chat before current one, and current one(enables chat memory)
-        var capsLock:Boolean=true
         var output: LinearLayout?=null //layout that contains prompts and answers in chat
-        var caps:Boolean=true
-        var proba=0;
-
         lateinit var keyboardRoot: LinearLayout
         lateinit var context: Context
         lateinit var keyboardView: TypiKeyboardView
@@ -445,18 +399,14 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
             {
                 var smallLettersKeyboard = Keyboard(context, R.xml.eng_keyboard)
                 keyboardView.keyboard = smallLettersKeyboard
-                caps=false
                 keyboardView.pripremi()
                 Pref_Clean.setIntPref(context, "jezik", 0)
-                capsLock=false
             }
             else
             {
                 var smallLettersKeyboard = Keyboard(context, R.xml.bos_keyboard)
                 keyboardView.keyboard = smallLettersKeyboard
-                caps=false
                 Pref_Clean.setIntPref(context, "jezik", 1)
-                capsLock=false
             }
         }
 
@@ -577,7 +527,6 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                     container =str3+" "+ text1.toString()
                     var textView=TextView(output?.context)
                     textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, textSize)
-
                     var lPar= LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT)
                     lPar.gravity=Gravity.RIGHT
                     lPar.setMargins(10,10,50,30)

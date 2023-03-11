@@ -35,7 +35,7 @@
     </Row>
 
     <Row>
-        <Key android:codes="-11" android:keyIcon="@drawable/capslock"
+        <Key android:codes="@integer/smallShift" android:keyIcon="@drawable/capslock"
             android:keyWidth="@dimen/medium_key_width" android:isModifier="true"
             android:isSticky="true" android:keyEdgeFlags="left" android:horizontalGap="1%p"/>
         <Key android:codes="121" android:keyLabel="y"/>

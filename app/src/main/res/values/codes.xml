@@ -28,4 +28,10 @@
     <integer name="grammar">-411</integer>
 
     <integer name="chat">-412</integer>
+
+    <integer name="smallShift">-11</integer>
+    <integer name="capsShift">-22</integer>
+    <integer name="abc">-420</integer>
+
+
 </resources>

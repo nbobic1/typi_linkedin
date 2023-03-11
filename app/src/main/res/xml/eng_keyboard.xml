@@ -33,7 +33,7 @@
     </Row>
 
     <Row>
-        <Key android:codes="-1" android:keyIcon="@drawable/capslock"
+        <Key android:codes="@integer/smallShift" android:keyIcon="@drawable/capslock"
             android:keyWidth="15%p" android:isModifier="true"
             android:isSticky="true" android:keyEdgeFlags="left"/>
         <Key android:codes="121" android:keyLabel="y"/>

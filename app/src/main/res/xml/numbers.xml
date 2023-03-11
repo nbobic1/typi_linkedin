@@ -57,7 +57,7 @@
 
 
     <Row android:rowEdgeFlags="bottom">
-        <Key android:codes="-2" android:keyLabel="ABC"
+        <Key android:codes="@integer/abc" android:keyLabel="abc"
             android:keyWidth="@dimen/delete" android:keyEdgeFlags="left"/>
         <Key android:codes="-3" android:keyIcon="@drawable/emoji" android:keyWidth="10%p"/>
         <!--

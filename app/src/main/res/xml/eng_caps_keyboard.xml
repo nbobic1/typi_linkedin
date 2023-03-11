@@ -39,7 +39,7 @@
     </Row>
 
     <Row>
-        <Key android:codes="-2" android:keyIcon="@drawable/capslock_turned_on"
+        <Key android:codes="@integer/capsShift" android:keyIcon="@drawable/capslock_turned_on"
             android:keyWidth="15%p" android:isModifier="true"
             android:isSticky="true" android:keyEdgeFlags="left"/>
         <Key android:codes="89" android:keyLabel="Y"/>

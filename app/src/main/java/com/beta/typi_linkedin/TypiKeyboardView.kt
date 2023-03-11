@@ -29,25 +29,9 @@ companion object{
     var yoni:ArrayList<Int> = ArrayList()
     lateinit var  context: Context
     lateinit var ovajView:View
-    fun capsNot()
-    {
-        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val popupView1 = inflater.inflate(R.layout.popup_layout, null)
-        val popupText = popupView1.findViewById<TextView>(R.id.popup_text)
-        popupText.setText("CapsLock")
-        popupText.setTextColor(context.getColor(R.color.white))
-        popupText.setTextSize(TypedValue.COMPLEX_UNIT_DIP,35f)
-        var popupWindow2=PopupWindow(popupView1,WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
-        popupWindow2.showAtLocation(ovajView,Gravity.NO_GRAVITY,100,100)
-        popupWindow2.isOutsideTouchable=true
-        Handler(Looper.getMainLooper()).postDelayed({
-            popupWindow2.dismiss()
-        }, 500)
 
-    }
 }
-    var inputMethod: TypiInputMethodService = TypiInputMethodService()
-        fun pripremi()
+      fun pripremi()
         {
             popupWindow.clear()
             for(i in 97 until 123)
@@ -212,9 +196,20 @@ companion object{
                             key.label.toString(), (key.x + key.width / 2).toFloat(),
                             (key.y + key.height / 2+20).toFloat(), paint
                         )
-                    } else if(key.icon!=null) {
+                    } else if(key.icon!=null)
+                    {
                         key.icon.setBounds(key.x, key.y, key.x + key.width, key.y + key.height)
-                        key.icon.draw(canvas)
+                        if (key.codes[0] == resources.getInteger(R.integer.smallShift) && TypiInputMethodService.capsType == 0)
+                        {
+                            var drawable=resources.getDrawable(R.drawable.capslock_turned_on)
+                            drawable.bounds=key.icon.bounds
+                            drawable.draw(canvas)
+                        }
+                       else
+                        {
+                            key.icon.draw(canvas)
+                        }
+
                     }
                 }
 
