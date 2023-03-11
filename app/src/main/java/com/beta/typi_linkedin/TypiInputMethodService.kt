@@ -32,7 +32,7 @@ import kotlinx.coroutines.launch
 
 class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
 {
-    lateinit var keyboardView: TypiKeyboardView
+
 
 
 
@@ -48,7 +48,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
         //var  keyboardViewOptions = keyboardRoot.findViewById(R.id.keyboard_view_options) as TypiKeyboardView
         //keyboardView = layoutInflater.inflate(R.layout.keyboard_view, null) as ba.etf.us.typi.KeyboardView
         // get the KeyboardView and add our Keyboard layout to it
-        var keyboard: Keyboard = Keyboard(this, R.xml.bosanska_google)
+        var keyboard: Keyboard = Keyboard(this, R.xml.eng_keyboard)
         caps=false
         keyboardView.keyboard = keyboard
         keyboardView.setOnKeyboardActionListener(this)
@@ -80,13 +80,13 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
 
         if (highScore == 0)
         {
-            val keyboard = Keyboard(this, R.xml.bosanska_google)
+            val keyboard = Keyboard(this, R.xml.eng_keyboard)
             keyboardView.keyboard = keyboard
             caps=false
             keyboardView.pripremi()
         } else
         {
-            val keyboard = Keyboard(this, R.xml.bosanska_google2)
+            val keyboard = Keyboard(this, R.xml.bos_keyboard)
             keyboardView.keyboard = keyboard
             caps=false
         }
@@ -130,13 +130,13 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                     {
                         if (Pref_Clean.getIntPref(context, "jezik") == 0)
                         {
-                            var capitalLettersKeyboard = Keyboard(this, R.xml.google_capslock)
+                            var capitalLettersKeyboard = Keyboard(this, R.xml.eng_caps_keyboard)
                             keyboardView.keyboard = capitalLettersKeyboard
                             caps=true
                             keyboardView.pripremi()
                         } else
                         {
-                            var capitalLettersKeyboard = Keyboard(this, R.xml.google2_capslock)
+                            var capitalLettersKeyboard = Keyboard(this, R.xml.bos_caps_keyboard)
                             keyboardView.keyboard = capitalLettersKeyboard
                             caps=true
                         }
@@ -229,24 +229,6 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                     else
                     callGptForInput(keyCodes, ic,"")
                 }
-
-                -2 ->
-                {
-                    var smallLettersKeyboard = Keyboard(this, R.xml.bosanska_google)
-                    keyboardView.keyboard = smallLettersKeyboard
-                    caps=false
-                    keyboardView.pripremi()
-                    Pref_Clean.setIntPref(context, "jezik", 0)
-                    capsLock=false
-                }
-                -22 ->
-                {
-                    var smallLettersKeyboard = Keyboard(this, R.xml.bosanska_google2)
-                    keyboardView.keyboard = smallLettersKeyboard
-                    caps=false
-                    Pref_Clean.setIntPref(context, "jezik", 1)
-                    capsLock=false
-                }
                 -3 ->
                 {
                     ViewMaker.emoji(keyboardRoot, context, ::onKey, llSmily)
@@ -260,7 +242,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                 }
                 -420 ->
                 {
-                    var bosanskaKeyboard = Keyboard(this, R.xml.bosanska_google)
+                    var bosanskaKeyboard = Keyboard(this, R.xml.eng_keyboard)
                     keyboardView.keyboard = bosanskaKeyboard
                     caps=false
                     keyboardView.pripremi()
@@ -310,12 +292,12 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                 }
                 -11->
                 {
-                    var smallLettersKeyboard = Keyboard(this, R.xml.google2_capslock)
+                    var smallLettersKeyboard = Keyboard(this, R.xml.bos_caps_keyboard)
                     keyboardView.keyboard = smallLettersKeyboard
                     caps=true
                 }
                 -1->{
-                    var capitalLettersKeyboard = Keyboard(this, R.xml.google_capslock)
+                    var capitalLettersKeyboard = Keyboard(this, R.xml.eng_caps_keyboard)
                     keyboardView.keyboard = capitalLettersKeyboard
                     caps=true
                     keyboardView.pripremi()
@@ -335,13 +317,13 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                 {
                     if (Pref_Clean.getIntPref(context, "jezik") == 0)
                     {
-                        var capitalLettersKeyboard = Keyboard(this, R.xml.google_capslock)
+                        var capitalLettersKeyboard = Keyboard(this, R.xml.eng_caps_keyboard)
                         keyboardView.keyboard = capitalLettersKeyboard
                         caps=true
                         keyboardView.pripremi()
                     } else
                     {
-                        var capitalLettersKeyboard = Keyboard(this, R.xml.google2_capslock)
+                        var capitalLettersKeyboard = Keyboard(this, R.xml.bos_caps_keyboard)
                         keyboardView.keyboard = capitalLettersKeyboard
                         caps=true
                     }
@@ -357,13 +339,13 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                     Log.v("jel Capslock ", capsLock.toString()+", a caps "+caps.toString())
                     if (Pref_Clean.getIntPref(context, "jezik") == 0)
                     {
-                        var capitalLettersKeyboard = Keyboard(this, R.xml.bosanska_google)
+                        var capitalLettersKeyboard = Keyboard(this, R.xml.eng_keyboard)
                         keyboardView.keyboard = capitalLettersKeyboard
                         caps=false
                         keyboardView.pripremi()
                     } else
                     {
-                        var capitalLettersKeyboard = Keyboard(this, R.xml.bosanska_google2)
+                        var capitalLettersKeyboard = Keyboard(this, R.xml.bos_keyboard)
                         keyboardView.keyboard = capitalLettersKeyboard
                         caps=false
                     }
@@ -454,7 +436,30 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
 
         lateinit var keyboardRoot: LinearLayout
         lateinit var context: Context
+        lateinit var keyboardView: TypiKeyboardView
         var container: String = ""//spremam sto je uslo u gpt kako bi mogao vratiti
+
+        fun capsBtnPressed()
+        {
+            if(Pref_Clean.getIntPref(context,"jezik",0)==1)
+            {
+                var smallLettersKeyboard = Keyboard(context, R.xml.eng_keyboard)
+                keyboardView.keyboard = smallLettersKeyboard
+                caps=false
+                keyboardView.pripremi()
+                Pref_Clean.setIntPref(context, "jezik", 0)
+                capsLock=false
+            }
+            else
+            {
+                var smallLettersKeyboard = Keyboard(context, R.xml.bos_keyboard)
+                keyboardView.keyboard = smallLettersKeyboard
+                caps=false
+                Pref_Clean.setIntPref(context, "jezik", 1)
+                capsLock=false
+            }
+        }
+
         fun callGptForInput(keyCodes: IntArray, ic: InputConnection, str3: String = "")
         {
 

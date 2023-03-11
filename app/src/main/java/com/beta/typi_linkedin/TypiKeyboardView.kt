@@ -80,7 +80,6 @@ companion object{
     override fun onLongPress(popupKey: Keyboard.Key?): Boolean
     {
         var kod:Int= popupKey?.codes?.get(0)!!
-
         if (kod==32) {
 
             val mixpanel = MixpanelAPI.getInstance(TypiInputMethodService.context, GptApi_Clean.token, true)
@@ -92,7 +91,11 @@ companion object{
 
             return false
         }
-
+        else if(kod==-3)//code for  emoji/lan
+        {
+            //change languae
+            TypiInputMethodService.capsBtnPressed()
+        }
         return super.onLongPress(popupKey)
 
     }

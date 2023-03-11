@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
-    android:keyWidth="@dimen/small_key_width"
-    android:horizontalGap="@dimen/small_horizontal_gap"
+    android:keyWidth="@dimen/key_width"
+    android:horizontalGap="@dimen/horizontal_gap"
     android:verticalGap="@dimen/vertical_gap"
     android:keyHeight="@dimen/key_height">
-
+    <!--
     <Row>
-        <Key android:codes="81" android:keyLabel="Q" android:keyEdgeFlags="left" android:horizontalGap="1%p"/>
+        <Key android:codes="-400" android:keyLabel="Answer &#128526;" android:keyEdgeFlags="left" android:keyWidth="@dimen/long_key_width"/>
+        <Key android:codes="-408" android:keyLabel="Rephrase &#129488;" android:keyWidth="@dimen/long_key_width"/>
+        <Key android:codes="-407" android:keyLabel="Reverse &#9664;" android:keyWidth="@dimen/long_key_width"/>
+        <Key android:codes="-405" android:keyIcon="@drawable/change_keyboard" android:keyEdgeFlags="right" android:keyWidth="@dimen/long_key_width"/>
+    </Row>
+    -->
+    <Row>
+        <Key android:codes="81" android:keyLabel="Q" android:keyEdgeFlags="left"/>
         <Key android:codes="87" android:keyLabel="W"/>
         <Key android:codes="69" android:keyLabel="E"/>
         <Key android:codes="82" android:keyLabel="R"/>
@@ -16,56 +23,47 @@
         <Key android:codes="73" android:keyLabel="I"/>
         <Key android:codes="79" android:keyLabel="O"/>
         <Key android:codes="80" android:keyLabel="P" android:keyEdgeFlags="right"/>
-        <Key android:codes="352" android:keyLabel="Š"/>
     </Row>
 
     <Row>
-        <Key android:codes="65" android:keyLabel="A"
-            android:keyEdgeFlags="left" android:horizontalGap="1%p"/>
-        <Key android:codes="83" android:keyLabel="S" />
-        <Key android:codes="68" android:keyLabel="D" />
-        <Key android:codes="70" android:keyLabel="F" />
+        <Key android:codes="65" android:keyLabel="A" android:horizontalGap="6%p"
+            android:keyEdgeFlags="left"/>
+        <Key android:codes="83" android:keyLabel="S"/>
+        <Key android:codes="68" android:keyLabel="D"/>
+        <Key android:codes="70" android:keyLabel="F"/>
         <Key android:codes="71" android:keyLabel="G"/>
         <Key android:codes="72" android:keyLabel="H"/>
         <Key android:codes="74" android:keyLabel="J"/>
         <Key android:codes="75" android:keyLabel="K"/>
         <Key android:codes="76" android:keyLabel="L" android:keyEdgeFlags="right"/>
-        <Key android:codes="268" android:keyLabel="Č"/>
-        <Key android:codes="262" android:keyLabel="Ć"/>
     </Row>
 
     <Row>
-        <Key android:codes="-22" android:keyIcon="@drawable/capslock_turned_on"
-            android:keyWidth="@dimen/medium_key_width" android:isModifier="true"
-            android:isSticky="true" android:keyEdgeFlags="left" android:horizontalGap="1%p"/>
+        <Key android:codes="-2" android:keyIcon="@drawable/capslock_turned_on"
+            android:keyWidth="15%p" android:isModifier="true"
+            android:isSticky="true" android:keyEdgeFlags="left"/>
         <Key android:codes="89" android:keyLabel="Y"/>
         <Key android:codes="88" android:keyLabel="X"/>
-        <Key android:codes="67" android:keyLabel="C" android:popupKeyboard="@xml/keyboard_popup_template" android:popupCharacters="ČĆ"/>
+        <Key android:codes="67" android:keyLabel="C"/>
         <Key android:codes="86" android:keyLabel="V"/>
         <Key android:codes="66" android:keyLabel="B"/>
         <Key android:codes="78" android:keyLabel="N"/>
         <Key android:codes="77" android:keyLabel="M"/>
-        <Key android:codes="272" android:keyLabel="Đ"/>
-        <Key android:codes="381" android:keyLabel="Ž"/>
         <Key android:codes="-5" android:keyIcon="@drawable/delete_arrow"
-            android:keyWidth="@dimen/medium_key_width" android:keyEdgeFlags="right"
+            android:keyWidth="@dimen/delete" android:keyEdgeFlags="right"
             android:isRepeatable="true"/>
     </Row>
 
     <Row android:rowEdgeFlags="bottom">
         <Key android:codes="-6" android:keyLabel="123"
-            android:keyWidth="@dimen/big_key_width" android:keyEdgeFlags="left"/>
-        <Key android:codes="-3" android:keyIcon="@drawable/emoji"   android:keyWidth="@dimen/big_key_width"/>
-        <!--
-            android:codes: -101 is not a framework-defined key code but a key code that is
-            privately defined in com.example.android.softkeyboard.LatinKeyboardView.
-        -->
-        <Key android:codes="-2" android:keyIcon="@drawable/language"
-            android:keyWidth="@dimen/big_key_width"/>
+            android:keyWidth="15%p" android:keyEdgeFlags="left"/>
+        <Key android:codes="-3" android:keyIcon="@drawable/emoji" android:keyWidth="10%p"/>
+        <Key android:codes="44" android:keyLabel=","
+            android:keyWidth="10%p"/>
         <Key android:codes="32" android:keyLabel="Space"
             android:keyWidth="@dimen/space" android:isRepeatable="true"/>
-        <Key android:codes="46,44" android:keyLabel=". ,"
-            android:keyWidth="@dimen/big_key_width"/>
+        <Key android:codes="46" android:keyLabel="."
+            android:keyWidth="10%p"/>
         <Key android:codes="-9" android:keyLabel="&#9166;"
             android:keyWidth="@dimen/done" android:keyEdgeFlags="right"/>
     </Row>
