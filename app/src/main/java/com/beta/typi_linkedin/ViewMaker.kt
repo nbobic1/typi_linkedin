@@ -542,9 +542,9 @@ class ViewMaker
                 tt.setTextColor(context.getColor(R.color.white))
                 tt.setOnClickListener {
                     if(chatPopup!=null)
-                        TypiInputMethodService.callChatGptForInput(keyCodes,ic,order+" "+i)
+                        TypiInputMethodService.callChatGptForInput(keyCodes,ic,order+" "+i+":")
                     else
-                        TypiInputMethodService.callGptForInput(keyCodes,ic,order+" "+i)
+                        TypiInputMethodService.callGptForInput(keyCodes,ic,order+" "+i+":")
                     popup.dismiss()
                 }
                 lista.addView(tt)

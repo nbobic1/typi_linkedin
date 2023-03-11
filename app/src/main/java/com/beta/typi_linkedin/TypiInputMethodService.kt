@@ -197,7 +197,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                         arrayOf<String>("exciteing","formal","sincere","caring","friendly","humoristic", "sympathetic","sarcastic","authoritative"),
                         ic,
                         keyCodes,
-                        "Rephrase this text so it sounds more: "
+                        "Rephrase this text so it sounds more "
                     )
                     /*
                     var selectedText = ic.getSelectedText(0);
@@ -281,11 +281,17 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                 //options
                 resources.getInteger(R.integer.summerize) ->
                 {
-                    callGptForInput(keyCodes, ic, "Summarize this text: ")
+                    if(ViewMaker.chatPopup!=null)
+                        callChatGptForInput(keyCodes, ic, "Summarize this text: ")
+                    else
+                        callGptForInput(keyCodes, ic, "Summarize this text: ")
                 }
                 resources.getInteger(R.integer.grammar) ->
                 {
-                    callGptForInput(keyCodes, ic, "Correct grammar in this text: ")
+                    if(ViewMaker.chatPopup!=null)
+                        callChatGptForInput(keyCodes,ic,"Correct grammar in this text: ")
+                    else
+                        callGptForInput(keyCodes, ic,"Correct grammar in this text: ")
                 }
                 resources.getInteger(R.integer.chat) ->{
                     callChatGptForInput(intArrayOf(-1), ic, "")
@@ -299,7 +305,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                         arrayOf<String>("english", "german", "italian", "bosnian", "spanish"),
                         ic,
                         keyCodes,
-                        "Translate this text to: "
+                        "Translate this text to "
                     )
                 }
                 -11->
