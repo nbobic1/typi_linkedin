@@ -79,7 +79,8 @@ companion object{
 
     override fun onLongPress(popupKey: Keyboard.Key?): Boolean
     {
-        var kod= popupKey?.codes?.get(0)
+        var kod:Int= popupKey?.codes?.get(0)!!
+
         if (kod==32) {
 
             val mixpanel = MixpanelAPI.getInstance(TypiInputMethodService.context, GptApi_Clean.token, true)
@@ -95,9 +96,13 @@ companion object{
         return super.onLongPress(popupKey)
 
     }
+    //shows popup above pressed letter
     fun showPopupWindow(i:Int)
     {
         popupWindow[i].showAtLocation(this, Gravity.NO_GRAVITY,xovi[i],yoni[i])
+        Handler(Looper.getMainLooper()).postDelayed({
+            popupWindow[i].dismiss()
+        }, 150)
     }
 
     // Create a custom view for the popup window
@@ -111,19 +116,7 @@ companion object{
         return popupView
     }
 
-    fun dismissPopupWindowImedietly(i: Int) {
-        // If the popup window is currently displayed, dismiss it
-            popupWindow[i].dismiss()
-        // popupWindow.dismiss()
-    }
-    // Dismiss the popup window
-     fun dismissPopupWindow(i: Int) {
-        // If the popup window is currently displayed, dismiss it
-        Handler(Looper.getMainLooper()).postDelayed({
-            popupWindow[i].dismiss()
-        }, 60)
-       // popupWindow.dismiss()
-    }
+
 
     fun returnInput(token: IBinder)
 {

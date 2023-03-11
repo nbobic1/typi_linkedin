@@ -15,6 +15,7 @@ import android.util.TypedValue
 import android.view.Gravity
 import android.view.KeyEvent
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.ExtractedTextRequest
 import android.view.inputmethod.InputConnection
@@ -350,7 +351,6 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                     Log.v("jel Capslock ", capsLock.toString()+", a caps "+caps.toString())
                     if (Pref_Clean.getIntPref(context, "jezik") == 0)
                     {
-                        keyboardView.dismissPopupWindowImedietly(primaryCode-65)
                         var capitalLettersKeyboard = Keyboard(this, R.xml.bosanska_google)
                         keyboardView.keyboard = capitalLettersKeyboard
                         caps=false
@@ -423,15 +423,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
 
     override fun onRelease(primaryCode: Int)
     {
-        if (primaryCode > 96 && primaryCode < 123&&Pref_Clean.getIntPref(context,"jezik")==0)
-        {
-            keyboardView.dismissPopupWindow(primaryCode - 97)
-        }
-        else  if (primaryCode > 64 && primaryCode < 91&&Pref_Clean.getIntPref(context,"jezik")==0)
-        {
-            keyboardView.dismissPopupWindow(primaryCode - 65)
-        }
-        else if(primaryCode==-1||primaryCode==-11)
+     if(primaryCode==-1||primaryCode==-11)
         {
             if(proba==2)
             {
@@ -533,8 +525,14 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                 container = str3+" "+text.toString()
                 var textView=TextView(output?.context)
                 textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, textSize)
-                textView.setText("\n\nYou: \n"+str3+" "+text.toString()+"\n\nprocessing...")
+                var lPar= LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT)
+                lPar.gravity=Gravity.RIGHT
+                lPar.setMargins(10,10,50,30)
+                textView.setPadding(40,40,40,40)
+                textView.layoutParams=lPar
+                textView.setText("You: \n"+str3+" "+text.toString()+"\n\nprocessing...")
                 textView.setTextColor(context.getColor(R.color.white))
+                textView.background= context.resources.getDrawable(R.drawable.key_bg)
                 output?.addView(textView)
                 history= history+"{\"role\":\"user\",\"content\":\"$str3 $text\"},"
                 chatScroll?.post { chatScroll?.fullScroll(View.FOCUS_DOWN) }
@@ -544,7 +542,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
 
                     println("1=")
                     Handler(Looper.getMainLooper()).post{
-                        textView.text=textView.text.toString().replace("processing...","")
+                        textView.text=textView.text.toString().replace("\n\nprocessing...","")
                         var tempText=response
                         setChatOutput(tempText)
                         chatScroll?.post { chatScroll?.fullScroll(View.FOCUS_DOWN) }
@@ -568,7 +566,14 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                     container =str3+" "+ text1.toString()
                     var textView=TextView(output?.context)
                     textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, textSize)
-                    textView.text="\n\nYou: \n"+str3+" "+text1+"\n\nprocessing..."
+
+                    var lPar= LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT)
+                    lPar.gravity=Gravity.RIGHT
+                    lPar.setMargins(10,10,50,30)
+                    textView.setPadding(40,40,40,40)
+                   textView.layoutParams=lPar
+                    textView.background= context.resources.getDrawable(R.drawable.key_bg)
+                    textView.text="You: \n"+str3+" "+text1+"\n\nprocessing..."
                     textView.setTextColor(context.getColor(R.color.white))
                     output?.addView(textView)
                     GptApi_Clean.paste("Old text", str3+" "+text1, context)
@@ -582,7 +587,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
 
                         println("2=")
                         Handler(Looper.getMainLooper()).post{
-                            textView.text=textView.text.toString().replace("processing...","")
+                            textView.text=textView.text.toString().replace("\n\nprocessing...","")
                             var tempText=response
                             setChatOutput(tempText)
                             chatScroll?.post { chatScroll?.fullScroll(View.FOCUS_DOWN) }
