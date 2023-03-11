@@ -180,23 +180,26 @@ companion object{
         else
             horizontalGap=(width*resources.getInteger(R.integer.hGapBos)/10000.0f).roundToInt()
         var verticalGap:Int= (width*resources.getInteger(R.integer.vGap)/10000.0f).roundToInt()
+        var drSpec:Drawable = context.getResources().getDrawable(R.drawable.key_bg_spec)
         var dr1:Drawable = context.getResources().getDrawable(R.drawable.key_bg)
+
         for (key: Keyboard.Key in keys) {
-            if (key.codes.size!=0&&key.codes[0] == 10700) {
-              /*  Log.e("KEY", "Drawing key with code " + key.codes[0]);
-                //crtanje pozadine
-                var dr: Drawable = context.getResources().getDrawable(R.drawable.key_bg_gpt);
-                dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
-                if (canvas != null) {
-                    dr.draw(canvas)
-                }
-*/
-            } else {
+
                 //crtanje pozadine dugmeeta
 
-                dr1.setBounds(key.x+horizontalGap, key.y+verticalGap, key.x + key.width-horizontalGap, key.y + key.height-verticalGap);
-                if (canvas != null) {
-                    dr1.draw(canvas)
+               if (canvas != null) {
+
+                    if (key.codes.size!=0&&key.codes[0] != 32&&(key.codes[0] <97||key.codes[0] >122)&&(key.codes[0] < 65||key.codes[0] >90))
+                    {
+                        drSpec.setBounds(key.x+horizontalGap, key.y+verticalGap, key.x + key.width-horizontalGap, key.y + key.height-verticalGap);
+                        drSpec.draw(canvas)
+                    }
+                    else
+                    {
+                        dr1.setBounds(key.x+horizontalGap, key.y+verticalGap, key.x + key.width-horizontalGap, key.y + key.height-verticalGap);
+                        dr1.draw(canvas)
+                    }
+
                    // dr.draw(canvas)
                     val paint = Paint()
                     paint.textAlign = Paint.Align.CENTER
@@ -218,7 +221,7 @@ companion object{
                         key.icon.draw(canvas)
                     }
                 }
-            }
+
 
         }
 

@@ -9,6 +9,7 @@
     <color name="dark_gray">#1F1F1F</color>
     <color name="medium_gray">#333740</color>
     <color name="light_gray">#454746</color>
+    <color name="spec_gray">#303131</color>
     <color name="candidate_normal">#FF000000</color>
     <color name="candidate_recommended">#FFE35900</color>
     <color name="candidate_other">#ff808080</color>

@@ -87,11 +87,13 @@ class ViewMaker
         //enables/dissables buttons in options bar
         fun optionsEnabled(keyboardRoot: View,isEnabled:Boolean)
         {
+            chatSendBtn?.isEnabled=isEnabled
             var optionLayout=keyboardRoot.findViewById<LinearLayout>(R.id.optionLayout)
                 for(i in optionLayout.children)
                 {
                     i.isEnabled = isEnabled
                 }
+
         }
         //seting upp emojis, makeing view (probalbly only once)
         fun categorySetup(keyboardRoot: View,context:Context,onKey: (primaryCode: Int, keyCodes: IntArray) -> Unit):View
