@@ -44,7 +44,6 @@ class ViewMaker
             }
             keyboardRoot.findViewById<Button>(R.id.rephrase).setOnClickListener {
                 onKey(context.resources.getInteger(R.integer.rephrase), intArrayOf(-1))
-                TypiInputMethodService.mAdView?.visibility= KeyboardView.VISIBLE
             }
             keyboardRoot.findViewById<Button>(R.id.reverse).setOnClickListener {
                 onKey(context.resources.getInteger(R.integer.gptBack), intArrayOf(-1))
@@ -55,7 +54,6 @@ class ViewMaker
             }
             keyboardRoot.findViewById<Button>(R.id.translate).setOnClickListener {
                 onKey(context.resources.getInteger(R.integer.translate), intArrayOf(-1))
-                TypiInputMethodService.mAdView?.visibility= KeyboardView.VISIBLE
             }
             keyboardRoot.findViewById<Button>(R.id.summerize).setOnClickListener {
                 onKey(context.resources.getInteger(R.integer.summerize), intArrayOf(-1))
@@ -72,8 +70,6 @@ class ViewMaker
             keyboardRoot.findViewById<Button>(R.id.chat).setOnClickListener {
                 if(chatPopup==null)
                 {
-
-
                     //shows chat popup
                     var tk= FrameLayout(context)
                     tk.layoutParams= ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -228,15 +224,15 @@ class ViewMaker
                 128662,  128673,  128672,  128671,  128643,  128651,  128670,  128669,  128644,  128645,
                 128648,  128642,  128646,  128647,  128650,  128649,  9992,  65039,  128747,  128748,
                 128745,  65039,  128186,  128752,  65039,  128640,  128760,  128641,  128758,  9973,
-                65039,  128676,  128741,  65039,  128755,  65039,  9972,  65039,  128674,  128735,
-                9875,  65039,  129693,  9981,  65039,  128679,  128678,  128677,  128655,  128506,
-                65039,  128511,  128509,  128508,  127984,  127983,  127967,  65039,  127905,  127906,
+                65039,   128676,  128741,  65039,  128755,  65039,  9972,  65039,  128674,  128735,
+                9875,    65039,  129693,  9981,  65039,  128679,  128678,  128677,  128655,  128506,
+                65039,   128511,  128509,  128508,  127984,  127983,  127967,  65039,  127905,  127906,
                 127904,  9970,  65039,  9969,  65039,  127958,  65039,  127965,  65039,  127964,
-                65039,  127755,  9968,  65039,  127956,  65039,  128507,  127957,  65039,  9978,
-                65039,  128726,  127968,  127969,  127960,  65039,  127962,  65039,  127959,  65039,
+                65039,   127755,  9968,  65039,  127956,  65039,  128507,  127957,  65039,  9978,
+                65039,   128726,  127968,  127969,  127960,  65039,  127962,  65039,  127959,  65039,
                 127981,  127970,  127980,  127971,  127972,  127973,  127974,  127976,  127978,  127979,
                 127977,  128146,  127963,  65039,  9962,  65039,  128332,  128333,  128725,  128331,
-                9961,  65039,  128740,  65039,  128739,  65039,  128510,  127889,  127966,  65039,
+                9961,    65039,  128740,  65039,  128739,  65039,  128510,  127889,  127966,  65039,
                 127749,  127748,  127776,  127879,  127878,  127751,  127750,  127961,  65039,  127747,
                 127756,  127753,  127745)
             var llTourism=LinearLayout(context)
@@ -580,7 +576,10 @@ class ViewMaker
                     if(chatPopup!=null)
                         TypiInputMethodService.callChatGptForInput(keyCodes,ic,order+" "+i+":")
                     else
+                    {
                         TypiInputMethodService.callGptForInput(keyCodes,ic,order+" "+i+":")
+                        TypiInputMethodService.mAdView?.visibility= KeyboardView.VISIBLE
+                    }
                     popup.dismiss()
                 }
                 lista.addView(tt)
@@ -702,21 +701,21 @@ class ViewMaker
                     text = option
                     textSize = 14.0F
                     background = context.getDrawable(R.drawable.button_background)
-                    gravity = Gravity.CENTER
-                    val margin = resources.getDimensionPixelSize(R.dimen.button_margin)
-                    layoutParams = ViewGroup.MarginLayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT
-                    ).apply {
-                        setMargins(margin, margin, margin, margin)
-                        setPadding(2)
-                    }
+                    gravity=Gravity.CENTER
+
                     setTextColor(ContextCompat.getColor(context, R.color.light_gray))
                     setOnClickListener {
                         slikaPopup(context, root, onKey, options, ic, keyCodes, popup, option)
                     }
 
                 }
+                var layoutParams23 = LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+                layoutParams23.gravity=Gravity.CENTER_HORIZONTAL
+                layoutParams23.setMargins(50,30,50,30)
+                button.layoutParams=layoutParams23
                 lista.addView(button)
             }
 

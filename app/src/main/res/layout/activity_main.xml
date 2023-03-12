@@ -1,9 +1,14 @@
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+
+<ScrollView
+
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
     >
@@ -25,6 +30,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:background="@color/dark_gray"
         app:layout_constraintTop_toTopOf="parent" />
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Open video tutorial" />
 
     <Button
         android:id="@+id/defaultKbBtn"
@@ -38,6 +48,11 @@
 
         app:layout_constraintTop_toTopOf="parent" />
     <Button
+        android:id="@+id/defaultVideo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Open video tutorial" />
+    <Button
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -46,7 +61,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button2" />
-
+    <Button
+        android:id="@+id/tryVideo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Open video tutorial" />
     <Button
         android:id="@+id/textView3"
         android:layout_width="340dp"
@@ -60,7 +79,7 @@
         app:layout_constraintTop_toBottomOf="@+id/button2" />
 
     <EditText
-        android:id="@+id/input"
+        android:id="@+id/inputTry"
         android:layout_width="298dp"
         android:layout_height="250dp"
         android:ems="10"
@@ -81,11 +100,5 @@
         android:textAlignment="center"
         android:padding="7dp"
         android:text="If you have problems enabling Typi, you can watch a video by clicking the button below. If you are unable to resolve your problems, feel free to reach out to us at typi.keyboard@gmail.com" />
-    <Button
-    android:id="@+id/button5"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Open video" />
-
-
 </LinearLayout>
+</ScrollView>

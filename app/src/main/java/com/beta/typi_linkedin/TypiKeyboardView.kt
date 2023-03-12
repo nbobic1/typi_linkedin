@@ -170,12 +170,10 @@ companion object{
                 //crtanje pozadine dugmeeta
 
                if (canvas != null) {
-                    println("sta je bre ovo"+key.codes[0]+" "+specChars.contains(key.codes[0]))
                     if ((key.codes.size!=0&&(!specChars.contains(key.codes[0])))&&(key.codes.size!=0&&key.codes[0] != 32&&(key.codes[0] <97||key.codes[0] >122)&&(key.codes[0] < 65||key.codes[0] >90)))
                     {
                         drSpec.setBounds(key.x+horizontalGap, key.y+verticalGap, key.x + key.width-horizontalGap, key.y + key.height-verticalGap);
                         drSpec.draw(canvas)
-                        println("glupan")
                     }
                     else
                     {

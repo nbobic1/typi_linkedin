@@ -496,6 +496,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                     ic.setSelection(text1.length,text1.length)
                     Handler(Looper.getMainLooper()).post{
                         ViewMaker.optionsEnabled(keyboardRoot,isEnabled = true)
+                        mAdView?.visibility= GONE
                     }
                 }
             }
