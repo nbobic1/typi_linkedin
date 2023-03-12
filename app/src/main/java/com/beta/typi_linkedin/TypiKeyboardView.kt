@@ -146,7 +146,9 @@ companion object{
         popup.dismiss()
     }
 }
-
+//additional characters that are not in eng alphabet
+    var specChars= intArrayOf(263,269,353,382,273,
+                                381,262,268,352,272)
     //funkcija u kojoj obavljamo crtanje
     override fun onDraw(canvas: Canvas?) {
 
@@ -168,11 +170,12 @@ companion object{
                 //crtanje pozadine dugmeeta
 
                if (canvas != null) {
-
-                    if (key.codes.size!=0&&key.codes[0] != 32&&(key.codes[0] <97||key.codes[0] >122)&&(key.codes[0] < 65||key.codes[0] >90))
+                    println("sta je bre ovo"+key.codes[0]+" "+specChars.contains(key.codes[0]))
+                    if ((key.codes.size!=0&&(!specChars.contains(key.codes[0])))&&(key.codes.size!=0&&key.codes[0] != 32&&(key.codes[0] <97||key.codes[0] >122)&&(key.codes[0] < 65||key.codes[0] >90)))
                     {
                         drSpec.setBounds(key.x+horizontalGap, key.y+verticalGap, key.x + key.width-horizontalGap, key.y + key.height-verticalGap);
                         drSpec.draw(canvas)
+                        println("glupan")
                     }
                     else
                     {
