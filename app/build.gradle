@@ -9,6 +9,12 @@ localProperties.load(new FileInputStream(localPropertiesFile))
 android {
     namespace 'com.beta.typi_linkedin'
     compileSdk 33
+    buildscript {
+        repositories {
+            google()
+            mavenCentral()
+        }
+    }
 
     defaultConfig {
         applicationId "com.beta.typi_linkedin"
@@ -38,6 +44,8 @@ android {
 
 
 dependencies {
+    implementation project(':nativetemplates')
+    implementation 'com.google.android.gms:play-services-ads:21.5.0'
     androidTestImplementation "androidx.test:runner:+"
     androidTestImplementation "androidx.test:rules:+"
     // Optional -- UI testing with UI Automator

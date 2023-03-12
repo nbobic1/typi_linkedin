@@ -8,7 +8,16 @@
     android:paddingBottom="10dp"
     android:background="@color/dark_gray"
     android:orientation="vertical">
-
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-8075831829133601/3479475151">
+    </com.google.android.gms.ads.AdView>
 <HorizontalScrollView
     android:id="@+id/optionScroll"
     android:layout_width="match_parent"

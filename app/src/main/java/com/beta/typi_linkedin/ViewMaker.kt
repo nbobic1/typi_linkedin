@@ -3,7 +3,8 @@ package com.beta.typi_linkedin
 import android.app.ActionBar
 import android.content.ClipboardManager
 import android.content.Context
-
+import android.graphics.drawable.ColorDrawable
+import android.inputmethodservice.KeyboardView
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,13 @@ import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.core.view.setPadding
+import com.google.android.ads.nativetemplates.NativeTemplateStyle
+import com.google.android.ads.nativetemplates.TemplateView
+import com.google.android.gms.ads.AdLoader
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.nativead.NativeAd
+
 
 class ViewMaker
 {
@@ -31,36 +39,61 @@ class ViewMaker
              }
             keyboardRoot.findViewById<Button>(R.id.answer).setOnClickListener {
                 onKey(context.resources.getInteger(R.integer.gpt), intArrayOf(-1))
+                TypiInputMethodService.mAdView?.visibility= KeyboardView.VISIBLE
+
             }
             keyboardRoot.findViewById<Button>(R.id.rephrase).setOnClickListener {
                 onKey(context.resources.getInteger(R.integer.rephrase), intArrayOf(-1))
+                TypiInputMethodService.mAdView?.visibility= KeyboardView.VISIBLE
             }
             keyboardRoot.findViewById<Button>(R.id.reverse).setOnClickListener {
                 onKey(context.resources.getInteger(R.integer.gptBack), intArrayOf(-1))
+                TypiInputMethodService.mAdView?.visibility= KeyboardView.VISIBLE
             }
             keyboardRoot.findViewById<Button>(R.id.clip).setOnClickListener {
                 onKey(context.resources.getInteger(R.integer.clip), intArrayOf(-1))
             }
             keyboardRoot.findViewById<Button>(R.id.translate).setOnClickListener {
                 onKey(context.resources.getInteger(R.integer.translate), intArrayOf(-1))
+                TypiInputMethodService.mAdView?.visibility= KeyboardView.VISIBLE
             }
             keyboardRoot.findViewById<Button>(R.id.summerize).setOnClickListener {
                 onKey(context.resources.getInteger(R.integer.summerize), intArrayOf(-1))
+                TypiInputMethodService.mAdView?.visibility= KeyboardView.VISIBLE
             }
             keyboardRoot.findViewById<Button>(R.id.changeKb).setOnClickListener {
                 onKey(context.resources.getInteger(com.beta.typi_linkedin.R.integer.lanCustom),intArrayOf(-1))
             }
             keyboardRoot.findViewById<Button>(R.id.grammar).setOnClickListener {
                 onKey(context.resources.getInteger(com.beta.typi_linkedin.R.integer.grammar), intArrayOf(-1))
+                TypiInputMethodService.mAdView?.visibility= KeyboardView.VISIBLE
             }
 
             keyboardRoot.findViewById<Button>(R.id.chat).setOnClickListener {
                 if(chatPopup==null)
                 {
+
+
                     //shows chat popup
                     var tk= FrameLayout(context)
                     tk.layoutParams= ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
                     val custom: View = LayoutInflater.from(context).inflate(R.layout.chat_layout,tk)
+                    //reklameeeeeeeeeeeee
+                    MobileAds.initialize(context)
+                    val adLoader: AdLoader = AdLoader.Builder(context, "ca-app-pub-8075831829133601/8026043066")
+                        .forNativeAd(NativeAd.OnNativeAdLoadedListener { nativeAd ->
+                            val styles =
+                                NativeTemplateStyle.Builder().withMainBackgroundColor(ColorDrawable())
+                                    .build()
+                            val template: TemplateView = tk.findViewById(R.id.my_template)
+                            template.setStyles(styles)
+                            template.setNativeAd(nativeAd)
+                        })
+                        .build()
+
+                    adLoader.loadAd(AdRequest.Builder().build())
+
+                    //reklameeeeeeeeeee
                     val popup = PopupWindow(context)
                     chatPopup=popup
                     TypiInputMethodService.chatScroll=tk.findViewById(R.id.chatScroll)//we need this to scroll chat to bottom when new answer arrives
@@ -474,7 +507,10 @@ class ViewMaker
             k.setText("Back to keyboard")
             k.background=context.resources.getDrawable(R.drawable.key_bg)
             k.setTextColor(context.getColor(R.color.green))
-            var layoutParams=LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT,)
+            var layoutParams=LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
             layoutParams.gravity=Gravity.CENTER_HORIZONTAL
             layoutParams.bottomMargin=30
             k.setPadding(10,0,10,0)

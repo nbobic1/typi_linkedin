@@ -3,6 +3,7 @@ package com.beta.typi_linkedin
 import android.content.Context
 import android.inputmethodservice.InputMethodService
 import android.inputmethodservice.Keyboard
+import android.inputmethodservice.KeyboardView.GONE
 import android.inputmethodservice.KeyboardView.OnKeyboardActionListener
 import android.os.Handler
 import android.os.Looper
@@ -25,6 +26,8 @@ import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
 import com.mixpanel.android.mpmetrics.MixpanelAPI
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -57,6 +60,11 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
 
     override fun onStartInputView(info: EditorInfo?, restarting: Boolean)
     {
+        mAdView= keyboardRoot.findViewById(R.id.adView) as AdView
+        val adRequest = AdRequest.Builder().build()
+        TypiInputMethodService.mAdView?.loadAd(adRequest)
+        mAdView?.visibility= GONE
+
         inputConnection=currentInputConnection
         super.onStartInputView(info, restarting)
         var optionScroll = keyboardRoot.findViewById<HorizontalScrollView>(R.id.optionScroll)
@@ -427,6 +435,8 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
 
     companion object
     {
+
+        var mAdView :AdView?=null
         var capsType=0
         var textSize=18f //text size in chat
         var chatScroll:ScrollView?=null
@@ -515,6 +525,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                         ic.commitText(response, response.length)
                         Handler(Looper.getMainLooper()).post{
                             ViewMaker.optionsEnabled(keyboardRoot,isEnabled = true)
+                            mAdView?.visibility= GONE
                         }
                     }
                 }

@@ -5,16 +5,12 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
-import android.text.SpannableString
-import android.text.Spanned
 import android.text.method.LinkMovementMethod
-import android.text.style.ClickableSpan
-import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.ads.MobileAds
 import com.mixpanel.android.mpmetrics.MixpanelAPI
 
 
@@ -24,6 +20,9 @@ class MainActivity : AppCompatActivity()
     {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        MobileAds.initialize(
+            this
+        ) { }
         Pref_Clean.setIntPref(this,"jezik",0)
         var enableKbBtn: Button = findViewById(R.id.enableKbBtn)
         enableKbBtn.setOnClickListener {

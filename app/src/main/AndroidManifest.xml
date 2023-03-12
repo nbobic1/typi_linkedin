@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Typi_linkedin"
         tools:targetApi="31">
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-8075831829133601~7479248155"/>
         <activity
             android:name=".feedback"
             android:exported="false" />
