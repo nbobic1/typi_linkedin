@@ -60,7 +60,8 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
         inputConnection=currentInputConnection
         super.onStartInputView(info, restarting)
         var optionScroll = keyboardRoot.findViewById<HorizontalScrollView>(R.id.optionScroll)
-        optionScroll.post { optionScroll.fullScroll(View.FOCUS_RIGHT) }
+        optionScroll.post { //optionScroll.fullScroll(View.FOCUS_RIGHT)
+        optionScroll.smoothScrollBy(1500,0)}
         //different keyboard_layout
         var highScore = Pref_Clean.getIntPref(context, "jezik")
         if (highScore == 0)
