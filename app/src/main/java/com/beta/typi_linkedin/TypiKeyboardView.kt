@@ -199,16 +199,7 @@ companion object{
                     } else if(key.icon!=null)
                     {
                         key.icon.setBounds(key.x, key.y, key.x + key.width, key.y + key.height)
-                        if (key.codes[0] == resources.getInteger(R.integer.smallShift) && TypiInputMethodService.capsType == 0)
-                        {
-                            var drawable=resources.getDrawable(R.drawable.capslock_turned_on)
-                            drawable.bounds=key.icon.bounds
-                            drawable.draw(canvas)
-                        }
-                       else
-                        {
                             key.icon.draw(canvas)
-                        }
 
                     }
                 }

@@ -483,9 +483,9 @@ class ViewMaker
                 showKeyboard(keyboardRoot)
             }
             linearLayout.addView(k)
-
-            if(clipboard.primaryClip?.getItemAt(0)?.text ?: ""!="")
-                paste.add(clipboard.primaryClip?.getItemAt(0)?.text.toString() ?: "")
+//this adds result from clipboard
+           // if(clipboard.primaryClip?.getItemAt(0)?.text ?: ""!="")
+             //   paste.add(clipboard.primaryClip?.getItemAt(0)?.text.toString() ?: "")
             if(paste.size<4)
                 {
                     paste.add("Write an encouraging comment for this LinkedIn post: ")

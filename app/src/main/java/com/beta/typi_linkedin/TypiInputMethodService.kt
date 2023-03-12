@@ -91,9 +91,26 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
         {
             var keyboard :Keyboard
             if(caps)
-                keyboard= Keyboard(context, R.xml.eng_keyboard)
+            {
+                if(capsType!=2)
+                {
+                    keyboard= Keyboard(context, R.xml.eng_caps_keyboard)
+                    if(capsType==1)
+                        capsType=2
+                    else
+                        capsType=1
+                }
+                else
+                {
+                    keyboard= Keyboard(context, R.xml.eng_keyboard)
+                    capsType=0
+                }
+            }
             else
-                keyboard= Keyboard(context, R.xml.eng_caps_keyboard)
+            {
+                capsType=0
+                keyboard= Keyboard(context, R.xml.eng_keyboard)
+            }
             keyboardView.keyboard = keyboard
             keyboardView.pripremi()
             Pref_Clean.setIntPref(context, "jezik", 0)
@@ -102,9 +119,26 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
         {
             var keyboard :Keyboard
             if(caps)
-                keyboard= Keyboard(context, R.xml.eng_keyboard)
+            {
+                if(capsType!=2)
+                {
+                    keyboard= Keyboard(context, R.xml.bos_caps_keyboard)
+                    if(capsType==1)
+                        capsType=2
+                    else
+                        capsType=1
+                }
+                else
+                {
+                    keyboard= Keyboard(context, R.xml.bos_keyboard)
+                    capsType=0
+                }
+            }
             else
-                keyboard= Keyboard(context, R.xml.eng_caps_keyboard)
+            {
+                capsType=0
+                keyboard= Keyboard(context, R.xml.eng_keyboard)
+            }
             keyboardView.keyboard = keyboard
             Pref_Clean.setIntPref(context, "jezik", 1)
         }
@@ -138,6 +172,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                     var text = ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
                     if (text==null||(text != null && text.length > 1 && text[text.length - 2] == '.' && text[text.length - 1] == ' '))
                     {
+                        capsType=1
                         if (Pref_Clean.getIntPref(context, "jezik") == 0)
                         {
                             var capitalLettersKeyboard = Keyboard(this, R.xml.eng_caps_keyboard)
@@ -249,6 +284,14 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                 {
                   setKeyboard(false)
                 }
+                resources.getInteger(R.integer.smallShift)->
+                {
+                    setKeyboard(true)
+                }
+                resources.getInteger(R.integer.capsShift)->
+                {
+                    setKeyboard(true)
+                }
                 -10 ->
                 {
                     var specialKeyboard = Keyboard(this, R.xml.special_symbols)
@@ -304,6 +347,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
                 var text = ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
                 if (text != null && text.length > 1 && text[text.length - 2] == '.')
                 {
+                    capsType=1
                     if (Pref_Clean.getIntPref(context, "jezik") == 0)
                     {
                         var capitalLettersKeyboard = Keyboard(this, R.xml.eng_caps_keyboard)
@@ -320,8 +364,9 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
             {
                 ic.commitText(primaryCode.toChar().toString(), 1)
                 var text = ic.getTextBeforeCursor(Integer.MAX_VALUE, 0)
-                if (text != null && text.length > 2 && text[text.length - 3] == '.' && text[text.length - 2] == ' ')
+                if (capsType==1||(text != null && text.length > 2 && text[text.length - 3] == '.' && text[text.length - 2] == ' '))
                 {
+                    capsType=0
                     if (Pref_Clean.getIntPref(context, "jezik") == 0)
                     {
                         var capitalLettersKeyboard = Keyboard(this, R.xml.eng_keyboard)
@@ -397,6 +442,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
         {
             if(Pref_Clean.getIntPref(context,"jezik",0)==1)
             {
+                capsType=0
                 var smallLettersKeyboard = Keyboard(context, R.xml.eng_keyboard)
                 keyboardView.keyboard = smallLettersKeyboard
                 keyboardView.pripremi()
@@ -404,6 +450,7 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
             }
             else
             {
+                capsType=0
                 var smallLettersKeyboard = Keyboard(context, R.xml.bos_keyboard)
                 keyboardView.keyboard = smallLettersKeyboard
                 Pref_Clean.setIntPref(context, "jezik", 1)
