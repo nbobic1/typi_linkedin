@@ -1,9 +1,9 @@
 
 <ScrollView
-
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainScroll"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 <LinearLayout
@@ -34,7 +34,8 @@
         android:id="@+id/button5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Open video tutorial" />
+        android:layout_marginBottom="10dp"
+        android:text="Open video tutorial for step 1" />
 
     <Button
         android:id="@+id/defaultKbBtn"
@@ -51,7 +52,7 @@
         android:id="@+id/defaultVideo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Open video tutorial" />
+        android:text="Open video tutorial for step 2" />
     <Button
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
@@ -65,7 +66,7 @@
         android:id="@+id/tryVideo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Open video tutorial" />
+        android:text="Open video tutorial for step 3" />
     <Button
         android:id="@+id/textView3"
         android:layout_width="340dp"
@@ -100,5 +101,11 @@
         android:textAlignment="center"
         android:padding="7dp"
         android:text="If you have problems enabling Typi, you can watch a video by clicking the button below. If you are unable to resolve your problems, feel free to reach out to us at typi.keyboard@gmail.com" />
+
+    <Button
+        android:id="@+id/alternative"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Open an alternative video tutorial" />
 </LinearLayout>
 </ScrollView>
