@@ -87,9 +87,9 @@ companion object{
     fun showPopupWindow(i:Int)
     {
         popupWindow[i].showAtLocation(this, Gravity.NO_GRAVITY,xovi[i],yoni[i])
-        Handler(Looper.getMainLooper()).postDelayed({
+      /*  Handler(Looper.getMainLooper()).postDelayed({
             popupWindow[i].dismiss()
-        }, 150)
+        }, 150)*/
     }
 
     // Create a custom view for the popup window
@@ -146,6 +146,19 @@ companion object{
         popup.dismiss()
     }
 }
+    fun dismissPopupWindowImedietly(i: Int) {
+        // If the popup window is currently displayed, dismiss it
+        popupWindow[i].dismiss()
+        // popupWindow.dismiss()
+    }
+    // Dismiss the popup window
+    fun dismissPopupWindow(i: Int) {
+        // If the popup window is currently displayed, dismiss it
+        Handler(Looper.getMainLooper()).postDelayed({
+            popupWindow[i].dismiss()
+        }, 60)
+        // popupWindow.dismiss()
+    }
 //additional characters that are not in eng alphabet
     var specChars= intArrayOf(263,269,353,382,273,
                                 381,262,268,352,272)

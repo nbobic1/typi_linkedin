@@ -430,7 +430,14 @@ class TypiInputMethodService : InputMethodService(), OnKeyboardActionListener
 
     override fun onRelease(primaryCode: Int)
     {
-
+        if (primaryCode > 96 && primaryCode < 123&&Pref_Clean.getIntPref(context,"jezik")==0)
+        {
+            keyboardView.dismissPopupWindow(primaryCode - 97)
+        }
+        else  if (primaryCode > 64 && primaryCode < 91&&Pref_Clean.getIntPref(context,"jezik")==0)
+        {
+            keyboardView.dismissPopupWindow(primaryCode - 65)
+        }
     }
 
     companion object
